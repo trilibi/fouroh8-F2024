@@ -1,7 +1,12 @@
 :root{
-    background-color: darkgrey;
-    color: black;
+    --green: #478559;
+    --purple: #161748;
+    --pink: #f95d9b;
+    --bluelow: #39a0ca;
+
+    color: var(--purple);
     text-decoration: none;
+    background-color: whitesmoke;
 }
 
 body {
