@@ -1,6 +1,23 @@
 :root{
     background-color: lightgrey;
     color: black;
+    
 }
 
+#nav-bar{
+    list-style-type: none;
+    
+}
 
+#nav-bar li{
+    display: inline;
+}
+
+a {
+    text-decoration: none;
+
+}
+
+#nav-bar a :hover {
+    background-color: white;
+}
