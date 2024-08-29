@@ -1,8 +1,13 @@
+
 :root{
     --green: #478559;
     --purple: #161748;
     --pink: #f95d9b;
     --bluelow: #39a0ca;
+    font-family: "Moderustic", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 480;
+    font-style: normal;
 
     color: var(--purple);
     text-decoration: none;
@@ -24,8 +29,8 @@ nav {
     display: flex;
 }
 
-#nav-bar li {
-    margin: 10px;
+#nav-bar a {
+    margin: 20px;
 }
 
 
