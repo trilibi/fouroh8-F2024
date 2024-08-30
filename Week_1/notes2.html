@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Notes 2</title>
+</head>
+<!--------------------------------------------------------------------------------------------------------------------->
+<body>
+
+<section>
+    <h1>This is a seconds notes page</h1>
+
+    <a href="index.html">back</a><!--this is a link back to the first page-->
+
+    <h2>Images are pretty cool</h2>
+
+    <!--img stands for an image, you can set a determined height and width-->
+    <!--Alt is used for the words that go their if they image can't load-->
+    <!--src is the file path or the link to the image used-->
+    <img src="html/images/TacoBell.png" width="400" height="236" alt="Taco Bell Image">
+
+    <!--you can use audio and video in similar ways using their respective tags-->
+    <audio src=""></audio>
+    <video src=""></video>
+</section>
+<!--Tables------------------------------------------------------------------------------------------------------------->
+<section>
+    <h2>Tables are kinda neat</h2>
+
+    <!--Tables are used to show data in a table format-->
+    <table border="1px"> <!--border gives the table a border, you should use CSS for that instead-->
+
+        <tr> <!--tr is table row, it represents a single row on table-->
+            <th>name</th> <!--th is table header, it represents the name of that column-->
+            <th>age</th> <!--ypu need a new th tag for each column-->
+            <th>height</th>
+        </tr>
+        <!--you need a new tr tag for each row on the table-->
+        <tr>
+            <td>Tom</td> <!--tb is table data, it is the data for that column in it's row-->
+            <td>24</td>
+            <td>5'6"</td>
+        </tr>
+
+        <tr>
+            <td>Huego</td> <!--tb is table data, it is the data for that column in it's row-->
+            <td>27</td>
+            <td>5'11"</td>
+        </tr>
+    </table>
+</section>
+
+<!--Forms-------------------------------------------------------------------------------------------------------------->
+<section>
+    <h2>Submission forms get users input</h2>
+    <!--A form is used to take multiple inputs from a user-->
+    <form>
+        <label>Text Entry Box</label> <!--Label is a small section of text-->
+        <input type="text"> <br> <!--input is some sort of entry field for the users input-->
+        <label>Date Entry</label>
+        <input type="date"> <br> <!--date takes a date value-->
+        <label>Radio Entry</label>
+        <input type="radio"> <br> <!--radio makes a radio button-->
+        <label>Check Box</label>
+        <input type="checkbox"> <br> <!--Check box entry-->
+        <label>Time Entry</label>
+        <input type="time"> <br> <!--time entry-->
+        <label>File Entry</label>
+        <input type="file"> <br> <!--user inputs a file-->
+        <label>Range Slider</label>
+        <input type="range"> <br> <!--Range is an adjustable slider-->
+        <label>Color Picker</label>
+        <input type="color"> <br>
+        <button>Submit</button> <!--Button that can be tied to an action later-->
+
+    </form>
+</section>
+
+</body>
+<!--------------------------------------------------------------------------------------------------------------------->
+</html>
