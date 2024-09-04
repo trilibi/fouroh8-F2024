@@ -4,33 +4,48 @@
     --purple: #161748;
     --pink: #f95d9b;
     --bluelow: #39a0ca;
+    --font_color: #F1F7F9;
+    --bluedeep: #07326a;
     font-family: "Moderustic", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 480;
+    font-weight: 500;
     font-style: normal;
 
-    color: var(--purple);
+    color: var(--font_color);
     text-decoration: none;
-    background-color: whitesmoke;
+    background-color: var(--bluedeep);
 }
 
 body {
     margin: 0;
 }
 
-
 nav {
-    background-color: aliceblue;
+    background-color: var(--bluedeep);
     display: flex;
+    justify-content: space-between;
+    font-weight: 700;
 }
 
 #nav-bar{
     list-style-type: none;
     display: flex;
+    border-bottom-width: thick;
+    border-color: var(--font_color);
 }
 
 #nav-bar a {
     margin: 20px;
+    text-decoration: none;
+}
+
+a:hover {
+    background-color: lightgrey;
+    border-radius: 5px;    
+}
+
+a:visited {
+    color: var(--font_color);
 }
 
 
@@ -38,16 +53,14 @@ nav {
     font-size: 50px;
 }
 
-
-:root a:hover {
-    background-color: lightgrey;
-    border-radius: 5px;    
-}
-
-
 #main-content {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+}
+
+#button1 {
+    margin: auto;
+    text-align: center;
 }
