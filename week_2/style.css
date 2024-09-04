@@ -1,0 +1,20 @@
+body{
+    background-color: #ffebcd;
+    color: rgb(96, 21, 64);
+    padding: 60px; 
+}
+
+h2,h3,h4,h5,h6{
+    color:gray;
+}
+.error{
+    color: red;
+}
+
+#hero{
+    background-color: chartreuse;
+    padding: 20px;
+    color: black;
+}
+
+div{background-color: salmon;}
