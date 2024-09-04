@@ -1,0 +1,26 @@
+.text-centered {
+    text-align: center;
+}
+
+body {
+    background-color: #A30262;
+    color: white;
+}
+
+.error {
+    color: #D52D00;
+    background: black;
+}
+
+#CHARTREUSE {
+    !important;
+    color: chartreuse;
+}
+
+div {
+    background: darksalmon;
+}
+
+.small {
+    font-size: 10px;
+}
