@@ -1,0 +1,21 @@
+body {
+    background-color: white;
+    color: rgb(0, 34, 200)
+}
+
+h1, h3{
+    color: rgb(34, 56, 72)
+}
+
+.error {
+    color: red
+}
+
+#hero {
+    background: chartreuse;
+    color: black
+}
+
+div {
+    background-color: salmon
+}
