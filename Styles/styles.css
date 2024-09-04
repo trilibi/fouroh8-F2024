@@ -25,13 +25,12 @@ nav {
     display: flex;
     justify-content: space-between;
     font-weight: 700;
+    border-bottom: 2px solid var(--font_color);
 }
 
 #nav-bar{
     list-style-type: none;
     display: flex;
-    border-bottom-width: thick;
-    border-color: var(--font_color);
 }
 
 #nav-bar a {
