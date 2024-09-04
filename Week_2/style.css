@@ -1,0 +1,27 @@
+body {
+    background-color: #00f;
+    color:rgba(200, 54, 180, 0.5);
+    padding: 60px;
+}
+
+h3 {
+    color: rgb(255, 255, 255);
+}
+
+.error {
+    color:red;
+}
+
+#hero {
+    background: chartreuse;
+    padding: 20px;
+    color: red;
+}
+
+div {
+    background-color: slateblue;
+}
+
+notDiv {
+    background-color: #00f!important;
+}
