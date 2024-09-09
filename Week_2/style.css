@@ -1,6 +1,6 @@
 body {
     background-color: #237cd5;
-    color: rgba (255, 0, 255, 100)
+    color: rgba (255, 0, 255, 100);
     padding: 60px;
 }
 
@@ -15,7 +15,7 @@ h3, h4, h5, h6 {
 #hero {
     background: yellow;
     padding: 20px;
-    color: #000
+    color: #000;
 }
 
 div {
