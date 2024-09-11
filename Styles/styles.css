@@ -23,7 +23,6 @@ body {
 nav {
     background-color: var(--bluedeep);
     display: flex;
-    justify-content: space-between;
     font-weight: 700;
     border-bottom: 2px solid var(--font_color);
 }
@@ -31,11 +30,18 @@ nav {
 #nav-bar{
     list-style-type: none;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #nav-bar a {
     text-decoration: none;
     padding: 15px 10px 15px;
+}
+
+#Ocean {
+    height: 50px;
+    border-radius: 5px;
 }
 
 a:hover {
@@ -51,6 +57,8 @@ a:visited {
 #number {
     font-size: 50px;
 }
+
+
 
 #main-content {
     display: flex;
