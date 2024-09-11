@@ -9,3 +9,12 @@ body {
 h3 {
     color: Cornsilk;
 }
+
+#hero {
+    background-color: chartreuse;
+    
+}
+
+.content {
+    background-color: salmon;
+}
