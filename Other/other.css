@@ -1,0 +1,24 @@
+:root {
+    cursor: none;
+    --color:#ff008c47;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color);
+
+}
+
+iframe {
+    border: black 5pt solid;
+    border-radius: 10pt;
+}
+
+img {
+    border-radius: 10px;
+}
+
