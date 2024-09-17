@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            
+            border-collapse: separate;
+            border: solid; /* 테두리 */
+        }
+        td {
+            padding: 10px;
+            border: solid; /* 각 셀의 테두리 */
+        }
+        thead{
+            font-weight: bold;
+            font-size: large;
+            text-align:center;
+            border-collapse: separate;
+            border-spacing: 2px; /* cellspacing을 대체 */
+            border: 1px solid black; /* 테두리 */
+            
+        }
+        img{
+            height: 70px;
+            width:fit-content;
+
+        }
+        
+    </style>
+</head>
+<body>
+    <table>
+        <caption>A note about your table</caption>
+        <thead>
+            <tr>
+                <td rowspan="2">
+                    <img src="https://www.unk.edu/_files/redesign/images/icons/outdoors1.svg" alt="">
+                </td>
+                <td colspan="2">A common header for two sub headers</td>
+                <td rowspan="2">
+                    <img src="https://www.unk.edu/ccr/marketing-advertising/branding-and-identity-marks/images/unk-00231a.png" alt="">
+
+                </td>
+            </tr>
+            <tr>
+                <td>Header 1</td>
+                <td>Header 2</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Thing A</strong></td>
+                <td>data a1</td>
+                <td>data a2</td>
+                <td>data a3</td>
+            </tr>
+            <tr>
+                <td><strong>Thing B</strong></td>
+                <td>data b1</td>
+                <td>data b2</td>
+                <td>data b3</td>
+            </tr>
+            <tr>
+                <td><strong>Thing C</strong></td>
+                <td>data c1</td>
+                <td>data c2</td>
+                <td>data c3</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
