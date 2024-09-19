@@ -1,17 +1,55 @@
 <!DOCTYPE html>
 <html>
-    <title>Forms Assignment</title>
+    <head>
+        <title>Favorite Forms</title>
+        <style>
+            label {
+                display: inline-block;
+                width: 120px;
+            }
+            .checkbox-contatiner {
+                border: 1px solid #ccc;
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+        </style>
+    </head>
     <body>
-        <div>
-            Name:
-            <input type="text" name="name" value="" maxlength="24">
-        </div>
-        <div>
-            Age:
-            <input type="text" name="age" value="0" maxlength="3">
-        </div>
-        <div>
-            <input type="submit" alt="save">
-        </div>
+
+        <form>
+
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name"><br><br>
+
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" min="0"><br><br>
+
+            <label for="mascot">Favorite Mascot</label>
+            <select id="mascot" name="mascot">
+                <option value="lilred">Lil' Red</option>
+                <option value="louie">Louie</option>
+                <option value="herbie">Herbie</option>
+            </select><br><br>
+
+            <fieldset class="checkbox-contatiner">
+                <legend>Favorite Colors</legend>
+                <label><input type="checkbox" name="colors" value="red"> red</label>
+                <label><input type="checkbox" name="colors" value="blue"> blue</label>
+                <label><input type="checkbox" name="colors" value="green"> green</label>
+                <label><input type="checkbox" name="colors" value="purple"> purple</label>
+                <label><input type="checkbox" name="colors" value="orange"> orange</label>
+                <label><input type="checkbox" name="colors" value="pink"> pink</label>
+            </fieldset>
+
+            <label>Graduation Year</label><br>
+            <label><input type="radio" name="grad_year" value="2024"> 2024</label><br>
+            <label><input type="radio" name="grad_year" value="2025"> 2025</label><br>
+            <label><input type="radio" name="grad_year" value="2026"> 2026</label><br>
+            <label><input type="radio" name="grad_year" value="2027"> 2027</label><br>
+            <label><input type="radio" name="grad_year" value="2028"> 2028</label><br><br>
+
+            <input type="submit" value="Save">
+            
+        </form>
     </body>
 </html>
