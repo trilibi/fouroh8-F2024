@@ -124,17 +124,20 @@ table {
 }
 
 #forms-homework {
-    margin-top: 10vh;
+    margin-top: 10%;
     color: black;
     background-color: #F1F7F9;
     border-radius: 10px;
+    border: var(--font_color) solid;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     width: 50vw;
-    height: 25vh;
+    height: 25%;
     align-self: center;
+    font-size: large;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 #red {
