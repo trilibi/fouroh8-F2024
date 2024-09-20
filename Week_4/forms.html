@@ -9,30 +9,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/Styles/styles.css" />
   </head>
+  <nav>
+    <ul id="nav-bar">
+      <a href="/index.html">Home</a>
+      <a href="/Week_1/hello.html">Week - 1</a>
+      <a href="/Week_2/week2.html">Week - 2</a>
+      <a href="/Week_3/Week3.html">Week - 3</a>
+      <a href="Week4.html">Week - 4</a>
+      <a href="https://youtu.be/UHKHPybcLuc?si=vhAJSedYtL89HZfi" target="_blank"
+        ><img
+          id="Ocean"
+          src="/Assets/9827327865_98e0f0dc2d_o.webp"
+          alt="Image of the Ocean"
+      /></a>
+    </ul>
+  </nav>
   <body>
-    <nav>
-      <ul id="nav-bar">
-        <a href="/index.html">Home</a>
-        <a href="/Week_1/hello.html">Week - 1</a>
-        <a href="/Week_2/week2.html">Week - 2</a>
-        <a href="/Week_3/Week3.html">Week - 3</a>
-        <a href="Week4.html">Week - 4</a>
-        <a
-          href="https://youtu.be/UHKHPybcLuc?si=vhAJSedYtL89HZfi"
-          target="_blank"
-          ><img
-            id="Ocean"
-            src="/Assets/9827327865_98e0f0dc2d_o.webp"
-            alt="Image of the Ocean"
-        /></a>
-      </ul>
-    </nav>
     <!--Homework is under here-->
-    <div>
+    <div id="forms-homework">
+      <form>
+        <label for="name">Name: </label>
+        <input type="text" id="name" name="name" maxlength="24" />
+      </form>
+      <form>
+        <label for="Age">Age: </label>
+        <input type="number" id="age" name="age" maxlength="24" />
+      </form>
       <form></form>
-      <form></form>
-      <button type="submit">Save</button>
+      <form id="fav-colors">
+        <fieldset>
+          <legend>Favorite Colors</legend>
+
+          <label for="red" id="red">Red</label>
+          <input type="checkbox" id="red" name="color" />
+          <label for="blue" id="blue">Blue</label>
+          <input type="checkbox" id="blue" name="color" />
+          <label for="green" id="green">Green</label>
+          <input type="checkbox" id="green" name="color" />
+          <label for="Purple" id="purple">Purple</label>
+          <input type="checkbox" id="purple" name="color" />
+          <label for="orange" id="orange">Orange</label>
+          <input type="checkbox" id="orange" name="color" />
+          <label for="pink" id="pink">Pink</label>
+          <input type="checkbox" id="pink" name="color" />
+        </fieldset>
+      </form>
+      <form>
+        <ul id="gradList">
+          <fieldset>
+            <legend>Graduation Year</legend>
+            <li>
+              <label for="2024">2024</label>
+              <input type="radio" id="2024" name="gradYear" />
+            </li>
+            <li>
+              <label for="2025">2025</label>
+              <input type="radio" id="2025" name="gradYear" />
+            </li>
+            <li>
+              <label for="2026">2026</label>
+              <input type="radio" id="2026" name="gradYear" />
+            </li>
+            <li>
+              <label for="2027">2027</label>
+              <input type="radio" id="2027" name="gradYear" />
+            </li>
+            <li>
+              <label for="2028">2028</label>
+              <input type="radio" id="2028" name="gradYear" />
+            </li>
+          </fieldset>
+        </ul>
+      </form>
+      <input type="submit" />
+      <button type="submit" onclick="submit()">Custom Save</button>
     </div>
-    <script src="" async defer></script>
+    <script src="/Scripts/script.js" async defer></script>
   </body>
 </html>
