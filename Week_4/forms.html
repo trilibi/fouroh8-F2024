@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms</title>
+    <style>
+        ul.no-bullets {
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+        }
+        #red {
+            color: red;
+        }
+        #blue {
+            color: blue;
+        }
+        #green {
+            color: green;
+        }
+        #purple {
+            color: purple;
+        }
+        #orange {
+            color: orange;
+        }
+        #pink {
+            color: pink;
+        }
+        </style>
+</head>
+<body>
+    <p>
+        <div>
+            Name: 
+            <input type="text" name="name">
+        </div>
+        <br>
+        <div>
+            Age:
+            <input type="text" name="age">
+        </div>
+        <br>
+        <div>
+            Favorite Mascot: 
+            <select name="mascot" id="">
+                <option value="Lil' Red">Lil' Red</option>
+                <option value="Louie">Louie</option>
+                <option value="Herbie">Herbie</option>
+            </select>
+        </div>
+        <br>
+        <div>
+            <fieldset style="width: fit-content;">
+                <legend>Favorite Colors</legend>
+                <label for="red" id="red">red</label><input type="checkbox" name="colors" value="red" id="red">
+                <label for="blue" id="blue">blue</label><input type="checkbox" name="colors" value="blue" id="blue">
+                <label for="green" id="green">green</label><input type="checkbox" name="colors" value="green" id="green">
+                <label for="purple" id="purple">purple</label><input type="checkbox" name="colors" value="purple" id="purple">
+                <label for="orange" id="orange">orange</label><input type="checkbox" name="colors" value="orange" id="orange">
+                <label for="pink" id="pink">pink</label><input type="checkbox" name="colors" value="pink" id="pink">
+            </fieldset>
+        </div>
+        <br>
+        <div>
+            <b>Graduation Year</b>
+            <ul class="no-bullets">
+                <li>2024<input type="radio" name="gradYear" value="2024" id="Year"></li>
+                <li>2025<input type="radio" name="gradYear" value="2025" id="Year"></li>
+                <li>2026<input type="radio" name="gradYear" value="2026" id="Year"></li>
+                <li>2027<input type="radio" name="gradYear" value="2027" id="Year"></li>
+                <li>2028<input type="radio" name="gradYear" value="2028" id="Year"></li>
+            </ul>
+        </div>
+        <br>
+        <div>
+            <input type="button" value="Save">
+        </div>
+    </p>
+</body>
+</html>

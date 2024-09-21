@@ -1,0 +1,10 @@
+body {
+    font-family: monospace;
+    font-size: 16 px;
+}
+h1, h2 {
+    color: red;
+}
+p, h2 {
+    margin-left: 100px;
+}
