@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    https://canvas.unk.edu/courses/48785/assignments/642643
+-->
+    <style>
+        div {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<!--
+This form should capture data for the following:
+
+name - This is a text field
+
+age - This should be a number field
+
+mascot - This will be a select element with the following options: Lil' Red, Louie and Herbie
+
+color - This will be a group of checkboxes for the following options: red, blue, green, purple, orange, pink
+
+year - This will be a group of radio inputs for the follow options: 2024, 2025, 2026, 2027, 2028
+
+Along with a Save button.
+
+To help with organization, I would suggest wrapping each different input with a <div> or <p> tag.
+
+Extra credit points are available for styling the colors in their appropriate color.
+-->
+
+<div>
+    <label for="nameInput">Name</label>
+    <input id="nameInput" type="text">
+</div>
+<div>
+    <label for="ageInput">Age</label>
+    <input id="ageInput" type="number">
+</div>
+<div>
+    <label for="favMascotInput">Favorite Mascot</label>
+    <select id="favMascotInput">
+        <option value="1">Lil' Red</option>
+        <option value="2">Louise</option>
+        <option value="3">Herbie</option>
+    </select>
+</div>
+<div>
+    <fieldset>
+        <legend>Favorite Colors</legend>
+        <label for="favColRed" style="color: red;">red</label>
+        <input id="favColRed" type="checkbox">
+
+        <label for="favColBlue" style="color: blue;">blue</label>
+        <input id="favColBlue" type="checkbox">
+
+        <label for="favColGreen" style="color: green;">green</label>
+        <input id="favColGreen" type="checkbox">
+
+        <label for="favColPurple" style="color: purple;">purple</label>
+        <input id="favColPurple" type="checkbox">
+
+        <label for="favColOrange" style="color: orange;">orange</label>
+        <input id="favColOrange" type="checkbox">
+
+        <label for="favColPink" style="color: pink;">pink</label>
+        <input id="favColPink" type="checkbox">
+    </fieldset>
+</div>
+<div>
+<!--    2024, 2025, 2026, 2027, 2028-->
+    <p><strong>Graduation Year</strong><br>
+        <label for="gradYear2024">2024</label>
+        <input id="gradYear2024" name="gradYearRadio" value="2024" type="radio">
+        <br>
+        <label for="gradYear2025">2025</label>
+        <input id="gradYear2025" name="gradYearRadio" value="2025" type="radio">
+        <br>
+        <label for="gradYear2026">2026</label>
+        <input id="gradYear2026" name="gradYearRadio" value="2026" type="radio">
+        <br>
+        <label for="gradYear2027">2027</label>
+        <input id="gradYear2027" name="gradYearRadio" value="2027" type="radio">
+        <br>
+        <label for="gradYear2028">2028</label>
+        <input id="gradYear2028" name="gradYearRadio" value="2028" type="radio">
+    </p>
+</div>
+<div>
+<!--    I'm not sure what to do for this? There's nowhere to save to, so it's just going to be visual for now.   -->
+    <button onclick="alert('Saved! (not really :P )')">Save</button>
+</div>
+
+
+</body>
+</html>
