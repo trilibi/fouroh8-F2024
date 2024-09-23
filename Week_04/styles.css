@@ -1,0 +1,35 @@
+/* Set the font-family and font-size for the entire page */
+body {
+  font-family: "Courier New", monospace;
+  font-size: 16px; /* Corrected font size */
+  line-height: 1.4;
+  font-weight: bold;
+}
+
+/* Make the h1 and h2 elements red */
+h1, h2 {
+  color: red; /* Applied red color to h2 by default */
+}
+
+/* Paragraphs with adjusted left margin and justified alignment */
+p {
+  margin-left: 100px; /* Corrected to 100px left margin */
+  margin-bottom: 18px;
+  line-height: 1.5;
+  text-align: justify;
+  font-size: 16px; /* Corrected font size */
+}
+
+/* Add a 100-pixel left margin to h2 elements */
+h2 {
+  margin-left: 100px; /* Corrected to 100px left margin */
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* Adjusting image size and alignment */
+img {
+  float: right;
+  height: 175px; /* Corrected image height */
+  margin: 0 24px;
+}
