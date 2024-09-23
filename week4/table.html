@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Table</title>
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 2px;
+            border: 1px solid black;
+            width: 100%;
+            text-align: center;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+        caption {
+            font-weight: normal; /* Normal text */
+            margin-bottom: 10px;
+        }
+        .bold {
+            font-weight: bold; /* Bold text */
+        }
+        .logo {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <table cellspacing="2" border="1">
+        <caption>A note about your table</caption> <!-- Normal text caption -->
+        <thead>
+            <tr>
+                <td rowspan="2">
+                    <img src="https://www.unk.edu/_files/redesign/images/icons/outdoors1.svg" alt="Tree Image" class="logo">
+                </td>
+                <td colspan="2" class="bold">A common header for two sub headers</td> <!-- Bold text -->
+                <td rowspan="2">
+                    <img src="https://www.unk.edu/ccr/marketing-advertising/branding-and-identity-marks/images/unk-00231a.png" alt="Loper Logo" class="logo">
+                </td>
+            </tr>
+            <tr>
+                <th>Header 1</th>
+                <th>Header 2</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="bold">Thing A</td> <!-- Bold text -->
+                <td>data a1</td>
+                <td>data a2</td>
+                <td>data a3</td>
+            </tr>
+            <tr>
+                <td class="bold">Thing B</td> <!-- Bold text -->
+                <td>data b1</td>
+                <td>data b2</td>
+                <td>data b3</td>
+            </tr>
+            <tr>
+                <td class="bold">Thing C</td> <!-- Bold text -->
+                <td>data c1</td>
+                <td>data c2</td>
+                <td>data c3</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

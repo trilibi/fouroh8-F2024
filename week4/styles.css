@@ -1,0 +1,20 @@
+/* Apply monospace font and set font size */
+body {
+    font-family: monospace;
+    font-size: 16px;
+}
+
+/* Make h1 and h2 elements red */
+h1, h2 {
+    color: red;
+}
+
+/* Add a 100px left margin to paragraphs */
+p {
+    margin-left: 100px;
+}
+
+/* Add a 100px left margin to h2 elements */
+h2 {
+    margin-left: 100px;
+}
