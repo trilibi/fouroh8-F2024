@@ -1,0 +1,16 @@
+/* Apply monospace font and set font size */
+body {
+    font-family: monospace;
+    font-size: 16px;
+  }
+  
+  /* Style for h1 and h2 elements */
+  h1, h2 {
+    color: red;
+  }
+  
+  /* Add margin to paragraphs and h2 */
+  p, h2 {
+    margin-left: 100px;
+  }
+  
