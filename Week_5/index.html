@@ -1,0 +1,48 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <p id="username">Name</p>
+
+    <script>
+        console.log("welp")
+        console.log({words: "Word"})
+        console.log(12)
+        console.log(["list", "of", "things"])
+
+        let name = "klayton"
+        console.log(name)
+
+        let users   = [
+            {
+                name: "Klayton",
+                age: 21
+            },
+            {
+                name: "other",
+                age: 24
+            }
+        ]
+
+        for (let i=0; i<2; i++) {
+            console.log(users[i])
+        }
+
+        let username = document.getElementById("username")
+        username.innerHTML = "klayton.."
+        console.log(username.innerHTML)
+        function addThings(a, b) {
+            return a + b
+        }
+
+        let num = addThings(2, 3)
+        console.log(num)
+    </script>
+</body>
+</html>
