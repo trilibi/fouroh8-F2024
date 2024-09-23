@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Week 5</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/Styles/styles.css" />
+  </head>
+  <body>
+    <nav>
+      <ul id="nav-bar">
+        <a href="/index.html">Home</a>
+        <a href="/Week_1/hello.html">Week - 1</a>
+        <a href="/Week_2/week2.html">Week - 2</a>
+        <a href="/Week_3/Week3.html">Week - 3</a>
+        <a href="/Week_4/Week4.html">Week - 4</a>
+        <a href="week5.html">Week - 5</a>
+        <a
+          href="https://youtu.be/UHKHPybcLuc?si=vhAJSedYtL89HZfi"
+          target="_blank"
+          ><img
+            id="Ocean"
+            src="/Assets/9827327865_98e0f0dc2d_o.webp"
+            alt="Image of the Ocean"
+        /></a>
+      </ul>
+    </nav>
+
+    <div id="testing"></div>
+    <script>
+      console.log({ userName: "Jake", age: 23 });
+      console.log([1, 2, 3, 4, 5, 6, 7]);
+      console.log(["Jake", "You", "Josh", "Dylan", "Arianna", "John"]);
+      console.table({ userName: "Jake", age: 23 });
+
+      var users = [
+        { userName: "Jake", age: 23 },
+        { userName: "Dylan", age: 21 },
+        { userName: "Josh", age: 22 },
+        { userName: "Arianna", age: 27 },
+        { userName: "John", age: 21 },
+      ];
+
+      var name = "Jake";
+
+      var changing = document.getElementById("testing");
+      changing.innerHTML = name;
+
+      if (name == "Hello") {
+        console.log("HEHE YEAH");
+      } else {
+        console.log("I BORK");
+      }
+
+      for (i = 0; i < 20; i++) {
+        console.log(i);
+      }
+
+      var addNumbers = (x, y) => {
+        console.log(x, y);
+        console.log(x + y);
+      };
+
+      var hello = () => {
+        console.log("Hello there");
+      };
+
+      var setNumber = () => {
+        let number = 20;
+      };
+
+      console.log(Date());
+      addNumbers(10, 20);
+      hello();
+      setNumber();
+      window.onclick = hello();
+      console.log(number);
+    </script>
+  </body>
+</html>
