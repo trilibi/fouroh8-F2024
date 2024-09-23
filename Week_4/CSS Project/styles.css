@@ -1,0 +1,29 @@
+#headerOne {
+    border-bottom: 1px solid red;
+    color: red;
+}
+
+#headerTwo {
+color: red;
+margin-left: 100px;
+}
+
+#headerThree {
+    color: grey;
+    margin-left: 100px;
+}
+
+#par {
+    /* padding-left: 75px; */
+    margin-left: 100px;
+}
+
+body {
+    font-family: monospace;
+    font-size: 16px;
+}
+
+#pirate {
+    /* margin-left: 750px; */
+    float: right;
+}
