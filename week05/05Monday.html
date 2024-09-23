@@ -27,12 +27,19 @@
         }
 
         function addNumbers(x, y) {
-            console.log(x, y);
             var sum = x + y;
-            console.log(sum)
+            return sum;
         }
 
-        addNumbers(3, 4);
+        var results = addNumbers(3, 4);
+        console.log(results);
+
+        var my_name = 'Jeff';
+        function hello() {
+            var last_name = 'Mead';
+            console.log(my_name + ' ' + last_name);
+        }
+        hello()
         //alert('Carson called me a mean word')
     </script>
 </body>
