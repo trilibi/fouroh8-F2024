@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Form</title>
+    <style>
+        label {
+            margin-right: 10px;
+        }
+
+        label[for="red"] {
+            color: red;
+        }
+        label[for="blue"] {
+            color: blue;
+        }
+        label[for="green"] {
+            color: green;
+        }
+        label[for="purple"] {
+            color: purple;
+        }
+        label[for="orange"] {
+            color: orange;
+        }
+        label[for="pink"] {
+            color: pink;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+        </div>
+
+        <div>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age">
+        </div>
+
+        <div>
+            <label for="mascot">Favorite Mascot:</label>
+            <select id="mascot" name="mascot">
+                <option value="Lil' Red">Lil' Red</option>
+                <option value="Louie">Louie</option>
+                <option value="Herbie">Herbie</option>
+            </select>
+        </div>
+
+        <fieldset>
+            <legend>Favorite Colors</legend>
+            <label for="red"><input type="checkbox" id="red" name="color" value="red"> red</label>
+            <label for="blue"><input type="checkbox" id="blue" name="color" value="blue"> blue</label>
+            <label for="green"><input type="checkbox" id="green" name="color" value="green"> green</label>
+            <label for="purple"><input type="checkbox" id="purple" name="color" value="purple"> purple</label>
+            <label for="orange"><input type="checkbox" id="orange" name="color" value="orange"> orange</label>
+            <label for="pink"><input type="checkbox" id="pink" name="color" value="pink"> pink</label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Graduation Year</legend>
+            <label><input type="radio" name="year" value="2024"> 2024</label>
+            <label><input type="radio" name="year" value="2025"> 2025</label>
+            <label><input type="radio" name="year" value="2026"> 2026</label>
+            <label><input type="radio" name="year" value="2027"> 2027</label>
+            <label><input type="radio" name="year" value="2028"> 2028</label>
+        </fieldset>
+
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>
