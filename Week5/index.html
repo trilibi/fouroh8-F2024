@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <title>JavaScript</title>
+
+    </header>
+    <body onclick="hello();">
+
+        <h1>Hello World! <span id="username">???</span></h1>
+        <pre>
+            {
+                username: "carbon",
+                age: 20
+            }
+        </pre>
+
+
+        <script>
+            console.log('Hello World');
+            console.log(1234);
+            console.log({username: 'butt', age: 22});
+            console.log([1, 2, 3, 4, 5]);
+            console.log([{name: 'Bart', age: 12}, {name: 'Lisa', age: 10}]);
+            console.table([{name: 'Bart', age: 12}, {name: 'Lisa', age: 10}]);
+
+            var users = [{name: 'Bart', age: 12}, {name: 'Lisa', age: 10}];
+            console.log(users);
+
+            var username = document.getElementById("username");
+            console.log(username);
+            console.log(username.id);
+            username.innerHTML = 'Buttox'; //we love ending in semi-colons
+
+            console.log(1==true);
+            console.log(0==false);
+            console.log(1===true);
+            console.log(0===false);
+            
+            alert('I am an Alert');
+            if (1==true) {
+                console.log("truthy")
+            }
+
+            for (var i =0; i <= 10; i++) {
+                console.log(i);
+            }
+
+            function addNumber(x, y) {
+                console.log(x, y);
+                sum = x + y;
+                //console.log(sum);
+                return sum;
+            }
+            var results = addNumber(10, 30);
+            console.log(results);
+
+            var my_name = 'Carbon';
+            function hello() {
+                var last_name = "Cool";
+                console.log('Hello ' + my_name + ' ' + last_name);
+            }
+            hello();
+            my_name = "Freddy";
+            hello();
+
+
+        </script>
+    </body>
+</html>
