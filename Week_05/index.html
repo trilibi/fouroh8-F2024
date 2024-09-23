@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello World</h1>
+    <pre>{
+        "username": "jer"
+    }</pre>
+    <script>
+        console.log('hello world');
+        console.log(1234)
+        console.log({username: 'jer', age: 47})
+        console.log([1,2,3,4])
+        console.log([{username: 'jer', age: 47}, {username: 'someone', age: 40}])
+        console.table([{username: 'jer', age: 47}, {username: 'someone', age: 40}])
+
+        var users = [
+            {username: 'jer', age: 47},
+            {username: 'someone', age: 40}
+        ];
+        console.log(users);
+
+        var username = document.getElementById('username');
+        console.log(username)
+        console.log(username.id)
+        username.innerHTML = 'Jer'
+        console.log(1==true);
+        console.log(0==false);
+        console.log(1===true);
+        console.log(1!==true);
+
+        if (1==true){
+            sonsole.log('truthy')
+        }
+
+        for (var i = 0; i <= 10; i++) {
+            console.log('Count ' + i);
+        }
+    </script>
+</body>
+</html>
