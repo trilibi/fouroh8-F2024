@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body> onclick
+    <h1>Hello World <span id ="username">???</span></h1>
+    <script>
+        console.log('hello world');
+        console.log(1234)
+        console.log({username: 'daler', age: 20})
+        console.log([1,2,3,4])
+        console.log([{username: 'daler', age: 20}, {username: 'daler', age: 20}])
+        console.table([{username: 'daler', age: 20}, {username: 'someone', age: 20}])
+
+        var users = [
+            {username: 'daler', age: 20},
+            {username: 'someone', age: 20}
+
+        ];
+        console.log(username);             console.log(3)
+                        console.log(6);
+                        console.log('a              b')
+        var username = document.getElementById('username');
+        console.log(username)
+        console.log(username.id)
+        username.innerHTML = 'Daler         hg'
+        console.log(1==true);
+        console.log(0==false);
+        console.log(1===true);
+        console.log(1!==true);
+
+        if (1==true) {
+            console.log('truthy')
+        }
+
+        for (var i = 0; i <= 10; i++) {
+            console.log('Count ' + i);
+        }
+
+        function addNumbers(x,y) {
+            console.log(x, y);
+            var sum = x + y;
+            console.log(sum)
+            return sum;
+        }
+        var results = addNumbers(10,20);
+        console.log(results);
+        
+        var my_name = 'daler';
+        function hello() {
+            console.log('Hello' + my_name)
+        }
+        hello()
+        my_name = 'Fred'
+        hello()
+    </script>
+  </body>
+</html>
