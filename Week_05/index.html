@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onclick="hello()">
+    <h1>Hello World</h1>
+    <pre>{
+        "username": "jer"
+    }</pre>
+    <div id="username">Placeholder</div> <!-- Added this line -->
+    <script>
+        console.log('Hello world');
+        console.log(1234);
+        console.log({username: "el", age: 19}, {username: 'mana', age: 20});
+        console.log([1, 2, 3, 4]);
+        console.log({username: "person1", age: 0}, {username: 'someone', age: 0});
+        console.log({username: "person2", age: 0}, {username: 'someone', age: 0});
+
+        var usernames = [
+            {username: 'el', age: 19},
+            {username: 'someone', age: 20}
+        ];
+        console.log(usernames);
+
+        var username = document.getElementById('username');
+        console.log(username);
+        console.log(username.id);
+        username.innerHTML = "el"; // This will change the content of the div
+        console.log(1 == true);
+        console.log(0 == false);
+        console.log(1 === true);
+
+        if (1 == true) {
+            console.log('truthy');
+        }
+
+        for (var i = 0; i <= 10; i++) {
+            console.log('Count ' + i);
+        }
+
+        function addNumbers(x, y) {
+            console.log(x, y);
+            var sum = x + y;
+            console.log(sum);
+            return sum;
+        }
+        var results = addNumbers(10,20);
+        console.log(results);
+
+        var my_name = 'el';
+        function hello() {
+            var last_name ="smith"
+            console.log('Hello ' + my_name + ' ' + last_name)
+        }
+        hello()
+        my_name = 'fred';
+        hello();
+    </script>
+</body>
+</html>
