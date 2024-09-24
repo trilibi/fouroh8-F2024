@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Nova Solarz">
+    <title>woag</title>
+    <style>
+        body {
+            font-family: "Noto Mono", monospace;
+        }
+    </style>
+
+</head>
+<body>
+
+    <h1>Hewwo Wowld :3 <span id="username">???</span></h1>
+
+    <pre>
+        {
+            "Username": "zzzoey"
+        }
+    </pre>
+
+    <img src="../../Week_3/recipe/WOEM.jpg" onclick="scream()" width="200">
+
+    <script>
+        // I know semicolons aren't required, but GIVE ME MY SEMICOLONS >:(
+        console.log("OwO");
+        console.log(1337);
+        console.log({username: "Zoey", age: 182});
+        console.log([1,2,3,4,5]);
+        console.log([{username: "Chloe", age: 2}, {username: "Sam", age: "?"}]);
+        console.table([{username: "Chloe", age: 2}, {username: "Sam", age: 20}]);
+
+        let users = [
+            {username: "Chloe", age: 2},
+            {username: "Sam", age: 20}
+        ];
+        console.log("Users:");
+        console.log(users);
+
+        let username = document.getElementById("username");
+        // cool! :)
+        console.log(username);
+        console.log(username.id);
+        username.innerHTML = "Sophi";
+
+        console.log(1==true);
+        console.log(0==false);
+        console.log(1===true);
+        console.log(1!==true);
+        console.log(1!=true); //GRAH NOOOOO >:(((
+
+        if (1==true) {
+            console.log("izz da twoofth :3")
+        } else {
+            alert("Owahoo! alert alert!  ghyuck!");
+        }
+
+        for (let i = 0; i <= 10; i++) {
+            console.log("count: " + i.toString()/* toString because screw you loosely-typed language */);
+        }
+
+        function addNumbers(x, y) {
+            console.log(x, y);
+            let sum = x + y;
+            console.log(sum);
+            return sum;
+        }
+        let aaaaaa = addNumbers(123, 321);
+        console.log(aaaaaa);
+
+
+        function hello() {
+            console.log("HOI!!! I'M TEM!!! AN DIS IZ MY FREN, TEM.");
+            console.log("HOI!!! I'M TEM!!! AN DIS IZ MY FREN, TEM.");
+            console.log("HOI!!! I'M TEM!!! AN DON FORGET MY FREN!!");
+            console.log("Hi. I'm Bob...");
+        //     please get this reference
+        }
+        hello();
+
+        let first_name = "Temmie"
+        function heya() {
+            let last_name = "Glorf"
+            console.log("Hello, " + first_name + " " + last_name);
+        }
+        heya();
+        first_name = "freef";
+        heya();
+
+        function scream() {
+            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        }
+    </script>
+
+</body>
+</html>
