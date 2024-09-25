@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            background-color: black;
+        }
+        #render {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label>
+            Rows
+            <input id="rows" type="number" value="10">
+        </label>
+        <br>
+        <label>
+            Cols
+            <input id="columns" type="number" value="10">
+        </label>
+    </div>
+    <div id="render"></div>
+    <script>
+        console.log('Hello')
+
+        var rowsInput = document.getElementById('rows');
+        var colsInput = document.getElementById('rows');
+        var renderEle = document.getElementById('render');
+
+        rowsInput.addEventListener('change', function() {
+            console.log(rowsInput.value);
+        });
+
+        colsInput.addEventListener('change', function(e) {
+            console.log(e.target.value);
+        });
+
+        function render() {
+            console.log('RENDER');
+            renderEle.innerHTML = '';
+
+
+            for (var rowIndex = 1; rowIndex <= rowsInput.value; rowIndex++) {
+                for (var colIndex = 1; colIndex <= colsInput.value; colIndex++) {
+                    var checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.checked = true;
+                    renderEle.appendChild(checkbox);
+                    var randomNo = Math.floor(Math.random()*colsInput.value);
+                    if (randomNo >= colIndex) {
+                        checkbox.style.accentColor = 'green';
+                    }
+                }
+                renderEle.appendChild(document.createElement('br'));
+            }
+
+
+        }
+        render();
+
+        setInterval(render, 1000);
+    </script>
+</body>
+</html>
