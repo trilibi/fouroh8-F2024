@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQish</title>
+
+    <style>
+        body {
+            background-color: black;
+        }
+
+        label {
+            color: red;
+        }
+        #render {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label>
+            Rows
+            <input id="rows" type="number" value="10">
+        </label>
+
+        <br>
+
+        <label>
+            Columns
+            <input id="columns" type="number" value="4">
+        </label>
+    </div>
+
+    <div id="render">
+        hello
+    </div>
+
+    <script>
+        console.log('bruh')
+
+        var rows_input = document.getElementById('rows')
+        var columns_input = document.getElementById('columns')
+        var render_element = document.getElementById('render')
+        var range_input = document.getElementById('range')
+
+        console.log(rows_input.value)
+        rows_input.addEventListener('change', function() {
+            console.log(rows_input.value)
+        })
+
+        console.log(columns_input.value)
+        columns_input.addEventListener('change', function(e) {
+            console.log(e.target.value)
+        })
+
+
+        function render() {
+            console.log('RENDER')
+            console.log(rows_input.value, columns_input.value)
+            render_element.innerHTML = ''
+
+            for (var r = 1; r <= rows_input.value; r++) {
+                for (var c = 1; c <= columns_input.value; c++) {
+                var checkbox = document.createElement('input')
+                checkbox.type = 'checkbox'
+                checkbox.checked = true
+                checkbox.style.accentColor = 'white'
+                render_element.appendChild(checkbox)
+                var random_number = Math.floor(Math.random()*columns_input.value)
+                if (random_number >= c){
+                    checkbox.style.accentColor = 'red'
+                    }
+                }
+                render_element.appendChild(document.createElement('br'))
+            }
+
+        }
+        render()
+
+        setInterval(render, 50)
+    </script>
+</body>
+</html>
