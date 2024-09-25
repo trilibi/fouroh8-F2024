@@ -46,6 +46,11 @@ nav {
     border-radius: 5px;
 }
 
+#rendering {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
 a:hover {
     background-color: rgba(79, 99, 163, 0.5);
     border-radius: 5px;    

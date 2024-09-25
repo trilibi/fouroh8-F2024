@@ -4,3 +4,4 @@ var number = 0;
 const upOne = () => {
     display.textContent = number++;
 }
+
