@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width", initial-scale="1.0">
+    <title>EQish</title>
+
+    <style>
+        body {
+            background-color: #000;
+        }
+        label {
+            color: salmon
+        }
+        #render {
+            padding: 20px
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label>
+            Rows
+            <input id="rows" type="number" value="4">
+        </label>
+        <br />
+        <label>
+            Cols
+            <input id="cols" type="number" value="4">
+        </label>
+        <br />
+        <label>
+            Speed
+            <input id="rangeInput" type="range" value="1000" min="1" max="2000" step="50">
+        </label>
+    </div>
+    <div id="render"></div>
+    <script>
+        console.log('hello world');
+
+        const hsl_col_perc = (percent, start, end) => {
+            const a = percent / 100,
+            b = (end - start) * a,
+            c = b + start;
+            return 'hsl(' + c + ', 100%, 50%)';
+        }
+
+        var rowsInput = document.getElementById('rows');
+        var colsInput = document.getElementById('cols');
+        var rangeInput = document.getElementById('rangeInput');
+        var renderEle = document.getElementById('render');      
+
+        var renderInterval = setInterval(render, 1000);
+        rangeInput.addEventListener('change', function(e) {
+            clearInterval(renderInterval);
+            renderInterval = setInterval(render, e.target.value);
+        });
+
+        function render() {
+            renderEle.innerHTML = '';
+            for (var rowIndex = 1; rowIndex <= rowsInput.value; rowIndex++) {
+                for (var colIndex = 1; colIndex <= colsInput.value; colIndex++){
+                    var checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox'
+                    checkbox.checked = true;
+                    renderEle.appendChild(checkbox);
+                    var rand = Math.floor(Math.random()*colsInput.value);
+                    if (rand >= colIndex) {
+                        checkbox.style.accentColor = hsl_col_perc(100 - rand / colsInput.value * 100, 0, 120);
+                    }
+                }
+                renderEle.appendChild(document.createElement('br'));
+            }
+        }
+        render();
+
+        var renderInterval = setInterval(render, 1000);
+        
+    </script>
+</body>
+</html>
