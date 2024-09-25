@@ -1,10 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>woaw, mnay colrors</title>
+    <meta name="author" content="Nova Solarz">
+
+    <style>
+        body {
+            font-family: "Roboto Mono", monospace;
+            background-color: black;
+            color: white;
+        }
+        #render {
+            background-color: #373737;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-$END$
+    <div>
+        <label>
+            Rows
+            <input id="rows" type="number" value="2">
+        </label>
+        <br>
+        <label>
+            Cols
+            <input id="cols" type="number" value="5">
+        </label>
+        <br>
+        <label>
+            Speed
+            <input id="rangeInp" type="range" value="4" min="50" max="2000" step="50">
+        </label>
+    </div>
+
+    <div id="render">
+        :3
+    </div>
+    <script src="scripts.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
