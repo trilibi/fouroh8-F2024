@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Really Cool</title>
+
+    <style>
+        body {
+            background-color: black;
+        }
+        #render {
+            background-color: darkslateblue;
+            padding: 20px;
+        }
+        label {
+            color: salmon;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label>
+            Rows
+            <input id="rows" type="number" value="10" />
+        </label>
+    </br>
+        <label>
+            Cols
+            <input id="cols" type="number" value="4">
+        </label>
+    </br>
+        <label>
+            Speed
+            <input id="rangeSpd" type="range" value="1000" min="50" max="2000" step="50" />
+        </label>
+    </div>
+    <div id="render">
+        
+    </div>
+    <script>
+        console.log("Hello world!");
+
+        var rows_input = document.getElementById("rows");
+        var cols_input = document.getElementById("cols");
+        var render_ele = document.getElementById("render");
+        var range_input = document.getElementById("rangeSpd");
+
+        console.log(rows_input.value);
+        console.log(cols_input.value);
+
+        rows_input.addEventListener("change", function () {
+            console.log("Row input change: " + rows_input.value);
+
+        });
+
+        cols_input.addEventListener("change", function () {
+            console.log("Col input change: " + cols_input.value);
+
+        });
+
+        var renderInterval = setInterval(render, 1000);
+        range_input.addEventListener("change", function (e) {
+            //console.log("Col input change: " + cols_input.value);
+            clearInterval(renderInterval);
+            renderInterval = setInterval(render, e.target.value)
+        });
+
+        function render() {
+            //console.log("RENDER");
+            //console.log(rows_input.value, cols_input.value);
+            render_ele.innerHTML = '';
+
+            
+
+            for (var r = 1; r <= rows_input.value; r++) {
+                //console.log(r);
+                for (var c = 1; c <= cols_input.value; c++) {
+                    //console.log(c);
+                    var checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.checked = true;
+                    render_ele.appendChild(checkbox);
+                    //console.log(checkbox.value);
+                    
+
+                    var ran_num = Math.floor(Math.random()*cols_input.value);
+                    if (ran_num >= cols_input) {
+                        checkbox.style.accentColor = '#ff0000';
+                    }
+                    
+                } 
+                render_ele.appendChild(document.createElement("br"));
+            }
+
+            
+        }
+        render();
+
+        
+        //clearInterval(renderInterval);
+    </script>
+</body>
+</html>
