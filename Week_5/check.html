@@ -1,0 +1,78 @@
+<html lang="en">
+
+<head>
+
+<style>
+body {
+  background: black;
+}
+
+label {
+  color: white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div>
+  <label>
+    Rows 
+   <input id="rows" type="number" value=30>
+  </label>
+  <br>
+  <label>
+    Columns
+   <input id="columns" type="number" value=18>
+  </label/l>
+</div>
+
+<div id="render">
+stuff
+</div>
+
+<script>
+
+  let rowsIn = document.getElementById("rows");
+
+  rowsIn.addEventListener("change", function(e) {
+  console.log(e.currentTarget.value);
+  })
+  
+  let colsIn = document.getElementById("columns");
+
+  colsIn.addEventListener("change", function(e) {
+  console.log(e.currentTarget.value);
+  })
+  
+  let renderFile = document.getElementById("render")
+  
+  function render() {
+    renderFile.innerHTML = ""
+    
+    for (var r=1; r <= rowsIn.value; r++) {
+      for (var c=1; c <= colsIn.value; c++) {
+            var checkbox = document.createElement("input");
+            checkbox.type = "checkbox"
+    
+            checkbox.style.accentColor = `hsl(${Math.random()*360},100%,50%)`
+        
+            if (Math.random() > .5) {
+              checkbox.checked = true
+            }
+          
+            renderFile.appendChild(checkbox)
+      }
+      renderFile.appendChild(document.createElement("br"))
+    }
+  }
+  render()
+  setInterval(render, 100)
+
+</script>
+
+</body>
+
+</html>
