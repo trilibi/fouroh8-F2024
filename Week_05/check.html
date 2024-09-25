@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQish</title>
+
+    <style>
+        body {
+
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <label>
+            Rows
+            <input id="rows" type="number" value="4">
+        </label>
+        <label>
+            Cols
+            <input id="columns" type="number" value="4">
+        </label>
+        <label>
+            Speed
+
+        </label>
+    </div>
+    <div id="render">
+hello
+
+    </div>
+    <script>
+        console.log('Hello, world.')
+
+        var rowsInput = document.getElementById('rows');
+        var colsInput = document.getElementById('cols');
+        var rangeInput = document.getElementById('range')
+        var renderEle = document.getElementById('render');
+
+        
+        rowsInput.addEventListener('change', function() {
+            console.log(rowsInput.value)
+        });
+
+        
+        colsInput.addEventListener('change', function() {
+            console.log(colsInput.value)
+        });
+
+        function render() {
+            console.log('RENDER')
+            renderEle.innerHTML = '';
+            render.Ele.innerHTML;
+
+            var checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.checked = true;
+            console.log(checkbox)
+            console.log(checkbox.checked)
+            
+            renderEle.appendChild(checkbox);
+
+            for (var r = 0; r <= rowsInput.value; r++) {
+                for (var c = 0; c <= colsInput.value; c++)
+                    console.log(r,c);
+                    var checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.checked = true;
+                    checkbox.style.accentColor = '#ff0000';
+                    renderEle.appendChild(checkbox);
+
+                    var randomNo = Math.floor(Math.random()*colsInput.value);
+                    if (randomNo <= colsIndex) {
+                        checkbox.style.accentColor = 'salmon'
+                    }
+            }
+            renderEle.appendChild(document.createElement('br'));
+
+        }
+        render();
+
+        var renderInterval = setInterval(render, 1000)
+        clearInterval(renderInterval);
+    </script>
+</body>
+</html>
