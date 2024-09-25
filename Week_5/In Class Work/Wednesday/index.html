@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eqish</title>
+</head>
+<style>
+    body {
+        background-color: black;
+    }
+    label {
+        color: salmon;
+    }
+    #render {
+        padding: 20px;
+    }
+</style>
+<body>
+    <div>
+        <label>
+            Rows
+            <input id="rows" type="number" value="4">
+        </label>
+        <br />
+        <label>
+            Cols
+            <input id="cols" type="number" value="4">
+        </label>
+        <label>
+            Speed
+            <input id="rangeInput" type="range" value="1000" min="50" max="2000" step="50">
+        </label>
+    </div>
+    <div id="render">
+
+    </div>
+    <script>
+        console.log('hello world');
+
+        var rowsInput = document.getElementById('rows');
+        var colsInput = document.getElementById('cols');
+        var renderEle = document.getElementById('render')
+        var render
+
+        rowsInput.addEventListener('change',function() {
+            console.log(rowsInput.value);
+        })
+
+        colsInput.addEventListener('change',function(e) {
+            console.log(e.target.value);
+        })
+
+        function render() {
+            console.log('RENDER');
+            console.log(rowsInput.value, colsInput.value);
+            renderEle.innerHTML = '';
+
+            for (var r = 1; r <= rowsInput.value; r++) {
+                for(var c = 1; c <= colsInput.value; c++) {
+                    var checkBox = document.createElement('input');
+                    checkBox.type = 'checkbox';
+                    checkBox.checked = true;
+                    checkBox.style.accentColor = 'salmon';
+                    renderEle.appendChild(checkBox)
+                    var randomNo = Math.floor(Math.random()*colsInput.value)
+                    if (randomNo <= colIndex) {
+                        none;
+                    }
+                }
+                renderEle.appendChild(document.createElement('br'));
+            }
+
+        }
+        render();
+
+        setInterval(render, 1000);
+    </script>
+</body>
+</html>
