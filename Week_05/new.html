@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQish</title>
+
+    <style>
+        body {
+            background-color: #000;
+        }
+        #render {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label>
+            Rows
+            <input id ="rows" type ="number" value ="4">
+        </label>
+        <br />
+        </label>
+            cols
+            <input id ="cols" type ="number" value ="4">
+        </label>
+        <br />
+        </label>
+            Speed
+            <input id ="rangeInput" type ="range" value ="4" min="50" max="2000">
+        </label>
+    </div>
+    <div id="render">
+
+    </div>
+    <script>
+        console.log('hello world')
+
+        const hsl_col_perc = (percent, start, end) => {
+            const a = percent / 100,
+            b = (end - start) * a,
+            c = b + start;
+            return 'hsl(' + c + ', 100%, 50%)';
+        }
+
+        var rowsInp = document.getElementById('rows');
+        var colsInp = document.getElementById('cols');
+        var renderEle = document.getElementById('render');
+        var rangeInput = document.getElementById('rangeInput');
+
+        rowsInp.addEventListener('change', function() {
+            console.log(rowsInp.value);
+        })
+
+        colsInp.addEventListener('change', function() {
+            console.log(e.target.value);
+        })
+
+        var renderInterval = setInterval(render, 1000);
+        rangeInput.addEventListener('change', function(e) {
+            console.log(e.target.value);
+            clearInterval(renderInterval);
+            renderInterval = setInterval(render, e.target.value);
+
+        })
+
+        function render(){
+            console.log('RENDER');
+            console.log(rowsInp.value, colsInp.value);
+            renderEle.innerHTML = '';
+            
+            var checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.checked = true;
+            console.log(checkbox)
+            console.log(checkbox.checked)
+
+            renderEle.appendChild(checkbox);
+
+            for (var rowIndex = 1; rowIndex <= rowsInp.value; rowIndex++) {
+                for (var colIndex = 1;  colIndex<= colsInp.value; colIndex++) {
+                    var checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.checked = true;
+                    renderEle.appendChild(checkbox);
+                    var randomNo = Math.floor(Math.random()*colsInp.value);
+                    if (randomNo >= colIndex) {
+                        checkbox.style.accentColor = hsl_col_perc(100 - rand / colCount * 100, 0, 120);;
+                    }
+                }
+                renderEle.appendChild(document.createElement('br'));
+
+            }
+
+
+        }
+        render();
+    </script>
+</body>
+</html>
