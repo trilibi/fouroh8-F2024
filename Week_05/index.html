@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="eg">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport">
+        <title>Document</title>
+    </head>
+    <body onclick="hello()">
+        <h1>Hello World <span id="username">???</span> </h1>
+        <pre>
+            "username": "jer"
+        </pre>
+        <script>
+            console.log("hello world")
+            console.log(1234)
+            console.log({username: 'jer', age: 47})
+            console.log([1, 2, 3, 4])
+            console.log({username: 'jer'}, {age: 47})
+            console.table([{username: 'jer', age: 47}, {username: "someone", age: 47}])
+            
+            var users = [
+                {username: 'jer', age: 47},
+                {username: 'somebone', age: 48}
+            ];
+            console.log(users); console.log(3)
+                    console.log("a              v")
+
+            var username = document.getElementById('username');
+            console.log(username);
+            console.log(username.id);
+
+            username.innerHTML = 'jer'
+
+            console.log(1 == true)
+            console.log(0 === false)
+            console.log(1 !== 1)
+
+            alert('This is notification, alert')
+
+            if (1==true) {
+                console.log('truthy')
+            }
+
+            for (var i = 0; i <= 10; i++) {
+                console.log(i)
+            }
+
+            function addNumbers(x, y) {
+                console.log(x, y);
+                var sum = x + y
+                console.log(sum);
+                return sum; 
+            }
+            var results = addNumbers(2, 4)
+            console.log(results)
+
+            addNumbers(10, 20)
+
+            function hello(my_name) {
+                var last_name = 'smith';
+                console.log("Hello" + my_name)
+            }
+
+            hello()
+            my_name = 'Fred'
+            console.log("Yes")
+
+        </script>
+    </body>
+</html>
