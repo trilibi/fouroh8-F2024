@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+
+    <style>
+        .color-label {
+            margin-right: 10px;
+        }
+        .color-label input {
+            margin-left: 5px;
+        }
+        .black { color:black; }
+        .red { color:red; }
+        .blue { color: blue;}
+        .green { color: green;}
+        .purple { color: purple;}
+        .orange { color: orange;}
+        .pink { color: #f12d71;}
+    </style>
+
+</head>
+<body>
+    <form>
+        <label for="fname">First name:</label><br>
+        <input type="text" id="fname" name="fname"><br>
+        <br>
+        <label for="age">Age:</label><br>
+        <input type="number" id="age" name="age"><br>
+    </form><br>
+
+    <label for="dropdown">Choose an option:</label>
+    <select id="dropdown">
+        <option value="" disabled selected hidden>-- Select an option --</option>
+        <option value="Lil' Red">Lil' Red</option>
+        <option value="Louie">Louie</option>
+        <option value="Herbie">Herbie</option>
+    </select><br><br>
+
+    <fieldset>
+        <legend>Favorite Colors</legend>
+
+        <label class="color-label black">
+            Black <input type="checkbox" name="color" value="black">
+        </label>
+
+        <label class="color-label red">
+            Red <input type="checkbox" name="color" value="red">
+        </label>
+
+        <label class="color-label blue">
+            Blue <input type="checkbox" name="color" value="blue">
+        </label>
+
+        <label class="color-label green">
+            Green <input type="checkbox" name="color" value="green">
+        </label>
+
+        <label class="color-label purple">
+            Purple <input type="checkbox" name="color" value="purple">
+        </label>
+
+        <label class="color-label orange">
+            Orange <input type="checkbox" name="color" value="orange">
+        </label>
+
+        <label class="color-label pink">
+            Pink <input type="checkbox" name="color" value="pink">
+        </label> 
+    </fieldset><br>
+
+    <label for="gradYear"><b>Graduation Year</b></label>
+    <form id="gradYear">
+        <input type="radio" id="2024" name="year" value=2024">
+        <label for="2024">2024</label><br>
+
+        <input type="radio" id="2025" name="year" value="2025">
+        <label for="2025">2025</label><br>
+
+        <input type="radio" id="2026" name="year" value="2026">
+        <label for="2026">2026</label><br>
+
+        <input type="radio" id="2027" name="year" value="2027">
+        <label for="2027">2027</label><br>
+
+        <input type="radio" id="2028" name="year" value="2028">
+        <label for="2028">2028</label>
+        <br><br>
+
+        <input type="button" id="saveButton" name="Save" value="Save">
+    </form>
+</body>
+</html>
