@@ -59,7 +59,7 @@
             console.log(e.target.value);
         });
 
-        var renderEle = document.getElementById("render");
+        
         var randInput = document.getElementById("rangeInput")
         var renderInterval = setInterval(render,1000);
         randInput.addEventListener('change',function(e){
@@ -68,8 +68,10 @@
             renderInterval = setInterval(render,e.target.value);
         })
 
+
+        var renderEle = document.getElementById("render");
         function render() {
-            console.log("render");
+            
             renderEle.innerHTML = '';
             /*
             var checkbox = document.createElement("input")
