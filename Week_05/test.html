@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQish</title>
+
+    <style>
+        body{
+            background-color: black;
+        }
+        label{
+            color: salmon;
+        }
+        #render{
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label>
+            Rows
+            <input id="rows" type="number" value="10">
+        </label>
+        <br>
+        <label>
+            Cols
+            <input id="cols" type="number" value="4">
+        </label>
+        <br>
+        <label>
+            Speed
+            <input id="rangeInput" type="range" value="1000" min="1" max="2000" step="50">
+        </label>
+    </div>
+    <div id="render">
+        hello
+    </div>
+    <script>
+        console.log('Hello World')
+
+        const hsl_col_perc = (percent, start, end) => {
+            const a = percent / 100,
+            b = (end - start) * a,
+            c = b + start;
+            return 'hsl(' + c + ', 100%, 50%)';
+        }
+
+        var rowsInput = document.getElementById('rows');
+        var colsInput = document.getElementById('cols');
+        var renderEle = document.getElementById('render');
+        var rangeInput = document.getElementById('rangeInput');
+
+        rowsInput.addEventListener('change', function(){
+            console.log(rowsInput.value);
+        });
+
+        colsInput.addEventListener('change', function(e){
+            console.log(e.target.value);
+        });
+
+        var renderInterval = setInterval(render, 1000);
+        rangeInput.addEventListener('change', function(e){
+            console.log(e.target.value);
+            clearInterval(renderInterval);
+            renderInterval = setInterval(render, e.target.value);
+        });
+
+        function render(){
+            console.log('RENDER', rowsInput.value, colsInput.value, rangeInput.value);
+            renderEle.innerHTML = '';
+ 
+            for( var r = 0; r <= rowsInput.value; r++){
+                for( var c = 0; c <= colsInput.value; c++){
+                    var checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.checked = true;
+                    checkbox.style.accentColor = 'salmon';
+                    renderEle.appendChild(checkbox);
+
+                    var randomNo = Math.floor(Math.random()*colsInput.value);
+                    //console.log(Math.floor(Math.random()*colsInput.value));
+                    if (randomNo <= c){
+                        checkbox.style.accentColor = hsl_col_perc(100-randomNo/colsInput.value*100, 0, 120);
+                    }
+                }
+                renderEle.appendChild(document.createElement('br'));
+            }
+        }
+        render();
+    </script>
+</body>
+</html>

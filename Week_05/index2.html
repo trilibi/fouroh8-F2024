@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EQish</title>
     <style>
-        #render{
-            background: black;
-
-        
-        }
         body{
             background-color: black;
+        }
+        label{
+            color: salmon;
+        }
+        #render{
+            padding: 20px;
         }
 
     </style>
@@ -20,23 +21,34 @@
     <div>
         <label>
             Rows
-            <input id="rows" type="number" value="10" min="4" max="30">
+            <input id="rows" type="number" value="10">
         </label>
         <br/>
         <label>
             Cols
-            <input id="cols" type="number" value="10" min="4" max="30">
+            <input id="cols" type="number" value="10" >
+        </label>
+        <br>
+        <label >
+            speed
+            <input id="rangeInput" type = "range" value = "1000" min="1" max = "2000">
         </label>
     </div>
 
 
     <div id="render">
-        hellow 
+        hellowww 
     </div>
   
   
   <script>
-        console.log("hellow wensday")
+        const hsl_col_perc = (percent, start, end) => {
+            const a = percent / 100,
+            b = (end - start) * a,
+            c = b + start;
+            return 'hsl(' + c + ', 100%, 50%)';
+        }
+        //console.log("hellow wensday")
         var rowsInput = document.getElementById("rows");
         rowsInput.addEventListener("change",function(){
             console.log(rowsInput.value);
@@ -48,8 +60,13 @@
         });
 
         var renderEle = document.getElementById("render");
-        var randInput;
-
+        var randInput = document.getElementById("rangeInput")
+        var renderInterval = setInterval(render,1000);
+        randInput.addEventListener('change',function(e){
+            console.log(e.target.value);
+            clearInterval(renderInterval);
+            renderInterval = setInterval(render,e.target.value);
+        })
 
         function render() {
             console.log("render");
@@ -59,8 +76,7 @@
             checkbox.type = "checkbox"
             checkbox.checked = true;
             */
-            
-
+        
             
             for(var r = 0; r<= rowsInput.value; r++){
                 
@@ -68,32 +84,32 @@
                     console.log(r,c)
                     var checkbox = document.createElement("input")
                     checkbox.type = "checkbox"
-                    if((c+r)%2 ==0 ){
+                    /*if((c+r)%2 ==0 ){
                         checkbox.checked = true;
                     }
                     else{
                         checkbox.checked = false;
-                    }
+                    }*/
+                   checkbox.checked = true;
                     checkbox.style.accentColor = "salmon"
                     renderEle.appendChild(checkbox);
+
                     var randomNo = Math.floor(Math.random()*colsInput.value);
-                    if(randomNo <= colsInput.vlaue){
+                    /*if(randomNo <= colsInput.vlaue){
                         checkbox.style.accentColor = "salmon"
                     }
                     else{
                         checkbox.style.accentColor = "blue"
-                    }
+                    }*/
+                   if(randomNo <=c){
+                        checkbox.style.accentColor = hsl_col_perc(100-randomNo/colsInput.value*100, 0, 120);
+                   }
                     
                 }
                 renderEle.appendChild(document.createElement("br"));
             }
         };
         render();
-
-        setInterval(render, 1000);
-
-
-        
     </script>
 </body>
 </html>
