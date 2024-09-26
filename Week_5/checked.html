@@ -19,12 +19,12 @@
     <div>
         <label>
             Rows
-            <input id="rows" type="number" value="2">
+            <input id="rows" type="number" value="32">
         </label>
         <br>
         <label>
             Cols
-            <input id="cols" type="number" value="2">
+            <input id="cols" type="number" value="20">
         </label>
         <br>
         <label>
@@ -80,16 +80,13 @@
                     console.log(randomNo, colIndex, hsl_col_perc(100 - randomNo / colsInput.value * 100, 0, 120))
                     if (randomNo >= colIndex) {
                         checkbox.style.backgroundColor =  hsl_col_perc(100 - randomNo / colsInput.value * 100, 0, 120);
+
                     }
                 }
                 renderEle.appendChild(document.createElement('br'));
             }
             
-        }
-
-
-        
-        
+        }        
     </script>
 </body>
 </html>
