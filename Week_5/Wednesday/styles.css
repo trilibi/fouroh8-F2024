@@ -1,0 +1,19 @@
+body {
+    font-family: "Roboto Mono", monospace;
+    background-color: black;
+    color: white;
+    width: 80%;
+    margin: auto;
+    padding-top: 5%;
+    padding-bottom: 5%
+}
+#render {
+    background-color: #373737;
+    padding: 20px;
+    line-height: 0;
+}
+.square {
+    /*hah its a square but it's a circle :3   silly aah */
+    display: inline-block;
+    border-radius: 50%;
+}

@@ -4,18 +4,7 @@
     <meta charset="UTF-8">
     <title>woaw, mnay colrors</title>
     <meta name="author" content="Nova Solarz">
-
-    <style>
-        body {
-            font-family: "Roboto Mono", monospace;
-            background-color: black;
-            color: white;
-        }
-        #render {
-            background-color: #373737;
-            padding: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div>
@@ -32,6 +21,21 @@
         <label>
             Speed
             <input id="rangeInp" type="range" value="4" min="50" max="2000" step="50">
+        </label>
+        <br>
+        <label>
+            Size
+            <input id="sizeInput" type="number" value="20">
+        </label>
+        <br>
+        <label>
+            Theme
+            <select name="themeSelect" id="themeSelect">
+                <option value="">None</option>
+                <option value="rainbow">Rainbow</option>
+                <option value="opacity">Opacity</option>
+                <option value="heatmap">Heatmap</option>
+            </select>
         </label>
     </div>
 
