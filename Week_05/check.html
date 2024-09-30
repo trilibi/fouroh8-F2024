@@ -16,6 +16,7 @@
 
         #render {
             padding: 20px;
+            line-height: 0%;
         }
     </style>
 </head>
@@ -36,6 +37,21 @@
             Speed
             <input id="rangeInput" type="range" value="1000" min="50" max="2000" step="50">
         </label>
+        <br>
+        <label>
+            Size
+            <input id="sizeinput" type="number" value="20">
+        </label>
+        <br>
+        <label for="themeselect">
+            Theme
+            <select name="themeselect" id="themeselect">
+                <option value="">None</option>
+                <option value="rainbow">Rainbow</option>
+                <option value="opacity">Opacity</option>
+                <option value="heatmap">Heatmap</option>
+            </select>
+        </label>
     </div>
 
 <div>
@@ -52,13 +68,15 @@
             b = (end - start) * a,
             c = b + start;
             return 'hsl(' + c + ', 100%, 50%)';
-  }
-
+        }
 
         var rowsInput = document.getElementById('rows');
         var colsInput = document.getElementById('cols');
         var renderEle = document.getElementById('render');
         var rangeInput = document.getElementById('rangeInput');
+        var sizeinputEle = document.getElementById('sizeinput');
+        var themeselectEle = document.getElementById('themeselect');
+        var selectedTheme = null;
 
         rowsInput.addEventListener('change', function() {
             console.log(rowsInput.value);
@@ -75,25 +93,35 @@
             renderInterval = setInterval(render, e.target.value);
         });
 
+        themeselectEle.addEventListener('change', function(e) {
+            console.log(e.target.options[e.target.selectedIndex].value);
+            selectedTheme = e.target.options[e.target.selectedIndex].value
+        });
+
         function render() {
             //console.log('RENDER', rowsInput.value, colsInput.value, rangeInput.value);
             // This emties the render every second
             renderEle.innerHTML = '';
-
-
             for (var r = 1; r <= rowsInput.value; r++) {
                 for (var c = 1; c <= colsInput.value; c++) {
                     var checkbox = document.createElement('input');
                     checkbox.type = 'checkbox';
                     checkbox.checked = true;
+                    checkbox.style.width = sizeinputEle.value + 'px'
+                    checkbox.style.height = sizeinputEle.value + 'px'
+                    
                     renderEle.appendChild(checkbox);
                     var randomNum = Math.floor(Math.random()*colsInput.value);
-                    if (randomNum >= c)
-                        checkbox.style.accentColor = hsl_col_perc(c + 1 / colsInput.value * 100, 0, 360);
-
-                    //Use cieling or floor to round the number
-                }
-                renderEle.appendChild(document.createElement('br'));
+                    if (randomNum >= c){
+                        checkbox.style.accentColor = 'green';
+                    }else if(selectedTheme =='rainbow') {
+                        checkbox.style.accentColor = hsl_col_perc((c + 1) / colsInput.value * 100, 0, 360);
+                    }else if(selectedTheme =='opacity') {
+                        checkbox.style.accentColor = 'lime'
+                    }else if(selectedTheme =='heatmap') {
+                        checkbox.style.accentColor = hsl_col_perc(100 - randomNum / colsInput.value * 100, 0, 120);
+                    }
+                }renderEle.appendChild(document.createElement('br'));
             }
 
         }
