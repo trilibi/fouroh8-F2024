@@ -12,9 +12,13 @@
         #render {
             background-color: darkslateblue;
             padding: 20px;
+            line-height: 0;
         }
         label {
             color: salmon;
+        }
+        .square {
+            display: inline-block;
         }
     </style>
 </head>
@@ -34,6 +38,22 @@
             Speed
             <input id="rangeSpd" type="range" value="1000" min="50" max="2000" step="50" />
         </label>
+    </br>
+        <label>
+            Size
+            <input id="sizeInput" type="number" value="20">
+        </label>
+    </br>
+        <label for="themeSelect">
+            Theme
+            <select name="themeSelect" id="themeSelect">
+                <option value="">None</option>
+                <option value="rainbow">Rainbow</option>
+                <option value="opacity">Opcaity</option>
+                <option value="heatmap">Heatmap</option>
+                
+            </select>
+        </label>
     </div>
     <div id="render">
         
@@ -45,6 +65,9 @@
         var cols_input = document.getElementById("cols");
         var render_ele = document.getElementById("render");
         var range_input = document.getElementById("rangeSpd");
+        var sizeInput = document.getElementById("sizeInput");
+        var themeSelectEle = document.getElementById("themeSelect");
+        var selectedTheme =  null;
 
         console.log(rows_input.value);
         console.log(cols_input.value);
@@ -66,29 +89,81 @@
             renderInterval = setInterval(render, e.target.value)
         });
 
+        themeSelectEle.addEventListener("change", function (e) {
+            //console.log(e.target);
+            selectedTheme = e.currentTarget.options[e.target.selectedIndex].value;
+            console.log(selectedTheme);
+        });
+
+        const hsl_col_perc = (percent, start, end) => {
+            const a = percent / 100,
+            b = (end - start) * a,
+            c = b + start;
+            return 'hsl(' + c + ', 100%, 50%)';
+        }
+
+        function renderSquare(c, colCount, r, rowCount, ran_num) {
+            var element = document.createElement("input");
+            element.className = 'square';
+            element.style.width = sizeInput.value + 'px';
+            element.style.height = sizeInput.value + 'px';
+
+
+            if (selectedTheme == 'rainbow') {
+                element.style.backgroundColor = hsl_col_perc((c + 1) / colCount * 100, 0, 360);
+            } else if (selectedTheme == 'opacity') {
+                element.style.opacity = (c + 1) / colCount;
+            } else if (selectedTheme == 'heatmap') {
+                element.style.backgroundColor = hsl_col_perc(100 - ran_num / colCount * 100, 0, 120);
+            } else {
+
+                //console.log(checkbox.value);
+                        
+                if (ran_num >= c) {
+                    element.style.accentColor = '#ff0000';
+                }
+            }
+            return element;
+        }
+
+        function renderCheckbox(c, colCount, r, rowCount, ran_num) {
+            var checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.checked = true;
+                    checkbox.style.width = sizeInput.value + 'px';
+                    checkbox.style.height = sizeInput.value + 'px';
+                    if (selectedTheme == 'rainbow') {
+                        checkbox.style.accentColor = hsl_col_perc((c + 1) / colCount * 100, 0, 360);
+                    } else if (selectedTheme == 'opacity') {
+                        checkbox.style.opacity = (c + 1) / colCount;
+                    } else if (selectedTheme == 'heatmap') {
+                        checkbox.style.accentColor = hsl_col_perc(100 - ran_num / colCount * 100, 0, 120);
+                    } else {
+
+                        //console.log(checkbox.value);
+                        
+                        if (ran_num >= c) {
+                            checkbox.style.accentColor = '#ff0000';
+                        }
+                    }
+                    return checkbox;
+        }
+
         function render() {
             //console.log("RENDER");
             //console.log(rows_input.value, cols_input.value);
             render_ele.innerHTML = '';
 
             
-
+            var colCount = cols_input.value;
+            var rowCount = rows_input.value; 
             for (var r = 1; r <= rows_input.value; r++) {
                 //console.log(r);
+                var ran_num = Math.floor(Math.random()*colCount);
                 for (var c = 1; c <= cols_input.value; c++) {
                     //console.log(c);
-                    var checkbox = document.createElement("input");
-                    checkbox.type = "checkbox";
-                    checkbox.checked = true;
-                    render_ele.appendChild(checkbox);
-                    //console.log(checkbox.value);
-                    
-
-                    var ran_num = Math.floor(Math.random()*cols_input.value);
-                    if (ran_num >= cols_input) {
-                        checkbox.style.accentColor = '#ff0000';
-                    }
-                    
+                    var element = renderSquare(c, colCount, r, rowCount, ran_num);
+                    render_ele.appendChild(element);
                 } 
                 render_ele.appendChild(document.createElement("br"));
             }
