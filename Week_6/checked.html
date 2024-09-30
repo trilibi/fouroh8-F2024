@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQish</title>
+
+    <style>
+        body {
+            background: black;
+            color: salmon;
+        }
+        #render {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label>
+            Rows
+            <input id="rows" type="number" value="4">
+        </label>
+        <br>
+        <label>
+            Cols
+            <input id="cols" type="number" value="4">
+        </label>
+        <br>
+        <label>
+            Speed
+            <input id="rangeInput" type="range" value="1000" min="50" max="2000" step="50">
+        </label>
+        <br>
+        <label>
+            Size
+            <input id="sizeInput" type="number" value="20">
+        </label>
+        <label for="themeSelect">
+            <select name="themeSelect" id="themeSelect">
+                <option value="">None</option>
+                <option value="rainbow">Rainbow</option>
+                <option value="opacity">Opacity</option>
+                <option value="heatmap">Heatmap</option>
+            </select>
+        </label>
+    </div>
+    <div id="render">
+    </div>
+    <script>
+        const hsl_col_perc = (percent, start, end) => {
+            const a = percent / 100,
+            b = (end - start) * a,
+            c = b + start;
+            return 'hsl(' + c + ', 100%, 50%)';
+        }
+
+        var rowsInput = document.getElementById('rows');
+        var colsInput = document.getElementById('cols');
+        var rangeInput = document.getElementById('rangeInput');
+        var renderEle = document.getElementById('render');
+        var sizeInputEle = document.getElementById('sizeInput');
+        var themeSelectEle = document.getElementById('themeSelect');
+        var selectedTheme = null;
+
+        rowsInput.addEventListener('change', function() {
+            console.log(rowsInput.value);
+        });
+
+        colsInput.addEventListener('change', function(e) {
+            console.log(e.target.value);
+        });
+
+        var renderInterval = setInterval(render, 1000);
+        rangeInput.addEventListener('change', function(e) {
+            console.log(e.target.value);
+            clearInterval(renderInterval);
+            renderInterval = setInterval(render, e.target.value);
+        });
+
+        themeSelectEle.addEventListener('change', function(e) {
+            console.log(e.target.options[e.target.selectedIndex].value);
+            selectedTheme = e.target.options[e.target.selectedIndex].value
+        });
+
+        function renderSquare(colIndex, colCount, rowIndex, rowCount, randomNo) {
+            var element = document.createElement('div');
+            element.style.display = 'inLine-block';
+            element.style.width = sizeInputEle.value + 'px';
+            element.style.height = sizeInputEle.value + 'px';
+            
+            if (randomNo >= colIndex) {
+                if (!selectedTheme) {
+                    element.style.backgroundColor = 'chartreuse';
+                }else if (selectedTheme == 'rainbow') {
+                    element.style.backgroundColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
+                }else if (selectedTheme == 'opacity') {
+                    element.style.backgroundColor = 'chartreuse';
+                    element.style.opacity = (colIndex + 1) / colCount;
+                }else if (selectedTheme == 'heatmap') {
+                    element.style.backgroundColor =  hsl_col_perc(100 - randomNo / colCount * 100, 0, 120);
+                }
+            }
+                    
+            return element
+        }
+
+        function render() {
+            renderEle.innerHTML = '';
+            var rowCount = rowsInput.value;
+            var colCount = colsInput.value;
+            
+            for (var rowIndex = 1; rowIndex <= rowCount; rowIndex++) {
+                for (var colIndex = 1; colIndex <= colCount; colIndex++) {
+                    var randomNo = Math.floor(Math.random()*colsInput.value);
+                    var element = renderSquare(colIndex, colCount, rowIndex, rowCount, randomNo);
+                    renderEle.appendChild(element);
+                }
+                renderEle.appendChild(document.createElement('br'));
+            }
+            
+        }        
+    </script>
+</body>
+</html>
