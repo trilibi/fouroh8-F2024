@@ -14,6 +14,10 @@
         }
         #render {
             padding: 20px;
+            line-height: 0;
+        }
+        .square {
+            display: inline-block
         }
     </style>
 </head>
@@ -33,6 +37,21 @@
             Speed
             <input id="rangeInput" type="range" value="1000" min="50" max="2000" step="50">
         </label>
+        <br>
+        <label>
+            Size
+            <input id="sizeInput" type="number" value="20">
+        </label>
+        <br>
+        <label for="'themeSelect">
+            Theme
+            <select name ="themeSelect" id="themeSelect">
+            <option value = "">None</option>
+            <option value = "Rainbow">Rainbow</option>
+            <option value = "Opacity">Opacity</option>
+            <option value = "Heatmap">Heatmap</option>
+            </select>
+        </label>
     </div>
     <div id="render">
 
@@ -51,6 +70,9 @@
         var colsInput = document.getElementById('cols')
         var renderEle = document.getElementById('render')
         var rangeInput = document.getElementById('rangeInput')
+        var sizeInputEle = document.getElementById('sizeInput')
+        var themeSelectEle = document.getElementById('themeSelect')
+        var selectedTheme = null
 
         
         rowsInput.addEventListener('change', function() {
@@ -70,21 +92,69 @@
             renderInterval = setInterval(render, e.target.value)
         })
 
-        function render() {
-            console.log('RENDER', rangeInput.value)
-            console.log(rowsInput.value, colsInput.value)
-            renderEle.innerHTML = ''
-            
-            for (var r = 1; r <= rowsInput.value; r++) {
-                for (var c = 1; c <= colsInput.value; c++) {
-                    var checkbox = document.createElement('input')
+        themeSelectEle.addEventListener('change', function(e) {
+            selectedTheme = e.target.options[e.target.selectedIndex].value
+            console.log(e.target.selectedIndex)
+        })
+
+        function renderSquare(colIndex, colCount, rowIndex, rowCount, rand) {
+            var element = document.createElement('div')
+            element.className = 'square'
+                    element.style.width = sizeInputEle + 'px'
+                    element.style.height = sizeInputEle + 'px'
+                    renderEle.appendChild(element)
+                    var randomNo = Math.floor(Math.random()*colsInput.value)
+                    
+                    if (rand >= colIndex){
+                        if (!selectedTheme) {
+                            element.style.backgroundColor = 'chartruse'
+                        } 
+                        else if(selectedTheme === 'Rainbow') {
+                            element.style.backgroundColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
+                        } else if(selectedTheme === 'Opacity') {
+                            element.style.opacity = (colIndex + 1) / colCount;  
+                        }
+                        else if(selectedTheme === 'Heatmap') {
+                            element.style.backgroundColor = hsl_col_perc(100 - rand / colCount * 100, 0, 120);
+                        }
+                    }
+                    return element
+        }
+        function renderCheckbox(colIndex, colCount, rowIndex, rowCount, rand) {
+            var checkbox = document.createElement('input')
                     checkbox.type = 'checkbox'
                     checkbox.checked = true
+                    checkbox.style.width = sizeInputEle + 'px'
+                    checkbox.style.height = sizeInputEle + 'px'
                     renderEle.appendChild(checkbox)
                     var randomNo = Math.floor(Math.random()*colsInput.value)
-                    if (randomNo >= c) {
-                        checkbox.style.accentColor = hsl_col_perc((100 - randomNo / colsInput.value * 100, 0, 120))
+                    
+                    if (rand >= colIndex){
+                        if (!selectedTheme) {
+                            checkbox.style.accentColor = 'chartruse'
+                        } 
+                        else if(selectedTheme === 'Rainbow') {
+                            checkbox.style.accentColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
+                        }
+                        else if(selectedTheme === 'Opacity') {
+                            checkbox.style.opacity = (colIndex + 1) / colCount;  
+                        }
+                        else if(selectedTheme === 'Heatmap') {
+                            checkbox.style.accentColor = hsl_col_perc(100 - rand / colCount * 100, 0, 120);
+                        }
                     }
+                    return checkbox
+        }
+        function render() {
+            renderEle.innerHTML = ''
+            var rowCount = rowsInput.value
+            var colCount = colsInput.value
+            
+            for (var rowIndex = 1; rowIndex <= rowCount; rowIndex++) {
+                var rand = Math.floor(Math.random() * colCount)
+                for (var colIndex = 1; colIndex <= colCount; colIndex++) {
+                    var element = renderSquare(colIndex, colCount, rowIndex, rowCount, rand)
+                    renderEle.appendChild(element)
                 }
                 renderEle.appendChild(document.createElement('br'))
             }
