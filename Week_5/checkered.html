@@ -31,6 +31,25 @@
             Columns
             <input id="columns" type="number" value="4">
         </label>
+
+        <br>
+
+        <label>
+            Size
+            <input id="sizeinput" type="number" value="20">
+        </label>
+        <label for="themeselect">
+
+            <br>
+
+            Theme
+            <select name="themeselect" id="themeselect">
+                <option value="">None</option>
+                <option value="rainbow">Rainbow</option>
+                <option value="opacity">Opacity</option>
+                <option value="heatmap">Heatmap</option>
+            </select>
+        </label>
     </div>
 
     <div id="render">
@@ -44,6 +63,8 @@
         var columns_input = document.getElementById('columns')
         var render_element = document.getElementById('render')
         var range_input = document.getElementById('range')
+        var size_input = document.getElementById('sizeInput')
+        var theme_input = document.getElementById('themeSelect')
 
         console.log(rows_input.value)
         rows_input.addEventListener('change', function() {
@@ -63,14 +84,16 @@
 
             for (var r = 1; r <= rows_input.value; r++) {
                 for (var c = 1; c <= columns_input.value; c++) {
-                var checkbox = document.createElement('input')
-                checkbox.type = 'checkbox'
-                checkbox.checked = true
-                checkbox.style.accentColor = 'white'
-                render_element.appendChild(checkbox)
-                var random_number = Math.floor(Math.random()*columns_input.value)
-                if (random_number >= c){
-                    checkbox.style.accentColor = 'red'
+                    var checkbox = document.createElement('input')
+                    checkbox.type = 'checkbox'
+                    checkbox.checked = true
+                    checkbox.style.accentColor = 'white'
+                    checkbox.style.width = sizeinput.value + 'px'
+                    checkbox.style.height = sizeinput.value + 'px'
+                    render_element.appendChild(checkbox)
+                    var random_number = Math.floor(Math.random()*columns_input.value)
+                    if (random_number >= c){
+                        checkbox.style.accentColor = 'red'
                     }
                 }
                 render_element.appendChild(document.createElement('br'))
