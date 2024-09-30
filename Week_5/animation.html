@@ -15,8 +15,23 @@
       <label>Cols<input id="cols" type="number" value="4" /></label>
       <br />
       <label
-        ><input id="rangeInput" type="range" value="1000" min="50" max="2000" />
+        >Speed<input
+          id="rangeInput"
+          type="range"
+          value="1000"
+          min="50"
+          max="2000"
+        />
       </label>
+      <label>Size<input id="sizeInput" type="number" value="20" /></label>
+      <label for="themeSelect"
+        ><select name="themeSelect" id="themeSelect">
+          <option value="">None</option>
+          <option value="rainbow">Rainbow</option>
+          <option value="opacity">Opacity</option>
+          <option value="heatmap">Heatmap</option>
+        </select></label
+      >
     </div>
     <!-- div#name  makes a div with id name-->
     <div id="rendering"></div>
