@@ -8,10 +8,13 @@
     <style>
         body {
             background-color: black;
+            color: white;
+
         }
 
         #render {
             padding: 20px;
+            line-height: 0;
         }
 
         .cb {
@@ -20,6 +23,10 @@
             display: inline-block;
         }
 
+        .square {
+            display:inline ;
+            border-radius: 50%;
+        }
     </style>
 </head>
 
@@ -35,8 +42,21 @@
             <input id="cols" type="number" value="4">
         </label>
         <br \>
-            Columns
+            Range
             <input id="range" type="range" value="1000" min="50" max="2000" step="50">
+        </label>
+        <label>
+        <br \>
+            Size
+            <input id="sizeInput" type="number" value="20">
+        </label>
+        <label for="themeSelect">
+            <select name="themeSelect" id="themeSelect">
+                <option value="">None</option>
+                <option value="rainbow">Rainbow</option>
+                <option value="opacity">Opacity</option>
+                <option value="heatmap">Heatmap</option>
+            </select>
         </label>
     </div>
 
@@ -57,8 +77,11 @@
         var rowsInput = document.getElementById('rows');
         var colsInput = document.getElementById('cols');
         var renderEle = document.getElementById('render');
-        var rangeInput = document.getElementById('range')
-        
+        var rangeInput = document.getElementById('range');
+        var sizeInputEle = document.getElementById('sizeInput');
+        var themeSelectEle = document.getElementById('themeSelect');
+        var selectedTheme = null;
+
         rowsInput.addEventListener('change', function() {
             console.log(rowsInput.value);
         });
@@ -73,28 +96,79 @@
             renderInterval = setInterval(render, e.target.value)
         });
 
-        function render() {
-            console.log('RENDER', rowsInput.value, colsInput.value)
-            renderEle.innerHTML = '';
-            for (var rowIndex = 1; rowIndex <= rowsInput.value; rowIndex++) {
-                for (var colIndex = 1; colIndex <= colsInput.value; colIndex++) {
-                    var checkbox = document.createElement('div');
+        themeSelectEle.addEventListener('change', function(e) {
+            console.log(e.target.options[e.target.selectedIndex].value)
+            selectedTheme = e.target.options[e.target.selectedIndex].value
+        });
+        
+        function renderCheckbox(colIndex, colCount, rowIndex, rowCount, rand) {
+            var checkbox = document.createElement('div');
                     checkbox.className = 'cb';
                     checkbox.type = 'checkbox';
                     checkbox.checked = true;
+                    checkbox.style.width = sizeInputEle.value + 'px'      
+                    checkbox.style.height = sizeInputEle.value + 'px'   
                     
-
-                    var randomNo = Math.floor(Math.random() * colsInput.value);
-                    console.log(randomNo, colIndex)
-                    if (randomNo >= colIndex) {
-                        checkbox.style.backgroundColor = hsl_col_perc(100 - randomNo / colsInput.value * 100, 0, 120);
-                        
+                    if (rand >= colIndex) {
+                        checkbox.style.backgroundColor = hsl_col_perc(100 - rand / colsInput.value * 100, 0, 120);      
                     };
-                    renderEle.appendChild(checkbox);
+
+                    if (rand >= colIndex) {
+                        if (!selectedTheme) {
+                            checkbox.style.backgroundColor = "white"
+                        } else if (selectedTheme === "rainbow") {
+                            checkbox.style.backgroundColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
+                        } else if (selectedTheme === "opacity") {
+                            checkbox.style.opacity = (colIndex + 1) / colCount;
+                        } else if (selectedTheme === "heatmap") {
+                            checkbox.style.accentColor = hsl_col_perc(100 - rand / colCount * 100, 0, 120);
+                        }
+                    }
+                    console.log(selectedTheme)
+                return checkbox;
+        };
+
+        function renderSquare(colIndex, colCount, rowIndex, rowCount, rand) {
+            var element = document.createElement('div');
+            element.style.width = sizeInputEle.value + 'px'      
+            element.style.height = sizeInputEle.value + 'px'   
+
+            if (rand <= colIndex) {
+                element.style.backgroundColor = hsl_col_perc(100 - rand / colsInput.value * 100, 0, 120);      
+            };
+
+            if (rand >= colIndex) {
+                if (!selectedTheme) {
+                    element.style.backgroundColor = "white"
+                } else if (selectedTheme === "rainbow") {
+                    element.style.backgroundColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
+                } else if (selectedTheme === "opacity") {
+                    element.style.opacity = (colIndex + 1) / colCount;
+                } else if (selectedTheme === "heatmap") {
+                    element.style.backgroundColor = hsl_col_perc(100 - rand / colCount * 100, 0, 120);
+                }
+            }
+            return element;
+        }
+
+        function render() {
+            renderEle.innerHTML = '';
+            var colCount = colsInput.value;
+            var rowCount = rowsInput.value;
+            console.log(selectedTheme) 
+            for (var rowIndex = 1; rowIndex <= rowsInput.value; rowIndex++) {
+                
+            var rand = Math.floor(Math.random() * colsInput.value);
+                for (var colIndex = 1; colIndex <= colsInput.value; colIndex++) {
+                    var element = renderCheckbox(colIndex, colCount, rowIndex, rowCount, rand)
+                    
+                    renderEle.appendChild(element);
+        
                 }   
                 renderEle.appendChild(document.createElement('br'));
             }
         }
+            
 
         render();
 
