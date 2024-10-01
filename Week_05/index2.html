@@ -14,7 +14,9 @@
         #render{
             padding: 20px;
         }
-
+        .square{
+            background-color: chartreuse;
+        }
     </style>
 </head>
 <body>
@@ -33,85 +35,97 @@
             speed
             <input id="rangeInput" type = "range" value = "1000" min="1" max = "2000">
         </label>
+        <br/>
+        <label>
+            size
+            <input id="SizeInput" type="number" value="20" >
+        </label>
+        <label for="themeSelect">
+            <select name="themeSelect" id="themeSelect">
+                <option value="None">None</option>
+                <option value="rainbow">rainbow</option>
+                <option value="opacity">opacity</option>
+                <option value="heatmap">Heatmap</option>
+            </select>
+        </label>
     </div>
-
 
     <div id="render">
         hellowww 
     </div>
-  
-  
-  <script>
-        const hsl_col_perc = (percent, start, end) => {
-            const a = percent / 100,
-            b = (end - start) * a,
-            c = b + start;
-            return 'hsl(' + c + ', 100%, 50%)';
-        }
-        //console.log("hellow wensday")
-        var rowsInput = document.getElementById("rows");
-        rowsInput.addEventListener("change",function(){
-            console.log(rowsInput.value);
-        });
 
-        var colsInput = document.getElementById("cols");
-        colsInput.addEventListener("change",function(e){
-            console.log(e.target.value);
-        });
+    <script>
+    var sizeInputEle = document.getElementById("SizeInput");
+    const hsl_col_perc = (percent, start, end) => {
+        const a = percent / 100,
+        b = (end - start) * a,
+        c = b + start;
+        return 'hsl(' + c + ', 100%, 50%)';
+    }
 
-        
-        var randInput = document.getElementById("rangeInput")
-        var renderInterval = setInterval(render,1000);
-        randInput.addEventListener('change',function(e){
-            console.log(e.target.value);
-            clearInterval(renderInterval);
-            renderInterval = setInterval(render,e.target.value);
-        })
-
-
-        var renderEle = document.getElementById("render");
-        function render() {
-            
-            renderEle.innerHTML = '';
-            /*
-            var checkbox = document.createElement("input")
-            checkbox.type = "checkbox"
-            checkbox.checked = true;
-            */
-        
-            
-            for(var r = 0; r<= rowsInput.value; r++){
-                
-                for(var c= 0; c<= colsInput.value; c++){
-                    console.log(r,c)
-                    var checkbox = document.createElement("input")
-                    checkbox.type = "checkbox"
-                    /*if((c+r)%2 ==0 ){
-                        checkbox.checked = true;
-                    }
-                    else{
-                        checkbox.checked = false;
-                    }*/
-                   checkbox.checked = true;
-                    checkbox.style.accentColor = "salmon"
-                    renderEle.appendChild(checkbox);
-
-                    var randomNo = Math.floor(Math.random()*colsInput.value);
-                    /*if(randomNo <= colsInput.vlaue){
-                        checkbox.style.accentColor = "salmon"
-                    }
-                    else{
-                        checkbox.style.accentColor = "blue"
-                    }*/
-                   if(randomNo <=c){
-                        checkbox.style.accentColor = hsl_col_perc(100-randomNo/colsInput.value*100, 0, 120);
-                   }
-                    
-                }
-                renderEle.appendChild(document.createElement("br"));
-            }
-        };
+    var rowsInput = document.getElementById("rows");
+    rowsInput.addEventListener("change", function() {
+        console.log(rowsInput.value);
         render();
-    </script>
+    });
+
+    var colsInput = document.getElementById("cols");
+    colsInput.addEventListener("change", function(e) {
+        console.log(e.target.value);
+        render();
+    });
+
+    var selectedTheme = "None";
+    var themeSelect = document.getElementById("themeSelect");
+    themeSelect.addEventListener("change", function(e) {
+        selectedTheme = e.target.value;
+        console.log(selectedTheme);
+        render();
+    });
+
+    var randInput = document.getElementById("rangeInput");
+    var renderInterval = setInterval(render, 1000);
+    randInput.addEventListener('change', function(e) {
+        console.log(e.target.value);
+        clearInterval(renderInterval);
+        renderInterval = setInterval(render, e.target.value);
+    });
+
+    function rendercheckbox(colIndex, colCount, rowIndex, rowCount, rand) {
+        var checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = true;
+        checkbox.className = "square"; // Add the square class
+        checkbox.style.width = sizeInputEle.value + "px";
+        checkbox.style.height = sizeInputEle.value + "px";
+        if (rand <= colCount) {
+            if (selectedTheme === "rainbow") {
+                checkbox.style.accentColor = hsl_col_perc((colCount + 1) / colsInput.value * 100, 0, 360);
+            } else if (selectedTheme === "opacity") {
+                checkbox.style.opacity = (colCount + 1) / colsInput.value;
+            } else if (selectedTheme === "heatmap") {
+                checkbox.style.accentColor = hsl_col_perc(100 - colCount / colsInput.value * 100, 0, 120);
+            }
+        }
+        return checkbox;
+    }
+
+    var renderEle = document.getElementById("render");
+
+    function render() {
+        renderEle.innerHTML = '';
+        var rowCount = rowsInput.value;
+        var colCount = colsInput.value;
+        for (var r = 0; r < rowCount; r++) {
+            var rand = Math.floor(Math.random() * colCount);
+            for (var c = 0; c < colCount; c++) {
+                var element = rendercheckbox(colCount, r, c, rand);
+                renderEle.appendChild(element);
+            }
+            renderEle.appendChild(document.createElement("br"));
+        }
+    }
+    render();
+</script>
 </body>
 </html>
