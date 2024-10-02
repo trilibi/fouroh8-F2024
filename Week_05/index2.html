@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EQish</title>
     <style>
-        body{
+        body {
             background-color: black;
         }
-        label{
+        label {
             color: salmon;
         }
-        #render{
+        #render {
             padding: 20px;
         }
-        .square{
+        .square {
             background-color: chartreuse;
+            display: inline-block;
         }
     </style>
 </head>
@@ -28,30 +29,30 @@
         <br/>
         <label>
             Cols
-            <input id="cols" type="number" value="10" >
+            <input id="cols" type="number" value="10">
         </label>
         <br>
-        <label >
-            speed
-            <input id="rangeInput" type = "range" value = "1000" min="1" max = "2000">
+        <label>
+            Speed
+            <input id="rangeInput" type="range" value="1000" min="1" max="2000">
         </label>
         <br/>
         <label>
-            size
-            <input id="SizeInput" type="number" value="20" >
+            Size
+            <input id="SizeInput" type="number" value="20">
         </label>
         <label for="themeSelect">
             <select name="themeSelect" id="themeSelect">
                 <option value="None">None</option>
-                <option value="rainbow">rainbow</option>
-                <option value="opacity">opacity</option>
+                <option value="rainbow">Rainbow</option>
+                <option value="opacity">Opacity</option>
                 <option value="heatmap">Heatmap</option>
             </select>
         </label>
     </div>
 
     <div id="render">
-        hellowww 
+        hellowww
     </div>
 
     <script>
@@ -98,18 +99,56 @@
         checkbox.className = "square"; // Add the square class
         checkbox.style.width = sizeInputEle.value + "px";
         checkbox.style.height = sizeInputEle.value + "px";
-        if (rand <= colCount) {
+        if (rand <= colIndex) {
             if (selectedTheme === "rainbow") {
-                checkbox.style.accentColor = hsl_col_perc((colCount + 1) / colsInput.value * 100, 0, 360);
+                checkbox.style.accentColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
             } else if (selectedTheme === "opacity") {
-                checkbox.style.opacity = (colCount + 1) / colsInput.value;
+                checkbox.style.opacity = (colIndex + 1) / colCount;
             } else if (selectedTheme === "heatmap") {
-                checkbox.style.accentColor = hsl_col_perc(100 - colCount / colsInput.value * 100, 0, 120);
+                checkbox.style.accentColor = hsl_col_perc(100 - colIndex / colCount * 100, 0, 120);
             }
         }
         return checkbox;
     }
+    function renderSquare(colIndex, colCount, rowIndex, rowCount, rand) {
+    var square = document.createElement("div");
+    square.className = "square";
+    square.style.width = sizeInputEle.value + "px";
+    square.style.height = sizeInputEle.value + "px";
+    if (rand <= colIndex) {
+        if (selectedTheme === "rainbow") {
+            square.style.backgroundColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
+        } else if (selectedTheme === "opacity") {
+            square.style.opacity = (colIndex + 1) / colCount;
+        } else if (selectedTheme === "heatmap") {
+            square.style.backgroundColor = hsl_col_perc(100 - colIndex / colCount * 100, 0, 120);
+        }
+    }
+    return square;
+    }
+    function renderSquare(colIndex, colCount, rowIndex, rowCount, rand) {
+        var square = document.createElement("div");
+        square.className = "square";
+        square.style.width = sizeInputEle.value + "px";
+        square.style.height = sizeInputEle.value + "px";
 
+        if (rand > colIndex) {
+            if (selectedTheme === "rainbow") {
+                square.style.backgroundColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
+            } else if (selectedTheme === "opacity") {
+                square.style.opacity = (colIndex + 1) / colCount;
+            } else if (selectedTheme === "heatmap") {
+                square.style.backgroundColor = hsl_col_perc(100 - colIndex / colCount * 100, 0, 120);
+            } else {
+                square.style.backgroundColor = "chartreuse";
+            }
+        } else {
+            // 색칠되지 않은 사각형의 배경색을 기본값으로 설정
+            square.style.backgroundColor = "transparent";
+        }
+
+        return square;
+    }
     var renderEle = document.getElementById("render");
 
     function render() {
@@ -119,13 +158,13 @@
         for (var r = 0; r < rowCount; r++) {
             var rand = Math.floor(Math.random() * colCount);
             for (var c = 0; c < colCount; c++) {
-                var element = rendercheckbox(colCount, r, c, rand);
+                var element = renderSquare(c, colCount, r, rowCount, rand);
                 renderEle.appendChild(element);
             }
             renderEle.appendChild(document.createElement("br"));
         }
     }
     render();
-</script>
+    </script>
 </body>
 </html>
