@@ -11,12 +11,12 @@
     <script crossorigin src = "https://unpkg.com/babel-standalone@6/babel.js"></script>
 
     <script type="text/babel">
-        function HelloWorld() {
-            return <h1>Hello World</h1>;
+        function HelloWorld(props) {
+            return <h1>Hello World, {props.name}! I am {props.age} years old today!</h1>;
         }
 
         ReactDOM.render(
-            <HelloWorld/>,
+            <HelloWorld name="Carson" age="46"/>,
             document.getElementById("root")
         );
     </script>
