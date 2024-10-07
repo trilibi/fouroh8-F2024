@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Lite</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+
+    <script type="text/babel">
+
+        function HowManySeconds(props) {
+            console.log(props)
+            var secondsOld = props.days * 24 * 60 * 60;
+            return <em> {secondsOld} days old.</em>
+        }
+
+        function HowManyDays(props) {
+            console.log(props)
+            var daysOld = props.years * 365;
+            return <strong> {daysOld} days old. <HowManySeconds days={daysOld}/></strong>
+        }
+
+        function HelloWorld(props) {
+            console.log(props);
+            return <h1>Hello World, {props.name}! I am {props.age} years old.
+                <HowManyDays years={props.age}/>
+                </h1>
+        }
+
+        ReactDOM.render(
+            <div>
+                <HelloWorld name="Jer" age="46" />
+                <HelloWorld name="Jerry" age="17" />
+                <HelloWorld name="Jeremiah" age="8" />
+                
+            </div>,
+            document.getElementById("root")
+        );
+    </script>
+</body>
+</html>
