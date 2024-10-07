@@ -30,6 +30,10 @@
     <script>
         console.log('Hello')
 
+        var name = window.localStorage.getItem('name')
+
+        console.log(name)
+
         var rowsInput = document.getElementById('rows');
         var colsInput = document.getElementById('rows');
         var renderEle = document.getElementById('render');
