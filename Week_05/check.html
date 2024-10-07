@@ -56,12 +56,33 @@
 
 <div>
     <div id="render">
-        
+Hello
     </div>
 </div>
 
     <script>
-        console.log('Hello There');
+        console.log('Hello World');
+
+        function islocalStorageEmpty(item) {
+            if(!item) {
+                return true;
+            }
+            if(item == 'null'){
+                return true 
+            }
+           
+            return false;
+        }
+
+        var name = window.localStorage.getItem('name');
+
+
+        if(islocalStorageEmpty(name)) {
+            console.log('missing')
+            window.localStorage.setItem('name', 'Tree')
+        }
+        name = window.localStorage.getItem('name');
+        console.log(name);
 
         const hsl_col_perc = (percent, start, end) => {
             const a = percent / 100,
@@ -78,9 +99,20 @@
         var themeselectEle = document.getElementById('themeselect');
         var selectedTheme = null;
 
-        rowsInput.addEventListener('change', function() {
+        rowsInput.addEventListener('change', function(e) {
             console.log(rowsInput.value);
+            window.localStorage.setItem('row_value', rowsInput.value);
         });
+        rowsInput.value = window.localStorage.getItem('row_value');
+
+
+        var nameObject = {
+            name: "Trin",
+            age: 22
+        }
+        console.log(JSON.stringify(nameObject));
+        window.localStorage.setItem('name_object', JSON.stringify(nameObject));
+        
 
         colsInput.addEventListener('change', function(e) {
             console.log(e.target.value);
@@ -97,6 +129,21 @@
             console.log(e.target.options[e.target.selectedIndex].value);
             selectedTheme = e.target.options[e.target.selectedIndex].value
         });
+
+        function styleElement(element, randomNum, colsInput) {
+            if (randomNum >= colsInput){
+                if (randomNum >= c){
+                        element.style.background = 'green';
+                    }else if(selectedTheme =='rainbow') {
+                        element.style.background = hsl_col_perc((c + 1) / colsInput.value * 100, 0, 360);
+                    }else if(selectedTheme =='opacity') {
+                        element.style.background = 'lime'
+                    }else if(selectedTheme =='heatmap') {
+                        element.style.background = hsl_col_perc(100 - randomNum / colsInput.value * 100, 0, 120);
+                    }
+            }
+            return element
+        }
 
         function render() {
             //console.log('RENDER', rowsInput.value, colsInput.value, rangeInput.value);
