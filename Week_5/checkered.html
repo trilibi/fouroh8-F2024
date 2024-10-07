@@ -59,6 +59,26 @@
     <script>
         console.log('bruh')
 
+        function isLocalStorageEmpty(item) {
+            if (!item) {
+                return true
+            }
+            if (item == 'null') {
+                return true
+            }
+            return false
+        }
+
+        var name = window.localStorage.getItem('name')
+        
+        console.log(name)
+        if (isLocalStorageEmpty(name)) {
+            console.log('missing')
+            window.localStorage.setItem('name', 'cooper')
+        }
+        name = window.localStorage.getItem('name')
+        console.log(name)
+
         var rows_input = document.getElementById('rows')
         var columns_input = document.getElementById('columns')
         var render_element = document.getElementById('render')
@@ -69,7 +89,19 @@
         console.log(rows_input.value)
         rows_input.addEventListener('change', function() {
             console.log(rows_input.value)
+            window.localStorage.setItem('row_value', rows_input.value)
         })
+        rows_input.value = window.localStorage.getItem('row_value')
+
+        var nameObject = {
+            name: 'Cooper',
+            age: 21
+        }
+
+        console.log(nameObject)
+        console.log(JSON.stringify(nameObject))
+        window.localStorage.setItem('name_object', JSON.stringify(nameObject))
+        
 
         console.log(columns_input.value)
         columns_input.addEventListener('change', function(e) {
@@ -102,7 +134,7 @@
         }
         render()
 
-        setInterval(render, 50)
+        setInterval(render, 1000)
     </script>
 </body>
 </html>
