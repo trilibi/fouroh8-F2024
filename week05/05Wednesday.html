@@ -34,6 +34,10 @@
 
         console.log(name)
 
+        if (!name) {
+            window.localStorage.setItem('name', 'Carson')
+        }
+
         var rowsInput = document.getElementById('rows');
         var colsInput = document.getElementById('rows');
         var renderEle = document.getElementById('render');
