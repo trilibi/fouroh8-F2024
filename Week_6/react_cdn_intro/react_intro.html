@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Intro</title>
+</head>
+<body>
+    <style>
+        body {
+            font-family: "Roboto Condensed", monospace;
+        }
+    </style>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+    <script type="text/babel">  // this is JSX
+        function HowManyDays(blåhaj) {
+            console.log(blåhaj);
+            let daysOld = blåhaj.years*365
+            return <strong> {daysOld} days old</strong>
+        }
+        function HowManySeconds(yeag) {
+            console.log(yeag);
+            let secsOld = yeag.years * 365 * 24 * 60 * 60;
+            return <em> {secsOld} seconds old</em>
+        }
+
+
+        function HelloWorld(woag) {
+            console.log(woag);
+            return <h1>Hello, World! <br/>Hia, {woag.name} &lt;3 <br/>you be {woag.age} y/o.
+                <HowManyDays years={woag.age}/>
+                <br/>
+                <HowManySeconds years={woag.age}/>
+            </h1>;
+        }
+        // render the component to the DOM
+        ReactDOM.render( // deprecated function -> https://react.dev/blog/2022/03/08/react-18-upgrade-guide#updates-to-client-rendering-apis
+            <div>
+                <HelloWorld name="Nova" age={98} />
+                <HelloWorld name="Charlotte" age={528} />
+            </div>,
+            document.getElementById("root"),
+        );
+    </script>
+</body>
+</html>

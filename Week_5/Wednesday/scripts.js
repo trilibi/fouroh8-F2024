@@ -1,11 +1,28 @@
 /*
 * 2024-09-25T16:40-05:00
 * UPDATE: 2024-09-30T16:45-05:00
+* UPDATE: 2024-10-07T16:45-05:00
 * Nova Solarz ( it / they / she )
 */
 
 /* --- MAIN -----------------------------------------------------------------------------*/
 console.log("woag");
+
+function isLocalStorageEmpty(item) {
+    if (!item) {return true;}
+    // else if (!item) {return false}
+    if (item == 'null') {return true;}
+    return false;
+}
+
+let name = window.localStorage.getItem("name"); // ooh maybe this could be used for site-wide theme switching??? :3c
+console.log(name, isLocalStorageEmpty(name));
+if (isLocalStorageEmpty(name)) {
+    console.log("Empty")
+    window.localStorage.setItem("name", "Nova");
+}
+console.log(name);
+name = window.localStorage.getItem("name");
 
 let rowsInput = document.getElementById("rows");
 let colsInput = document.getElementById("cols");
@@ -18,10 +35,26 @@ let selectedTheme = null;
 
 rowsInput.addEventListener("change", function(e) {
     console.log(e.target.value);
+    window.localStorage.setItem("rowsValue", rowsInput.value);
 });
-colsInput.addEventListener("change", function(e) {
+rowsInput.value = window.localStorage.getItem("rowValue");
+
+console.log('=============')
+let nameObj = {
+    name: 'Nova',
+    age: '1000'
+}
+console.log(nameObj);
+console.log(JSON.stringify(nameObj));
+window.localStorage.setItem("nameObj", JSON.stringify(nameObj));
+
+
+
+colsInput.addEventListener("change", function() {
     console.log(colsInput.value);
+    window.localStorage.setItem("colsValue", colsInput.value);
 });
+colsInput.value = window.localStorage.getItem("colsValue");
 
 let renderInterval = setInterval(render, 500);
 rangeInput.addEventListener("change", function(e) {
@@ -45,24 +78,46 @@ const hsl_col_perc = (percent, start, end) => {
     return 'hsl(' + c + ', 100%, 50%)';
 }
 
+function styleElement(element, randInt, colIndex, colCount) {
+    if(randInt >= colIndex) {
+        if (!selectedTheme) {
+            //    if theme is null
+            element.style.backgroundColor = "chartreuse"
+            element.style.accentColor = "chartruese"
+        } else if (selectedTheme === "rainbow") {
+            element.style.backgroundColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
+            element.style.accentColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
+        } else if (selectedTheme === "opacity") {
+            element.style.backgroundColor = "deeppink";
+            element.style.accentColor = "chartruese"
+            element.style.opacity = ((colIndex + 1) / colCount).toString();
+        } else if (selectedTheme === "heatmap") {
+            element.style.backgroundColor = hsl_col_perc(100 - randInt / colCount * 100, 0, 120);
+            element.style.accentColor = hsl_col_perc(100 - randInt / colCount * 100, 0, 120);
+        }
+    }
+    return element;
+}
+
 function renderSquare(colIndex, colCount, randInt, rowIndex, rowCount) {
     let element = document.createElement("div");
     element.className = "square";
     element.style.width = sizeInput.value + "px";
     element.style.height = sizeInput.value + "px";
 
-    if(randInt >= colIndex) {
-        if (!selectedTheme) {
-            //    if theme is null
-            element.style.backgroundColor = "chartreuse"
-        } else if (selectedTheme === "rainbow") {
-            element.style.backgroundColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
-        } else if (selectedTheme === "opacity") {
-            element.style.backgroundColor = ((colIndex + 1) / colCount).toString();
-        } else if (selectedTheme === "heatmap") {
-            element.style.backgroundColor = hsl_col_perc(100 - randInt / colCount * 100, 0, 120);
-        }
-    }
+    // if(randInt >= colIndex) {
+    //     if (!selectedTheme) {
+    //         //    if theme is null
+    //         element.style.backgroundColor = "chartreuse"
+    //     } else if (selectedTheme === "rainbow") {
+    //         element.style.backgroundColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
+    //     } else if (selectedTheme === "opacity") {
+    //         element.style.backgroundColor = ((colIndex + 1) / colCount).toString();
+    //     } else if (selectedTheme === "heatmap") {
+    //         element.style.backgroundColor = hsl_col_perc(100 - randInt / colCount * 100, 0, 120);
+    //     }
+    // }
+    element = styleElement(element, randInt, colIndex, colCount);
     return element;
 }
 
@@ -74,18 +129,19 @@ function renderCheckbox(colIndex, colCount, randInt, rowIndex, rowCount) {
     checkbox.style.width = sizeInput.value + "px";
     checkbox.style.height = sizeInput.value + "px";
 
-    if(randInt >= colIndex) {
-        if (!selectedTheme) {
-            //    if theme is null
-            checkbox.style.accentColor = "deeppink"
-        } else if (selectedTheme === "rainbow") {
-            checkbox.style.accentColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
-        } else if (selectedTheme === "opacity") {
-            checkbox.style.opacity = ((colIndex + 1) / colCount).toString();
-        } else if (selectedTheme === "heatmap") {
-            checkbox.style.accentColor = hsl_col_perc(100 - randInt / colCount * 100, 0, 120);
-        }
-    }
+    // if(randInt >= colIndex) {
+    //     if (!selectedTheme) {
+    //         //    if theme is null
+    //         checkbox.style.accentColor = "deeppink"
+    //     } else if (selectedTheme === "rainbow") {
+    //         checkbox.style.accentColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
+    //     } else if (selectedTheme === "opacity") {
+    //         checkbox.style.opacity = ((colIndex + 1) / colCount).toString();
+    //     } else if (selectedTheme === "heatmap") {
+    //         checkbox.style.accentColor = hsl_col_perc(100 - randInt / colCount * 100, 0, 120);
+    //     }
+    // }
+    checkbox = styleElement(checkbox, randInt, colIndex, colCount);
     return checkbox;
 }
 
