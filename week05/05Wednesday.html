@@ -32,11 +32,15 @@
 
         var name = window.localStorage.getItem('name')
 
-        console.log(name)
+        console.log(name);
+        console.log(name, name == null);
+        console.log(name, name == undefined);
+        console.log(name, name == false);
 
         if (!name) {
             window.localStorage.setItem('name', 'Carson')
         }
+
 
         var rowsInput = document.getElementById('rows');
         var colsInput = document.getElementById('rows');
