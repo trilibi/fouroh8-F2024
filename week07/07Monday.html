@@ -12,7 +12,9 @@
 
     <script type="text/babel">
         function HelloWorld(props) {
-            return <h1>Hello World, {props.name}! I am {props.age} years old today!</h1>;
+            return <h1>Hello World, {props.name}! I am {props.age} years old today!
+                <HowMnayDays years={props.age} />
+            </h1>;
         }
 
         ReactDOM.render(
