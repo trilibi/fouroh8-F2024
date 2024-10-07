@@ -61,6 +61,27 @@
     <script>
         console.log("Hello world!");
 
+        function isLocalStorageEmpty(item) {
+            if (!item) {
+                return true;
+            }
+            if (item == 'null') {
+                return true;
+            }
+            
+            return false;
+        }
+        
+        var name = window.localStorage.getItem('name');
+        
+        if (isLocalStorageEmpty(name)) {
+            console.log('missing')
+            window.localStorage.setItem('name', 'Carson');
+        }
+
+        name = window.localStorage.getItem('name');
+        console.log(name)
+
         var rows_input = document.getElementById("rows");
         var cols_input = document.getElementById("cols");
         var render_ele = document.getElementById("render");
@@ -74,13 +95,23 @@
 
         rows_input.addEventListener("change", function () {
             console.log("Row input change: " + rows_input.value);
-
+            window.localStorage.setItem('row_value', rows_input.value);
         });
+        rows_input.value = window.localStorage.getItem('row_value');
+
+        var nameObject = {
+            name: "Carson",
+            age: 20
+        };
+        console.log(nameObject)
+        console.log(JSON.stringify(nameObject))
+        window.localStorage.setItem('name_object', JSON.stringify(nameObject));
 
         cols_input.addEventListener("change", function () {
             console.log("Col input change: " + cols_input.value);
-
+            window.localStorage.setItem('col_value', cols_input.value);
         });
+        cols_input.value = window.localStorage.getItem('col_value');
 
         var renderInterval = setInterval(render, 1000);
         range_input.addEventListener("change", function (e) {
@@ -102,27 +133,30 @@
             return 'hsl(' + c + ', 100%, 50%)';
         }
 
+        function styleElement(element, rand, colIndex, colCount) {
+            if (rand >= colIndex) {
+                if (!selectedTheme) {
+                    element.style.backgroundColor = 'chartruese'
+                    element.style.accentColor = 'chartruese'
+                } else if (selectedTheme == 'rainbow') {
+                    element.style.backgroundColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
+                    element.style.accentColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
+                } else if (selectedTheme == 'opacity') {
+                    element.style.opacity = (colIndex + 1) / colCount;
+                } else if (selectedTheme == 'heatmap') {
+                    element.style.backgroundColor = hsl_col_perc(100 - rand / colCount * 100, 0, 120);
+                    element.style.accentColor = hsl_col_perc(100 - rand / colCount * 100, 0, 120);
+                }
+            }
+            return element;
+        }
+
         function renderSquare(c, colCount, r, rowCount, ran_num) {
             var element = document.createElement("input");
             element.className = 'square';
             element.style.width = sizeInput.value + 'px';
             element.style.height = sizeInput.value + 'px';
-
-
-            if (selectedTheme == 'rainbow') {
-                element.style.backgroundColor = hsl_col_perc((c + 1) / colCount * 100, 0, 360);
-            } else if (selectedTheme == 'opacity') {
-                element.style.opacity = (c + 1) / colCount;
-            } else if (selectedTheme == 'heatmap') {
-                element.style.backgroundColor = hsl_col_perc(100 - ran_num / colCount * 100, 0, 120);
-            } else {
-
-                //console.log(checkbox.value);
-                        
-                if (ran_num >= c) {
-                    element.style.accentColor = '#ff0000';
-                }
-            }
+            element = styleElement(element, ran_num, c, colCount);
             return element;
         }
 
@@ -132,20 +166,7 @@
                     checkbox.checked = true;
                     checkbox.style.width = sizeInput.value + 'px';
                     checkbox.style.height = sizeInput.value + 'px';
-                    if (selectedTheme == 'rainbow') {
-                        checkbox.style.accentColor = hsl_col_perc((c + 1) / colCount * 100, 0, 360);
-                    } else if (selectedTheme == 'opacity') {
-                        checkbox.style.opacity = (c + 1) / colCount;
-                    } else if (selectedTheme == 'heatmap') {
-                        checkbox.style.accentColor = hsl_col_perc(100 - ran_num / colCount * 100, 0, 120);
-                    } else {
-
-                        //console.log(checkbox.value);
-                        
-                        if (ran_num >= c) {
-                            checkbox.style.accentColor = '#ff0000';
-                        }
-                    }
+                    checkbox = styleElement(checkbox, ran_num, c, colCount);
                     return checkbox;
         }
 
@@ -162,6 +183,7 @@
                 var ran_num = Math.floor(Math.random()*colCount);
                 for (var c = 1; c <= cols_input.value; c++) {
                     //console.log(c);
+                    var checkbox = renderCheckbox(c, colCount, r, rowCount, ran_num);
                     var element = renderSquare(c, colCount, r, rowCount, ran_num);
                     render_ele.appendChild(element);
                 } 
