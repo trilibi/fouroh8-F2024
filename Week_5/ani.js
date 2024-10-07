@@ -5,9 +5,31 @@ var rangeInput = document.getElementById("rangeInput");
 var sizeInput = document.getElementById("sizeInput");
 var themeSelect = document.getElementById("themeSelect");
 var selectedTheme = null;
+var userName = window.localStorage.getItem("name");
 
-rowsInput.addEventListener('change', function() {console.log(rowsInput.value)});
+const isLocalStorageEmpty = (item) => {
+    if(!item || item == 'null'){
+        return true; 
+    }
+
+    return false;
+}
+
+if(isLocalStorageEmpty(userName)){
+    window.localStorage.setItem("name", "Not Jake")
+}
+
+console.log(isLocalStorageEmpty(userName));
+
+rowsInput.addEventListener('change', function() {
+    window.localStorage.setItem('rows', rowsInput.value);
+});
+rowsInput.value = window.localStorage.getItem('rows');
 colsInput.addEventListener('change', function (e) {console.log(e.target.value)});
+
+var nameObject = {name: "Jake"};
+console.log(JSON.stringify(nameObject));
+
 
 rangeInput.addEventListener('change', function(e){
     clearInterval(renderInterval);
@@ -44,6 +66,23 @@ function createSquare(v, colsCount){
     var randomNumber = Math.floor(Math.random() * colsCount);
 }
 
+//I didn't realize I made this below
+function styleElement(element, rand, colIndex, cols_count) {
+    switch(theme){
+        case 'rainbow':
+            element.style.accentColor = hsl_col_perc((colNum + 1) / colsInput.value * 100, 0, 360);
+            break;
+
+        case 'opacity':
+            element.style.opacity = (colNum) / cols_count;
+            break;
+
+        case 'heatmap':
+            element.style.accentColor = hsl_col_perc(100 - random / colNum * 100, 0, 120);
+            break;
+    }
+}
+
 function createChecked(v, colsCount) {
     var checkBox = document.createElement('input');
     checkBox.type = 'checkbox';
@@ -68,26 +107,13 @@ const hsl_col_perc = (percent, start, end) => {
     return 'hsl(' + c + ', 100%, 50%)';
   }
 
-const changeTheme = (theme, element, colNum, random, cols_count) => {
-    switch(theme){
-        case 'rainbow':
-            element.style.accentColor = hsl_col_perc((colNum + 1) / colsInput.value * 100, 0, 360);
-            break;
-
-        case 'opacity':
-            element.style.opacity = (colNum) / cols_count;
-            break;
-
-        case 'heatmap':
-            element.style.accentColor = hsl_col_perc(100 - random / colNum * 100, 0, 120);
-            break;
-    }
-}
-
+//This is the best one 
 const changeElementTheme = (theme, element, colNum, random, cols_count) => {
     switch(theme){
         case 'rainbow':
             element.style.backgroundColor = hsl_col_perc((colNum + 1) / colsInput.value * 100, 0, 360);
+            element.style.accentColor = hsl_col_perc((colNum + 1) / colsInput.value * 100, 0, 360);
+
             break;
 
         case 'opacity':
@@ -96,6 +122,7 @@ const changeElementTheme = (theme, element, colNum, random, cols_count) => {
 
         case 'heatmap':
             element.style.backgroundColor = hsl_col_perc(100 - random / colNum * 100, 0, 120);
+            element.style.accentColor = hsl_col_perc(100 - random / colNum * 100, 0, 120);
             break;
         default:
             element.style.backgroundColor = "black";
