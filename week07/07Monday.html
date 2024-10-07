@@ -11,7 +11,14 @@
     <script crossorigin src = "https://unpkg.com/babel-standalone@6/babel.js"></script>
 
     <script type="text/babel">
-        
+        function HelloWorld() {
+            return <h1>Hello World</h1>;
+        }
+
+        ReactDOM.render(
+            <HelloWorld/>,
+            document.getElementById("root")
+        );
     </script>
 </body>
 </html>
