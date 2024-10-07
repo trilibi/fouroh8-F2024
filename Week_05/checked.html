@@ -59,6 +59,28 @@
     <script>
         console.log("hello world")
 
+        function isLocalStorageEmpty(item) {
+            if (!item) {
+                return true
+            }
+            if (item == 'null') {
+                return true
+            }
+            return false
+        }
+
+        var name = window.localStorage.getItem('name')
+
+
+console.log('----------')
+console.log(isLocalStorageEmpty(name))
+        if (isLocalStorageEmpty(name)) {
+            console.log('missing')
+            window.localStorage.setItem('name', 'Arianna')
+        }
+        name = window.localStorage.getItem('name')
+        console.log(name)
+
         const hsl_col_perc = (percent, start, end) => {
         const a = percent / 100,
         b = (end - start) * a,
@@ -77,7 +99,19 @@
         
         rowsInput.addEventListener('change', function() {
             console.log(rowsInput.value)
+            window.localStorage.setItem('row_value', rowsInput.value)
         })
+
+        rowsInput.value = window.localStorage.getItem('row_value')
+
+        var nameObject = {
+            name: Arianna,
+            age: 28
+        }
+    
+        console.log(nameObject)
+        console.log(JSON.stringify(nameObject))
+        window.localStorage.setItem('name_object', JSON.stringify(nameObject))
 
         colsInput.addEventListener('change', function(e) {
             console.log(e.target.value)
@@ -97,53 +131,42 @@
             console.log(e.target.selectedIndex)
         })
 
+        function styleElement(element, rand, colIndex, colCount) {
+            if (rand >= colIndex){
+                if (!selectedTheme) {
+                    element.style.backgroundColor = 'chartruse'
+                    element.style.accentColor = 'chartruse'
+                } 
+                else if(selectedTheme === 'Rainbow') {
+                    element.style.backgroundColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
+                    element.style.accentColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
+                } 
+                else if(selectedTheme === 'Opacity') {
+                    element.style.opacity = (colIndex + 1) / colCount;  
+                }
+                else if(selectedTheme === 'Heatmap') {
+                    element.style.backgroundColor = hsl_col_perc(100 - rand / colCount * 100, 0, 120);
+                    element.style.accentColor = hsl_col_perc(100 - rand / colCount * 100, 0, 120);
+                }
+            }
+            return element
+        }
+
         function renderSquare(colIndex, colCount, rowIndex, rowCount, rand) {
             var element = document.createElement('div')
             element.className = 'square'
-                    element.style.width = sizeInputEle + 'px'
-                    element.style.height = sizeInputEle + 'px'
-                    renderEle.appendChild(element)
-                    var randomNo = Math.floor(Math.random()*colsInput.value)
-                    
-                    if (rand >= colIndex){
-                        if (!selectedTheme) {
-                            element.style.backgroundColor = 'chartruse'
-                        } 
-                        else if(selectedTheme === 'Rainbow') {
-                            element.style.backgroundColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
-                        } else if(selectedTheme === 'Opacity') {
-                            element.style.opacity = (colIndex + 1) / colCount;  
-                        }
-                        else if(selectedTheme === 'Heatmap') {
-                            element.style.backgroundColor = hsl_col_perc(100 - rand / colCount * 100, 0, 120);
-                        }
-                    }
-                    return element
+            element.style.width = sizeInputEle + 'px'
+            element.style.height = sizeInputEle + 'px'
+            element = styleElement(element, rand, colIndex, colCount)
+            return element
         }
         function renderCheckbox(colIndex, colCount, rowIndex, rowCount, rand) {
             var checkbox = document.createElement('input')
-                    checkbox.type = 'checkbox'
-                    checkbox.checked = true
-                    checkbox.style.width = sizeInputEle + 'px'
-                    checkbox.style.height = sizeInputEle + 'px'
-                    renderEle.appendChild(checkbox)
-                    var randomNo = Math.floor(Math.random()*colsInput.value)
-                    
-                    if (rand >= colIndex){
-                        if (!selectedTheme) {
-                            checkbox.style.accentColor = 'chartruse'
-                        } 
-                        else if(selectedTheme === 'Rainbow') {
-                            checkbox.style.accentColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
-                        }
-                        else if(selectedTheme === 'Opacity') {
-                            checkbox.style.opacity = (colIndex + 1) / colCount;  
-                        }
-                        else if(selectedTheme === 'Heatmap') {
-                            checkbox.style.accentColor = hsl_col_perc(100 - rand / colCount * 100, 0, 120);
-                        }
-                    }
-                    return checkbox
+            checkbox.type = 'checkbox'
+            checkbox.checked = true
+            checkbox.style.width = sizeInputEle + 'px'
+            checkbox.style.height = sizeInputEle + 'px'
+            checkbox = styleElement(element, rand, colIndex, colCount)
         }
         function render() {
             renderEle.innerHTML = ''
