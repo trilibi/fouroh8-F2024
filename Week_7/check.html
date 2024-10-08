@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQish</title>
+
+    <style>
+        body{
+            background-color: black;
+        }
+        label{
+            color: salmon;
+        }
+        #render{
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label>
+            Rows
+            <input id="rows" type="number" value="10">
+        </label>
+        <br>
+        <label>
+            Cols
+            <input id="cols" type="number" value="4">
+        </label>
+        <br>
+        <label>
+            Speed
+            <input id="rangeInput" type="range" value="1000" min="1" max="2000" step="50">
+        </label>
+        <br>
+        <label>
+            Size
+            <input id="sizeInput" type="number" value="20">
+        </label>
+        <br>
+        <label for="themeSelect">
+            Theme
+            <select name="themeSelect" id="themeSelect">
+                <option value="">None</option>
+                <option value="rainbow">Rainbow</option>
+                <option value="opacity">Opacity</option>
+                <option value="heatmap">Heatmap</option>
+            </select>
+        </label>
+    </div>
+    <div id="render">
+        hello
+    </div>
+    <script>
+        //console.log('Hello World')
+
+        function isLocalStorageEmpty(item){
+            if(!item){
+                return true;
+            }
+            if(item == 'null'){
+                return true;
+            }
+            return false;
+        }
+
+        var name = window.localStorage.getItem('name');
+        console.log(isLocalStorageEmpty(name));
+        if (isLocalStorageEmpty(name)){
+            console.log('missing')
+            window.localStorage.setItem('name', 'Nic');
+        }
+        name = window.localStorage.getItem('name');
+        console.log(name);
+
+        const hsl_col_perc = (percent, start, end) => {
+            const a = percent / 100,
+            b = (end - start) * a,
+            c = b + start;
+            return 'hsl(' + c + ', 100%, 50%)';
+        }
+
+        var rowsInput = document.getElementById('rows');
+        var colsInput = document.getElementById('cols');
+        var renderEle = document.getElementById('render');
+        var rangeInput = document.getElementById('rangeInput');
+        var sizeInputEle = document.getElementById('sizeInput');
+        var themeSelectEle = document.getElementById('themeSelect');
+        var selectedTheme = '';
+
+        rowsInput.addEventListener('change', function(){
+            console.log(rowsInput.value);
+            window.localStorage.setItem('row_value', rowsInput.value);
+        });
+        rowsInput.value = window.localStorage.getItem('row_value');
+
+        var nameObject = {
+            name: "Nic",
+            age: 25
+        }
+        console.log(nameObject)
+        console.log(JSON.stringify(nameObject))
+        window.localStorage.setItem('name_object', JSON.stringify(nameObject))
+
+        colsInput.addEventListener('change', function(e){
+            console.log(e.target.value);
+        });
+
+        var renderInterval = setInterval(render, 1000);
+        rangeInput.addEventListener('change', function(e){
+            console.log(e.target.value);
+            clearInterval(renderInterval);
+            renderInterval = setInterval(render, e.target.value);
+        });
+
+        themeSelectEle.addEventListener('change', function(e){
+            console.log(e.target.options[e.target.selectedIndex].value);
+            selectedTheme = e.target.options[e.target.selectedIndex].value;
+        });
+
+        function styleElement(element, rand, colIndex, colCount) {
+            if (rand >= colIndex) {
+                if (selectedTheme === 'rainbow') {
+                    element.style.backgroundColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
+                } else if (selectedTheme === 'opacity') {
+                    element.style.opacity = (colIndex + 1) / colCount;
+                } else if (selectedTheme === 'heatmap') {
+                    element.style.backgroundColor = hsl_col_perc(100 - (rand / colCount) * 100, 0, 120);
+                } else {
+                    element.style.backgroundColor = 'chartreuse';
+                }
+            }
+        }
+
+        function render(){
+            //console.log('RENDER', rowsInput.value, colsInput.value, rangeInput.value);
+            renderEle.innerHTML = '';
+            var rowCount = rowsInput.value;
+            var colCount = colsInput.value;
+ 
+            for(var r = 0; r <= rowsInput.value; r++){
+                for(var c = 0; c <= colsInput.value; c++){
+                    var checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.checked = true;
+                    //checkbox.style.accentColor = 'salmon';
+                    checkbox.style.width = sizeInputEle.value + 'px'
+                    checkbox.style.height = sizeInputEle.value + 'px'
+                    var randomNo = Math.floor(Math.random()*colsInput.value);
+                    console.log(selectedTheme);
+                    styleElement(checkbox, randomNo, c, colCount);
+                    renderEle.appendChild(checkbox);
+
+                    //console.log(Math.floor(Math.random()*colsInput.value));
+                    //if (randomNo <= c){
+                    //    checkbox.style.accentColor = hsl_col_perc(100-randomNo/colsInput.value*100, 0, 120);
+                    //}
+                }
+                renderEle.appendChild(document.createElement('br'));
+            }
+        }
+        render();
+    </script>
+</body>
+</html>
