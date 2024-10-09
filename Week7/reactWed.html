@@ -8,7 +8,9 @@
 
 </head>
 <body>
-    <div id="root"></div>
+    <div class="container">
+        <div id="root"></div>
+    </div>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.js"></script>
@@ -23,16 +25,32 @@
 
       <script type="text/babel">
         function HelloWorld(props) {
+            const [count, setCount] = React.useState(0);
             console.log(props);
-            return <h1>Hello World, {props.name}! I am {props.age} years old.</h1>
+            return <div className="card hoverable">
+                    <div className="card-content">
+                        <span className="card-title">Hello World, {props.name}! ({count})</span>
+                        <p>I am {props.age} years old.</p>
+                    </div>
+                </div>
         }
+
+        /* function Carousel() {
+            return <div className="carousel carouselx">
+                        <a className="carousel-item" href="#one!"><img src="https://picsum.photos/200"/></a>
+                        <a className="carousel-item" href="#two!"><img src="https://picsum.photos/200"/></a>
+                        <a className="carousel-item" href="#three!"><img src="https://picsum.photos/200"/></a>
+                        <a className="carousel-item" href="#four!"><img src="https://picsum.photos/200"/></a>
+                        <a className="carousel-item" href="#five!"><img src="https://picsum.photos/200"/></a>
+                    </div>
+        } */
 
         ReactDOM.render(
             <div>
                 <nav>
-                    <div class="nav-wrapper">
-                    <a href="#" class="brand-logo">Logo</a>
-                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <div className="nav-wrapper">
+                    <a href="#" className="brand-logo">Logo</a>
+                    <ul id="nav-mobile" className="right hide-on-med-and-down">
                         <li><a href="sass.html">Sass</a></li>
                         <li><a href="badges.html">Components</a></li>
                         <li><a href="collapsible.html">JavaScript</a></li>
@@ -41,9 +59,12 @@
                 </nav>
                 <HelloWorld name="Carson" age="20"/>
                 <HelloWorld name="Dillon" age="5"/>
+                
             </div>,
             document.getElementById("root")
         );
+
+    
     </script>
 </body>
 </html>
