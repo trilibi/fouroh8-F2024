@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQish</title>
+    <style>
+        body {
+            background-color: black;
+        }
+        label {
+            color: salmon;
+        }
+        #render {
+            padding: 20px;
+            position: relative;
+            width: 400px; /* Adjust as needed */
+            height: 400px; /* Adjust as needed */
+        }
+        .checkbox {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <label>
+            Cols
+            <input id="cols" type="number" value="10">
+        </label>
+        <br>
+        <label>
+            Speed
+            <input id="rangeInput" type="range" value="1000" min="1" max="2000">
+        </label>
+        <br/>
+        <label>
+            Size
+            <input id="SizeInput" type="number" value="20">
+        </label>
+        <label for="themeSelect">
+            <select name="themeSelect" id="themeSelect">
+                <option value="None">None</option>
+                <option value="rainbow">Rainbow</option>
+                <option value="rainbow">Rainbow</option>
+                <option value="opacity">Opacity</option>
+                <option value="heatmap">Heatmap</option>
+            </select>
+        </label>
+    </div>
+
+    <div id="render">
+        hellowww
+    </div>
+
+    <script>
+    var sizeInputEle = document.getElementById("SizeInput");
+    const hsl_col_perc = (percent, start, end) => {
+        const a = percent / 100,
+        b = (end - start) * a,
+        c = b + start;
+        return 'hsl(' + c + ', 100%, 50%)';
+    }
+
+    var colsInput = document.getElementById("cols");
+    colsInput.addEventListener("change", function(e) {
+        console.log(e.target.value);
+        render();
+    });
+
+    var selectedTheme = "None";
+    var themeSelect = document.getElementById("themeSelect");
+    themeSelect.addEventListener("change", function(e) {
+        selectedTheme = e.target.value;
+        console.log(selectedTheme);
+        render();
+    });
+
+    var randInput = document.getElementById("rangeInput");
+    var renderInterval = setInterval(render, 1000);
+    randInput.addEventListener('change', function(e) {
+        console.log(e.target.value);
+        clearInterval(renderInterval);
+        renderInterval = setInterval(render, e.target.value);
+    });
+
+    var brightestPosition = 0;
+
+    function renderCheckbox(colIndex, colCount, rowIndex, rowCount, rand, radius, angle) {
+        var checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = true;
+        checkbox.className = "checkbox";
+        checkbox.style.width = sizeInputEle.value + "px";
+        checkbox.style.height = sizeInputEle.value + "px";
+
+        var x = radius * Math.cos(angle) + 200; // Adjust 200 to center the circle
+        var y = radius * Math.sin(angle) + 200; // Adjust 200 to center the circle
+
+        checkbox.style.left = x + "px";
+        checkbox.style.top = y + "px";
+
+        if (selectedTheme === "rainbow") {
+            checkbox.style.accentColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
+        } else if (selectedTheme === "opacity") {
+            var brightness = (colIndex + brightestPosition) % colCount / colCount;
+            checkbox.style.opacity = brightness;
+        } else if (selectedTheme === "heatmap") {
+            checkbox.style.accentColor = hsl_col_perc(100 - colIndex / colCount * 100, 0, 120);
+        }
+        return checkbox;
+    }
+
+    var renderEle = document.getElementById("render");
+
+    function render() {
+        renderEle.innerHTML = '';
+        var colCount = colsInput.value;
+        var radiusStep = 20; // Distance between concentric circles
+        for (var r = 0; r < colCount; r++) {
+            var rand = Math.floor(Math.random() * colCount);
+            var radius = r * radiusStep;
+            var numCheckboxes = Math.floor(2 * Math.PI * radius / sizeInputEle.value); // Number of checkboxes in this circle
+            for (var c = 0; c < numCheckboxes; c++) {
+                var angle = 2 * Math.PI * (c / numCheckboxes);
+                var element = renderCheckbox(c, numCheckboxes, r, colCount, rand, radius, angle);
+                renderEle.appendChild(element);
+            }
+        }
+        brightestPosition = (brightestPosition + 1) % (colsInput.value * 2); // Ensure it cycles through all positions
+    }
+    render();
+    </script>
+</body>
+</html>
