@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Wednesday</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+<body>
+    <div className="container">
+        <div id="root"></div>
+    </div>
+    <script crossorigin src=" https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src=" https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src=" https://unpkg.com/babel-standalone@6/babel.js"></script>
+
+    <script type="text/babel">
+
+        function HowManySeconds(properties) {
+            console.log(properties)
+            var daysOld = properties.days * 24 * 60 * 60
+            return <strong>{daysOld} seconds old</strong>
+        }
+
+        function HowManyDays(properties) {
+            console.log(properties)
+            var daysOld = properties.years * 365
+            return <strong>{daysOld} days old <HowManySeconds days={daysOld} /></strong>
+        }
+
+        function HelloWorld(properties) {
+            const [count, setCount] = React.useState(0)
+            console.log(properties, count);
+            return <div className="card hoverable" onClick={function() {
+                setCount(count+1);
+            }}>
+                
+                    <div className="card-content">
+                        <span className="card-title">Hello World, {properties.name}! ({count})</span>
+                        <p>I am {properties.age} years old. 
+                        <HowManyDays years={properties.age} />
+                        </p>
+                    </div>
+                </div>
+        }
+
+        function Carousel() {
+            return <div className="carousel">
+                    <a className="carousel-item" href="#one!"><img src="https://picsum.photos/200"/></a>
+                    <a className="carousel-item" href="#two!"><img src="https://picsum.photos/200"/></a>
+                    <a className="carousel-item" href="#three!"><img src="https://picsum.photos/200"/></a>
+                    <a className="carousel-item" href="#four!"><img src="https://picsum.photos/200"/></a>
+                    <a className="carousel-item" href="#five!"><img src="https://picsum.photos/200"/></a>
+                </div>
+      
+        }
+
+        ReactDOM.render (
+            <div>
+                <nav>
+                    <div className="nav-wrapper">
+                        <a href="#" className="brand-logo">I am a LOGO</a>
+                        <ul id="nav-mobile" className="right hide-on-med-and-down">
+                            <li><a href="sass.html">Sass</a></li>
+                            <li><a href="badges.html">Components</a></li>
+                            <li><a href="collapsible.html">JavaScript</a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <HelloWorld name='Isaac' age="22" />
+                <HelloWorld name='Issac' age="21" />
+                <HelloWorld name='Izak' age="AHHHHHH" />
+                <Carousel />
+            </div>,
+            document.getElementById('root')
+    );
+    </script>
+
+</body>
+</html>
