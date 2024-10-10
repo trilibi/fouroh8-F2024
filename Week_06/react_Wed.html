@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Wednesday</title>
+     <!-- Compiled and minified CSS -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+     <!-- Compiled and minified JavaScript -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+       
+</head>
+<body>
+
+    <div className="container">
+        <div id="root"></div>
+        <div className="carouselex">
+            <a className="carousel-item" href="#one!"><img src="https://picsum.photos/200/300"/></a>
+            <a className="carousel-item" href="#two!"><img src="https://picsum.photos/200/300"/></a>
+            <a className="carousel-item" href="#three!"><img src="https://picsum.photos/200/300"/></a>
+            <a className="carousel-item" href="#four!"><img src="https://picsum.photos/200/300"/></a>
+            <a className="carousel-item" href="#five!"><img src="https://picsum.photos/200/300"/></a>
+        </div>
+    </div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+
+    <script type = "text/babel">
+        
+        function HowManySeconds(props){
+            console.log(props)
+            var secondsOld = props.days*24*60*60
+            return <strong>{secondsOld} seconds old.</strong>
+        }
+
+        function HowManyDays(props){
+            console.log(props)
+            var daysOld = props.years*365
+            return <strong>{daysOld} days old. <HowManySeconds days = {daysOld}/></strong>
+        }
+
+        function HelloWorld(props){
+            const [count, setCount] = React.useState(0)
+            console.log(props, count);
+            //console.log(props);
+            return <div className = "card hoverable" onClick={function(){
+                setCount(count+1);
+            }}>
+                <div className="card-content">
+                    <span className = "card-title">Hello wold, {props.name}! ({count})</span>
+                    <p>Hello World, {props.name}! I am {props.age} years old...
+                        <HowManyDays years={props.age}/>
+                    </p>
+                </div>
+            </div>
+        }
+
+        function Carousel() {
+            return  <div className="carousel">
+                <a className="carousel-item" href="#one!"><img src="https://picsum.photos/200/300"/></a>
+                <a className="carousel-item" href="#two!"><img src="https://picsum.photos/200/300"/></a>
+                <a className="carousel-item" href="#three!"><img src="https://picsum.photos/200/300"/></a>
+                <a className="carousel-item" href="#four!"><img src="https://picsum.photos/200/300"/></a>
+                <a className="carousel-item" href="#five!"><img src="https://picsum.photos/200/300"/></a>
+            </div>
+        }
+
+        ReactDOM.render(
+            <div>
+                <nav>
+                    <div className="nav-wrapper">
+                    <a href="#" className="brand-logo">Trinity_Raburn</a>
+                    <ul id="nav-mobile" className="right hide-on-med-and-down">
+                        <li><a href="sass.html">Sass</a></li>
+                        <li><a href="badges.html">Components</a></li>
+                        <li><a href="collapsible.html">JavaScript</a></li>
+                    </ul>
+                    </div>
+                </nav>
+
+                <HelloWorld name="Trin" age="22"/>
+                <HelloWorld name="Tree" age="20"/>
+                <HelloWorld name="TJ" age="18"/>
+                <Carousel />
+            </div>,
+            
+            document.getElementById("root")
+        );
+
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Loaded')
+        var elems = document.querySelectorAll('.carouselex');
+        var instances = M.Carousel.init(elems);
+    });
+    </script>
+
+</body>
+</html>
