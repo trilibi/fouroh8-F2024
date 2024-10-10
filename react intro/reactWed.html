@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Intro Wednesday</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+
+    <script type="text/babel">
+    
+    function HowManySecond(props) {
+        console.log(props);
+        var seconds = props.age * 365 * 24 * 60 * 60;
+        return <strong>{seconds} seconds old</strong>;
+    }
+
+    function HowManyDays(props) {
+        console.log(props);
+        var daysOld = props.age * 365;
+        return <strong>{daysOld} days old</strong>;
+    }
+
+    function HelloWorld(props) {
+        console.log(props);
+        return (
+            <div className="card">
+                <div className="card-panel hoverable"> Hoverable Card Panel</div> 
+                <span className="card-title">Card Title</span>
+                <h1>
+                    Hello World, {props.name}! I am {props.age} years old.
+                    <HowManyDays age={props.age}/> 
+                    <HowManySecond age={props.age}/>
+                </h1>
+            </div>
+        );
+    }
+
+    ReactDOM.render(
+        <div>
+            <nav>
+                <div className="nav-wrapper">
+                    <a href="" className="brand-logo">Logo</a>
+                    <ul id="nav-mobile" className="right hide-on-med-and-down">
+                        <li><a href="">Sass</a></li>
+                        <li><a href="">Sass <span className="new badge">4</span></a></li>
+                        <li><a href="">Sass</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <HelloWorld name="Jon" age={30} />
+            <HelloWorld name="Jane" age={25} />
+            <HelloWorld name="Doe" age={35} />
+        </div>,
+        document.getElementById("root")
+    );
+    </script>
+
+</body>
+</html>
