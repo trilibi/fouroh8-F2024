@@ -9,11 +9,11 @@
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <div className="container">
-        <div id="root">
+    <div class="container">
+        <div id="root"></div>
     </div>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -31,9 +31,13 @@
         }
 
         function HelloWorld(props) {
-            return <div className="card hoverable">
+            const [count,setCount] = React.useState(0);
+            console.log(props, count);
+            return <div className="card hoverable" onClick={function(){
+                setCount(count + 1);
+            }}  >
                     <div className="card-content">
-                        <span class="card-title">Hello World, {props.name}! 
+                        <span className="card-title">Hello World, {props.name}! ({count})
                             <p>I'm {props.age} years old.  <HowManyDays years={props.age} /></p>
                         </span>
                     </div>
@@ -69,6 +73,16 @@
             </div>,
             document.getElementById("root")
         );
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.carousel');
+            var instances = M.Carousel.init(elems, {});
+        });
+
+        // Or with jQuery
+        $(document).ready(function(){
+            $('.carousel').carousel();
+        });
     </script>
 </body>
 </html>
