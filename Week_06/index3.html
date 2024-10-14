@@ -33,7 +33,7 @@
         function HelloWorld(props) {
             const [count,setCount] = React.useState(0);
             console.log(props, count);
-            return <div className="card hoverable" onClick={function(){
+            return <div className="card hoverable" onClick={() => {
                 setCount(count + 1);
             }}  >
                     <div className="card-content">
@@ -74,15 +74,7 @@
             document.getElementById("root")
         );
     
-        document.addEventListener('DOMContentLoaded', function() {
-            var elems = document.querySelectorAll('.carousel');
-            var instances = M.Carousel.init(elems, {});
-        });
-
-        // Or with jQuery
-        $(document).ready(function(){
-            $('.carousel').carousel();
-        });
+        
     </script>
 </body>
 </html>
