@@ -28,6 +28,23 @@
             </h1>;
         }
 
+        function Poke(){
+            const [loading, setLoading] = React.useState(true)
+            var url = 'https://pokeapi.co/api/v2/pokemon/bulbasaur'
+
+            fetch(url).then(function(results) {
+                results.json().then(function(data){
+                    console.log(data)
+                })
+            })
+
+            if (loading) {
+                <div>Loading...</div>
+            }
+            return <div>Poke</div>
+        }
+
+
         ReactDOM.render(
             <div>
                 <nav>

@@ -31,11 +31,69 @@
             </h1>
         }
 
+        function Poke(){
+            const [loading, setLoading] = React.useState(true)
+            const [name, setName] = React.useState('N/A')
+            const [frontDefault, setFrontDefault] = React.useState(null)
+            const [frontShiny, setFrontShiny] = React.useState(null)
+            const [abilities, setAbilities] = React.useState([])
+
+            const [isShiny, setIsShiny] = React.useState(false)
+            var url = 'https://pokeapi.co/api/v2/pokemon/bulbasaur'
+
+            React.useEffect(function(){
+                console.log('use effect')
+                fetch(url).then(function(results) {
+                    results.json()
+                    .then(function(data){
+                        console.log(data.name)
+                        console.log(data.sprites.front_default)
+                        console.log(data.sprites.front_shiny)
+                        console.log(data.abilities[0].ability.name)
+
+                        setName(data.name)
+                        setFrontDefault(data.sprites.front_default)
+                        setFrontShiny(data.sprites.front_shiny)
+
+                        setAbilities(data.abilities)
+                    })
+                    .catch(function(e) {console.log(e)})
+                    .finally(function(){setLoading(false)})
+                })
+            },[])
+
+            setInterval(function(){
+                setIsShiny(function(shiny){
+                    return !shiny;
+                })
+            })
+
+            if (loading) {
+                <div>Loading...</div>
+            }
+            return <div>Pokemon: {name} 
+                <img 
+                alt="{name}" 
+                src={isShiny ? frontShiny : frontDefault} 
+                onClick={function(){
+                    setIsShiny(!isShiny)
+                }}/>
+
+                {abilities.map(function(item){
+                    return <div>
+                        {item.ability.name}
+                        <pre>{JSON.stringify(item, null, 2)}</pre>
+                        </div>
+                })}
+                </div>
+        }
+
         ReactDOM.render(
         <div>
             <HelloWorld name="Ari" age="28"/>
             <HelloWorld name="Arianna" age="28"/>
             <HelloWorld name="Joshie" age="29"/>
+            <Poke/>
         </div>,
         document.getElementById("root")
         )
