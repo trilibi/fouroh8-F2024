@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script crossorigin src = "https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src = "https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src = "https://unpkg.com/babel-standalone@6/babel.js"></script>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script type="text/babel">
+        function HowManyDays(props) {
+            console.log(props)
+            var daysOld = props.years * 365;
+            return <strong>{daysOld} days old.</strong>
+        }
+        
+        function HelloWorld(props) {
+            return <h1>Hello World, {props.name}! I am {props.age} years old today!
+                <HowManyDays years={props.age} />
+            </h1>;
+        }
+
+        ReactDOM.render(
+            <div>
+                <nav>
+                    <div class="nav-wrapper">
+                    <a href="#" class="brand-logo">Logo</a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="sass.html">Sass</a></li>
+                        <li><a href="badges.html">Components</a></li>
+                        <li><a href="collapsible.html">JavaScript</a></li>
+                    </ul>
+                    </div>
+                </nav>
+            <HelloWorld name="Carson" age="46"/>,
+            </div>,
+            document.getElementById("root")
+        );
+    </script>
+</body>
+</html>
