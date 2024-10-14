@@ -35,55 +35,99 @@
             Speed
             <input id="rangeInput" type="range" value="1000" min="10" max="2000" step="50">
         </label>
+        <label>
+            Size
+            <input id="sizeInput" type="number" value="20">
+        </label>
+        <label for="themeSelect">
+            <select name="themeSelect" id="themeSelect">
+                <option value="">None</option>
+                <option value="rainbow">Rainbow</option>
+                <option value="opacity">Opacity</option>
+                <option value="heatmap">Heatmap</option>
+            </select>
+        </label>
     </div>
     <div id="render">
         hello
     </div>
     <script>
+        console.log("hello world");
+        function isLocalStorageEmpty(item) {
+            if (!item) {
+                return true;
+            }
+            if (item == "null") {
+                return true;
+            }
+            return false;
+        }
         const hsl_col_perc = (percent, start, end) => {
             const a = percent / 100,
                 b = (end - start) * a,
                 c = b + start;
             return 'hsl(' + c + ', 100%, 50%)';
         }
-        var rowsInput = document.getElementById("rows");
-        var colsInput = document.getElementById("cols");
-        var rangeInput = document.getElementById("rangeInput");
-        var renderElement = document.getElementById("render");
+        var rowsInput          = document.getElementById("rows");
+        var colsInput          = document.getElementById("cols");
+        var rangeInput         = document.getElementById("rangeInput");
+        var renderElement      = document.getElementById("render");
+        var sizeInputElement   = document.getElementById("sizeInput");
+        var themeSelectElement = document.getElementById("themeSelect");
+        var selectedTheme      = null;
 
 
         rowsInput.addEventListener("change", (e) => {
             console.log(rowsInput.value);
-            console.log(e);
+            window.localStorage.setItem("row_value", rowsInput.value)
         });
 
         colsInput.addEventListener("change", (e) => {
             console.log(e.target.value);
         });
 
-        var renderIntervale = setInterval(render, 1000);
+        var renderInterval = setInterval(render, 1000);
         rangeInput.addEventListener("change", (e) => {
             clearInterval(renderInverval)
             renderInterval = setInterval(render, e.target.value);
         });
 
+        themeSelectElement.addEventListener("change", (e) => {
+            selectedTheme = e.target.options[e.target.selectedIndex].value;
+        });
+
         function render() {
-            console.log("RENDER", rowsInput.value, colsInput.value);
             renderElement.innerHTML = "";
+            var rowsCount = rowsInput.value;
+            var colsCount = colsInput.value;
 
 
             for (var rowIndex = 1; rowIndex <= rowsInput.value; rowIndex++) {
                 for (var colIndex = 1; colIndex <= colsInput.value; colIndex++) {
-                    var checkbox = document.createElement("input");
-                    checkbox.type = "checkbox";
-                    checkbox.checked = true;
+                    var checkbox               = document.createElement("input");
+                    checkbox.type              = "checkbox";
+                    checkbox.checked           = true;
                     checkbox.style.accentColor = "red"
-                    renderElement.appendChild(checkbox);
+                    checkbox.style.width       = sizeInputElement.value + "px";
+                    checkbox.style.height      = sizeInputElement.value + "px";
+
+                    if (randomNumber <= colIndex) {
+                        if (!selectedTheme) {
+                            
+                        } else if (selectedTheme === "rainbow") {
+                            checkbox.style.accentColor = hsl_col_perc((j + 1) / colCount * 100, 0, 360);
+                        } else if (selectedTheme === "opacity") {
+                            checkbox.style.opacity = (j + 1) / colCount;
+                        } else if (selectedTheme === "heatmap") {
+                            div.style.accentColor = hsl_col_perc(100 - rand / colCount * 100, 0, 120);
+                        }
+                    }
 
                     var randomNumber = Math.floor(Math.random() * colsInput.value);
                     if (randomNumber >= colIndex) {
                         checkbox.style.accentColor = hsl_col_perc(100 - randomNumber / colsInput.value * 100, 0, 120);
                     }
+                    renderElement.appendChild(checkbox);
                 }
                 renderElement.appendChild(document.createElement("br"));
             }
@@ -91,7 +135,7 @@
         render()
 
 
-        clearInterval(renderInverval);
+        clearInterval(renderInterval);
     </script>
 </body>
 
