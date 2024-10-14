@@ -48,6 +48,65 @@
                 </div>
         }
 
+        function Poke() {
+            const [Loading, setLoading] = React.useState(true);
+            const [name, setName] = React.useState('N/A');
+            const [abilities, setAbilities] = React.useState([]);
+            const [frontShiny, setFrontShiny] = React.useState(null);
+            const [front, setFront] = React.useState(null);
+            const [isShiny, setIsShiny] = React.useState(false);
+            var url = 'https://pokeapi.co/api/v2/pokemon/ditto';
+
+            React.useEffect(function() {
+                console.log('use effect');
+
+                fetch(url).then(function(results) {        // then allows if url done then call function()
+                    console.log(results);
+                        results.json()
+                            .then(function(data) {
+                                console.log(data.name);
+                                console.log(data.sprites.front_shiny)
+                                console.log(data.abilities[0].ability.name);
+                                setName(data.name)
+                                setAbilities(data.abilities)
+                                setFront(data.sprites.front_default)
+                                setFrontShiny(data.sprites.front_shiny)
+                                
+                            })
+                            .catch(function(e) {console.log(e); })
+                            .finally(function() { setLoading(false); });     // java script should use false not False like Python does
+                })
+                }, []);
+
+            setInterval(function() {
+                console.log(isShiny)
+                setIsShiny(function(isShiny) {
+                    return !isShiny; 
+                });
+            }, 2000)
+
+            if (Loading) {
+                return <div> Loading...</div>; 
+            }
+
+            return <div>Pokemon: {name} 
+                    <img 
+                        alt="{name}" 
+                        title={name}
+                        src={isShiny ? frontShiny : front} 
+                        onClick={function() {
+                            setIsShiny(!isShiny);
+                    }}/>
+
+                    {abilities.map(function(item) {
+                        return <div>
+                            {item.ability.name}
+                            <pre>{JSON.stringify(item)}</pre>
+                            </div>
+                    })}
+                </div>;
+        }
+
         ReactDOM.render(
             <div>
                 <nav>
@@ -63,6 +122,7 @@
                 <HelloWorld name="Kio" age="23" />
                 <HelloWorld name="Kyosuke" age="17" />
                 <HelloWorld name="Jeremiah" age="8" />
+                <Poke />
                 
             </div>,
             document.getElementById("root")
