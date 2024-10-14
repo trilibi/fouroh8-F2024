@@ -68,7 +68,9 @@
             fetch(url).then(function(results) {
                 results.json()
                     .then(function(data) {
-                        console.log(data);
+                        console.log(data.name);
+                        console.log(data.abilities[0]);
+                        console.log(data.abilities[0].ability.name);
                         setName(data.name);
                         setAbilities(data.abilities);
                     })
@@ -80,7 +82,11 @@
             if (loading) {
                 return <div>Loading...</div>
             }
-            return <div>Pokemon: {name}</div>
+            return <div>Pokemon: {name}
+                    {abilities.map(function(ability) {
+                        return <div>{ability.ability.name}</div>
+                    })}
+                </div>;
         }
 
         ReactDOM.render (
