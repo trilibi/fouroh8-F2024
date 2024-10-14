@@ -60,7 +60,10 @@
             const [loading, setLoading] = React.useState(true);
             const [name, setName] = React.useState('N/A');
             const [abilities, setAbilities] = React.useState([]);
-            var url = 'https://pokeapi.co/api/v2/pokemon/ditto';
+            const[front, setFront] = React.useState(null);
+            const[frontShiny, setFrontShiny] = React.useState(null);
+            const [isShiny, setIsShiny] = React.useState(false);
+            var url = 'https://pokeapi.co/api/v2/pokemon/rayquaza';
 
             React.useEffect(function(){
                 console.log('use effect');
@@ -69,9 +72,11 @@
                 results.json()
                     .then(function(data) {
                         console.log(data.name);
-                        console.log(data.abilities[0]);
+                        console.log(data.sprites.front_shiny);
                         console.log(data.abilities[0].ability.name);
                         setName(data.name);
+                        setFront(data.sprites.front_default);
+                        setFrontShiny(data.sprites.front_shiny);
                         setAbilities(data.abilities);
                     })
                     .catch(function(e) {console.log(e);})
@@ -83,8 +88,13 @@
                 return <div>Loading...</div>
             }
             return <div>Pokemon: {name}
+                <img alt="{name}" src={isShiny ? frontShiny : front} onClick={function() {
+                        setIsShiny(!isShiny)
+                    }}/>
                     {abilities.map(function(ability) {
-                        return <div>{ability.ability.name}</div>
+                        return <div>{ability.ability.name}
+                                <pre>{JSON.stringify(ability, null, 2)}</pre>
+                            </div>
                     })}
                 </div>;
         }
