@@ -57,6 +57,35 @@
 
     <script>
     var sizeInputEle = document.getElementById("SizeInput");
+
+    function islocalStorageEmpty(item) {
+        if (!item) {    // if this item was false
+            return true; 
+        }
+        if (item == null) {
+            return true
+        }
+        if (item == undefined) {
+            return true
+        }
+        if (item == '') {
+            return true
+        }
+        return false
+    }
+
+    var name = window.localStorage.getItem('name')
+
+    console.log('----------------')
+    console.log(islocalStorageEmpty(name))
+
+    if (name == null) {
+        console.log('missing')
+        window.localStorage.setItem('name', 'jerry')
+    }
+    name = window.localStorage.getItem('name')
+    console.log(name)
+
     const hsl_col_perc = (percent, start, end) => {
         const a = percent / 100,
         b = (end - start) * a,
@@ -67,14 +96,31 @@
     var rowsInput = document.getElementById("rows");
     rowsInput.addEventListener("change", function() {
         console.log(rowsInput.value);
-        render();
+        window.localStorage.setItem('row_value', rowsInput.value);
+        // render();
     });
 
+
+    rowsInput.value = window.localStorage.getItem('row_value')
+
+
+    var nameObject = {
+        name: 'jer', 
+        age: 46
+    }
+    console.log(nameObject.value)
+
+
+
     var colsInput = document.getElementById("cols");
-    colsInput.addEventListener("change", function(e) {
-        console.log(e.target.value);
-        render();
+    colsInput.addEventListener("change", function() {
+        console.log(colsInput.value);
+        window.localStorage.setItem('cols_value', colsInput.value);
+        //render();
     });
+
+
+    colsInput.value = window.localStorage.getItem('cols_value')
 
     var selectedTheme = "None";
     var themeSelect = document.getElementById("themeSelect");
@@ -84,6 +130,7 @@
         render();
     });
 
+
     var randInput = document.getElementById("rangeInput");
     var renderInterval = setInterval(render, 1000);
     randInput.addEventListener('change', function(e) {
@@ -91,6 +138,7 @@
         clearInterval(renderInterval);
         renderInterval = setInterval(render, e.target.value);
     });
+
 
     function rendercheckbox(colIndex, colCount, rowIndex, rowCount, rand) {
         var checkbox = document.createElement("input");
@@ -109,7 +157,29 @@
             }
         }
         return checkbox;
-    }
+    };
+
+
+    function styleElement(element, rand, colsIndex) {
+        if (rand <= colIndex) {
+            if (!selectedTheme) {
+                element.style.backgroundColor = 'charreuse'
+                element.style.accentColor = 'charreuse'
+            } 
+            if (selectedTheme === "rainbow") {
+                element.style.backgroundColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
+                element.style.accentColor = hsl_col_perc((colIndex + 1) / colCount * 100, 0, 360);
+            } else if (selectedTheme === "opacity") {
+                element.style.opacity = (colIndex + 1) / colCount;
+            } else if (selectedTheme === "heatmap") {
+                element.style.backgroundColor = hsl_col_perc(100 - colIndex / colCount * 100, 0, 120);
+                element.style.accentColor =  hsl_col_perc(100 - colIndex / colCount * 100, 0, 120);
+            }
+        }
+        return element
+    } 
+
+
     function renderSquare(colIndex, colCount, rowIndex, rowCount, rand) {
     var square = document.createElement("div");
     square.className = "square";
@@ -126,6 +196,8 @@
     }
     return square;
     }
+
+
     function renderSquare(colIndex, colCount, rowIndex, rowCount, rand) {
         var square = document.createElement("div");
         square.className = "square";
@@ -149,6 +221,7 @@
         return square;
     }
     var renderEle = document.getElementById("render");
+
 
     function render() {
         renderEle.innerHTML = '';
