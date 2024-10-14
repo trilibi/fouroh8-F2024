@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import HelloWorld from './components/HelloWorld.jsx'
 import 'materialize-css/dist/css/materialize.min.css'
+import FetchPokemon from './components/pokemon.jsx'
 
 //Carousel Component
 
@@ -32,7 +33,7 @@ createRoot(document.getElementById('root')).render(
     </div>
   </nav>
 <HelloWorld name="Jake" age="23"/>   
-<Carousel />
+<FetchPokemon />
     
   </StrictMode>,
 )
