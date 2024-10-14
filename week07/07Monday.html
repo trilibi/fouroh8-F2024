@@ -58,15 +58,28 @@
 
         function Poke() {
             const [loading, setLoading] = React.useState(true);
+            const [name, setName] = React.useState('N/A');
+            const [abilities, setAbilities] = React.useState([]);
             var url = 'https://pokeapi.co/api/v2/pokemon/ditto';
+
+            fetch(url).then(function(results) {
+                results.json()
+                .then(function(data) {
+                    console.log(data);
+                    setName(data, name);
+                })
+                .catch(function(e) {
+                    console.log(e);
+                })
+                .finally(function() {
+                    setLoading(false);
+                })
+            })
 
             if (loading) {
                 return <div>Loading...</div>
             }
 
-            fetch(url).then(function(results) {
-                console.log(results)
-            })
         }
 
         ReactDOM.render (
