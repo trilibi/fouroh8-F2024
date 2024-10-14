@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>React Intro</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div id="root"></div>
+        </div>
+        <script
+            crossorigin
+            src="https://unpkg.com/react@18/umd/react.development.js"
+        ></script>
+
+        <script
+            crossorigin
+            src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+        ></script>
+        <script
+            crossorigin
+            src="https://unpkg.com/babel-standalone@6/babel.js"
+        ></script>
+
+        <script type="text/babel">
+            function Poke() {
+                const [loading, setLoading] = React.useState(true)
+                const [name, setName] = React.useState("N/A")
+                const [frontShiny, setFrontShiny] = React.useState(null)
+                const [front, setFront] = React.useState(null)
+                const [abilities, setAbilities] = React.useState([])
+
+                const [isShiny, setIsShiny] = React.useState(false)
+
+                var url = "https://pokeapi.co/api/v2/pokemon/ditto"
+
+                React.useEffect(function () {
+                    console.log("useEffect")
+
+                    fetch(url).then(function (results) {
+                        console.log(results)
+                        results
+                            .json()
+                            .then(function (data) {
+                                console.log(data.abilities)
+                                console.log(data.sprites.front_shiny)
+                                setName(data.name)
+                                setAbilities(data.abilities)
+                                setFront(data.sprites.front_default)
+                                setFrontShiny(data.sprites.front_shiny)
+                            })
+                            .catch(function (e) {
+                                console.log(e)
+                            })
+                            .finally(function () {
+                                setLoading(false)
+                            })
+                    })
+                }, [])
+
+                setInterval(() => {
+                    setIsShiny((shiny) => {
+                        return !shiny
+                    }, 1000)
+                }, [])
+
+                if (loading) {
+                    return <div>Loading...</div>
+                } else {
+                    return (
+                        <div>
+                            Pokemon: {name}
+                            <img
+                                alt="{name}"
+                                title={name}
+                                src={isShiny ? frontShiny : front}
+                                onClick={() => {
+                                    setIsShiny(!isShiny)
+                                }}
+                            />
+                            {abilities.map((item) => {
+                                return (
+                                    <div>
+                                        {item.ability.name}
+                                        <pre>
+                                            {JSON.stringify(item, null, 2)}
+                                        </pre>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    )
+                }
+            }
+
+            function HowMnaySeconds(props) {
+                var daysOld = props.days * 24 * 60 * 60
+                return <strong>{daysOld} days old</strong>
+            }
+
+            function HowMnayDays(props) {
+                var daysOld = props.years * 365
+                return (
+                    <strong>
+                        {daysOld} days old. <HowMnaySeconds days={daysOld} />
+                    </strong>
+                )
+            }
+
+            function HelloWorld(props) {
+                const [count, setCount] = React.useState(0)
+
+                return (
+                    <div
+                        className="card hoverable"
+                        onClick={function () {
+                            setCount(count + 1)
+                        }}
+                    >
+                        <div class="card-content">
+                            <span class="card-title">
+                                Hello World, {props.name}!({count})
+                            </span>
+                            <p>
+                                I am {props.age} years old
+                                <br />
+                                <HowMnayDays years={props.age} />
+                            </p>
+                        </div>
+                    </div>
+                )
+            }
+
+            function Carousel() {
+                return (
+                    <div class="carousel">
+                        <a class="carousel-item" href="#one!">
+                            <img src="https://lorempixel.com/250/250/nature/1" />
+                        </a>
+                        <a class="carousel-item" href="#two!">
+                            <img src="https://lorempixel.com/250/250/nature/2" />
+                        </a>
+                        <a class="carousel-item" href="#three!">
+                            <img src="https://lorempixel.com/250/250/nature/3" />
+                        </a>
+                        <a class="carousel-item" href="#four!">
+                            <img src="https://lorempixel.com/250/250/nature/4" />
+                        </a>
+                        <a class="carousel-item" href="#five!">
+                            <img src="https://lorempixel.com/250/250/nature/5" />
+                        </a>
+                    </div>
+                )
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                var elems = document.querySelectorAll(".carousel")
+                var instances = M.Carousel.init(elems)
+            })
+
+            ReactDOM.render(
+                <div>
+                    <nav>
+                        <div class="nav-wrapper">
+                            <a href="#" class="brand-logo">
+                                Interactive
+                            </a>
+                            <ul
+                                id="nav-mobile"
+                                class="right hide-on-med-and-down"
+                            >
+                                <li>
+                                    <a href="sass.html">Sass</a>
+                                </li>
+                                <li>
+                                    <a href="badges.html">Components</a>
+                                </li>
+                                <li>
+                                    <a href="collapsible.html">JavaScript</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <Poke />
+
+                    <HelloWorld name="jer" age="46" />
+                    <HelloWorld name="je2r" age="4" />
+                    <HelloWorld name="je3r" age="6" />
+
+                    <Carousel />
+                </div>,
+                document.getElementById("root")
+            )
+        </script>
+    </body>
+</html>
