@@ -62,24 +62,25 @@
             const [abilities, setAbilities] = React.useState([]);
             var url = 'https://pokeapi.co/api/v2/pokemon/ditto';
 
+            React.useEffect(function(){
+                console.log('use effect');
+
             fetch(url).then(function(results) {
                 results.json()
-                .then(function(data) {
-                    console.log(data);
-                    setName(data, name);
+                    .then(function(data) {
+                        console.log(data);
+                        setName(data.name);
+                        setAbilities(data.abilities);
+                    })
+                    .catch(function(e) {console.log(e);})
+                    .finally(function() {setLoading(false);})
                 })
-                .catch(function(e) {
-                    console.log(e);
-                })
-                .finally(function() {
-                    setLoading(false);
-                })
-            })
+            }, [])
 
             if (loading) {
                 return <div>Loading...</div>
             }
-
+            return <div>Pokemon: {name}</div>
         }
 
         ReactDOM.render (
@@ -97,7 +98,7 @@
                 <HelloWorld name='Dylan' age="21" />
                 <HelloWorld name='Carson' age="21" />
                 <HelloWorld name='Jake' age="45" />
-                <Carousel />
+
                 <Poke />
             </div>,
             document.getElementById('root')
