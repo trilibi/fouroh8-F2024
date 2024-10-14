@@ -57,6 +57,60 @@
             </div>
         }
 
+        function Poke(){
+            const [loading, setLoading] = React.useState(true);
+            const [name, setName] = React.useState('N/A');
+            const [frontShiny, setFrontShiny] = React.useState(null);
+            const [front, setFront] = React.useState(null);
+            const [abilities, setAbilities] = React.useState([]);
+
+            
+            const [isShiny, setIsShiny] = React.useState(false);
+            var url = 'https://pokeapi.co/api/v2/pokemon/ditto';
+
+            React.useEffect(function(){
+                console.log('use effect')
+           
+                fetch(url).then(function(results){
+                    results.json()
+                        .then(function(data){
+                            console.log(data.name);
+                            console.log(data.sprites.front_shiny);
+                            console.log(data.abilities[0].ability.name);
+                            setName(data.name);
+                            setFront(data.sprites.front_default);
+                            setFrontShiny(data.sprites.front_shiny);
+                            setAbilities(data.abilities);
+                        })
+                        .catch(function(e){console.log(e); })
+                        .finally(function(){ setLoading(false); });
+                })
+
+                setInterval(function(){
+                    setIsShiny(function(shiny){
+                        return !shiny;
+                    })
+                }, 100)
+
+            }, []);
+
+            if (loading) {
+                return <div>Loading...</div>
+            }
+
+            return <div>Pokemon: {name}
+                <img alt="{name}" title={name} src={isShiny ? frontShiny : front} onClick={function(){
+                    setIsShiny(!isShiny)
+                }}/>
+                    {abilities.map(function(item){
+                        return <div>
+                            {item.ability.name}
+                            <pre>{JSON.stringify(item)}</pre>    
+                        </div>
+                    })}
+                </div>
+        }
+
         function Carousel() {
             return  <div className="carousel">
                 <a className="carousel-item" href="#one!"><img src="https://picsum.photos/200/300"/></a>
@@ -83,7 +137,9 @@
                 <HelloWorld name="Trin" age="22"/>
                 <HelloWorld name="Tree" age="20"/>
                 <HelloWorld name="TJ" age="18"/>
+                <Poke/>
                 <Carousel />
+                
             </div>,
             
             document.getElementById("root")
