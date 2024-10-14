@@ -51,7 +51,10 @@
     function Poke() {
         const [loading, setLoading] = React.useState(true);
         const [name, setName] = React.useState('N/A');
+        const [FrontShiny, setFrontShiny] = React.useState(null);
+        const [Front, setFront] = React.useState(null);
         const [abilities, setAbilities] = React.useState([]);
+        const [isShiny, setIshiny] = React.useState();
         var url = 'https://pokeapi.co/api/v2/pokemon/ditto';
 
         React.useEffect(function() {
@@ -62,14 +65,24 @@
                     .then(function(data) {
                         console.log(data);
                         console.log(data.name)
+                        console.log(data.sprites.front_shiny)
+                        console.log(data.abilities[0])
+                        console.log(data.abilities[0].ability.name)
                         setName(data.name);
+                        setFront(data.sprites.front_default);
+                        setFrontShiny(data.sprites.front_shiny);
                         setAbilities(data.abilities);
                     })
                     .catch(function(e) { console.log(e); })
                     .finally(function(){ setLoading(false); });
 
             })
-
+            seInterval(function(){
+                setIsShiny(function(shiny) {
+                    return !shiny;
+                });
+            }, 1000)
+            
         }, []);
             
     
@@ -78,7 +91,18 @@
             return <div>Loading...</div>
         }
 
-            return <div>Poke</div>
+            return <div>Pokemon: {name}
+                <img alt="{name}" src={IsShiny ? FrontShiny : front} 
+                onClick={function() {
+                    setIsShiny(isShiny)
+                }}/> 
+                {abilities.map(function(ability) {
+                    return <div>
+                        {item.ability.name} 
+                        <pre>{JSON.stringify(item)} </pre>
+                    </div>
+                })}
+            </div>
     }
     // function Carousel() {
     //    //  ah, I don't know how this was made to work, so it doesn't :3
@@ -110,7 +134,7 @@
             </div>
             <HelloWorld name="Daler" age={78}/>
             <HelloWorld name="Jarod" age={40}/>
-            <Pokemon/>
+            <Poke/>
         </div>,
         document.getElementById("root"),
     );
