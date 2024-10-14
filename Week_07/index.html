@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Intro</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="root"></div>
+    </div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+
+    <script type="text/babel">
+        function HowManySeconds(props) {
+            const secondsOld = props.days * 24 * 60 * 60;
+            return <em>{secondsOld} seconds old.</em>;
+        }
+
+        function HowManyDays(props) {
+            const daysOld = props.years * 365;
+            return <strong>{daysOld} days old. <HowManySeconds days={daysOld} /></strong>;
+        }
+
+        function HelloWorld(props) {
+            const [count,setCount] = React.useState(0);
+            console.log(props, count);
+            return <div className="card hoverable" onClick={() => {
+                setCount(count + 1);
+            }}  >
+                    <div className="card-content">
+                        <span className="card-title">Hello World, {props.name}! ({count})
+                            <p>I'm {props.age} years old.  <HowManyDays years={props.age} /></p>
+                        </span>
+                    </div>
+                </div>;
+        }
+
+        function Poke(){
+            const [loading, setloading] = React.useState(true);
+            const [name, setName] = React.useState('N/A');
+            const [ability, setAbility] = React.useState([]);
+            const [frontShiny,setFrontShiny] = React.useState('N/A');
+            const [front,setFront] = React.useState('N/A');
+            const [isShiny, setIsShiny] = React.useState(false);
+            var url = 'https://pokeapi.co/api/v2/pokemon/ditto';
+            React.useEffect(function(){
+
+                console.log('useEffect');
+                fetch(url).then(function(results) {
+                    console.log(results);
+                    results.json()
+                        .then(function(data) {
+                            console.log(data.name);
+                            console.log(data.sprites.front_default);
+                            console.log(data.abilities[0]);
+                            console.log(data.abilities[0].ability.name);
+
+
+                            setFrontShiny(data.sprites.front_shiny);
+                            setFront(data.sprites.front_default);
+                            setName(data.name);
+                            setAbility(data.abilities);
+                            setIsShiny(false);
+                            
+                        })
+                        .catch(function(e) {
+                            console.log(e);
+                        })
+                        .finally(function() {
+                            setloading(false);
+                        });
+
+                });
+                setInterval(function(){
+                    setIsShiny(function(Shiny){
+                        return !Shiny;
+                    });
+                }, 100);
+            }, []);
+
+            
+            if(loading){
+                return <div> Loading... </div>
+            }
+
+            return (
+                <div>
+                    Pokemon: {name}
+                    <img alt = "{name}" src={isShiny ? frontShiny : front }onClick={function(){
+                        setIsShiny(!isShiny);
+                        
+                    }}/>
+                    
+                    {ability.map(function(item) {
+                        return <div> 
+                            {item.ability.name} 
+                            <pre>{JSON.stringify(item.ability,null,2)}</pre>
+                        </div>;
+                    })}
+                </div>
+            );
+        }
+        
+
+        ReactDOM.render(
+            <div>
+                <nav>
+                    <div className="nav-wrapper">
+                        <a href="" className="brand-logo">Logo</a>
+                        <ul id="nav-mobile" className="right hide-on-med-and-down">
+                        <li><a href="">sass</a></li>
+                        <li><a href="">sass <span className="new badge">7</span></a></li>
+                        <li><a href="">sass</a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <HelloWorld name="june" age={22} />
+                <HelloWorld name="july" age={23} />
+                <HelloWorld name="august" age={24} />
+                <Poke />
+
+            </div>,
+            document.getElementById("root")
+        );
+    
+        
+    </script>
+</body>
+</html>
