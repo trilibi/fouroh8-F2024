@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 
 function FetchPokemon() {
-    const url = "https://pokeapi.co/api/v2/pokemon/lilligant";
 
+    const [userInput, setInput] = useState("lilligant");
     const [loading, setLoading] = useState(true);
     const [name, setName] = useState('N/A');
     const [abilities, setAbilities] = useState([]);
     const [image, setImage] = useState(null);
     const [shiny, setShiny] = useState(null);
     const [isShiny, setIsShiny] = useState(false);
+    const url = "https://pokeapi.co/api/v2/pokemon/" + userInput;
 
     useEffect(() => {
     fetch(url).then((result) => 

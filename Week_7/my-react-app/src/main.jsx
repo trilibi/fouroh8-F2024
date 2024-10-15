@@ -3,9 +3,9 @@ import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import HelloWorld from './components/HelloWorld.jsx'
 import 'materialize-css/dist/css/materialize.min.css'
-import FetchPokemon from './components/pokemon.jsx'
+import FetchPokemon from './components/Pokemon.jsx'
 
-//Carousel Component
+//Carousel Component - It don't work
 
 function Carousel() {
 
