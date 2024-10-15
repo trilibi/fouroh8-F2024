@@ -29,6 +29,69 @@
             return <strong>{daysOld} days old <HowManySeconds days={daysOld} /></strong>
         }
 
+        function Poke() {
+            const [loading, setLoading] = React.useState(true)
+            const [name, setName] = React.useState('N/A')
+            
+            const [front, setFront] = React.useState(null)
+            const [frontShiny, setFrontShiny] = React.useState(null)
+            const [abilities, setAbilities] = React.useState([])
+            const [isShiny, setIsShiny] = React.useState(false);
+            var url = "https://pokeapi.co/api/v2/pokemon/ditto";
+
+            React.useEffect(function() {
+                console.log("Use effect")
+                
+                fetch(url).then(function(results) {
+                    results.json()
+                    .then(function(data) {
+                        console.log(data.name);
+                        console.log(data.sprites.front_shiny);
+                        console.log(data.abilities[0].ability.name);
+                        
+                        setName(data.name);
+                        setAbilities(data.abilities);
+                        setFront(data.sprites.front_default);
+                        setIsShiny(data.sprites.front_shiny);
+                    })
+                    .catch(function(e) { console.log(e); })
+                    .finally(function(){ setLoading(false); });
+            })
+
+            }, []);
+
+           setInterval(function() {
+               setIsShiny(function(shiny) {
+                   return !shiny;
+               });
+           }, 100)
+
+            
+            
+            
+            if (loading) {
+                return <div>Loading . . .</div>
+            }
+
+
+            return <div>Pokemon: {name}
+                <img 
+                alt="{name}" 
+                title={name}
+                src={isShiny ? frontShiny : front}
+                onClick={function(){
+                    setIsShiny(!isShiny)
+                }}/>
+
+                {abilities.map(function(item) {
+                    return <div>
+                        {item.ability.name}
+                        <pre>{JSON.stringify(item, null, 2)}</pre>    
+                    </div>
+                })}
+                </div>
+        }
+
         function HelloWorld(properties) {
             const [count, setCount] = React.useState(0)
             console.log(properties, count);
@@ -71,6 +134,7 @@
                 <HelloWorld name='Isaac' age="22" />
                 <HelloWorld name='Issac' age="21" />
                 <HelloWorld name='Izak' age="AHHHHHH" />
+                <Poke />
                 <Carousel />
             </div>,
             document.getElementById('root')
