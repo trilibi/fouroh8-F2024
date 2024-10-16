@@ -10,6 +10,22 @@ function FetchPokemon() {
   const [isShiny, setIsShiny] = useState(false);
   const url = "https://pokeapi.co/api/v2/pokemon/" + userInput;
 
+  const getInput = () => {
+    var input = document.getElementById("pokemonName");
+    setInput(input.value);
+  };
+
+  const PokemonTextBox = () => {
+    return (
+      <>
+        <input id="pokemonName" placeholder="Enter a Pokemon name: "></input>
+        <button type="submit" value="Submit" onClick={() => getInput()}>
+          Search
+        </button>
+      </>
+    );
+  };
+
   const ShinyArray = () => {
     const images = [];
 
@@ -37,6 +53,7 @@ function FetchPokemon() {
       </>
     );
   };
+
   useEffect(() => {
     fetch(url).then((result) => {
       console.log(result);
@@ -62,14 +79,14 @@ function FetchPokemon() {
   if (loading) {
     return (
       <>
-        <input id="pokemonName" placeholder="Enter a pokemon name: "></input>
+        <PokemonTextBox />
         <div>Loading ....</div>
       </>
     );
   } else {
     return (
       <>
-        <input id="pokemonName" placeholder="Enter a pokemon name: "></input>
+        <PokemonTextBox />
         <img
           alt="{name}"
           src={isShiny ? shiny : image}
