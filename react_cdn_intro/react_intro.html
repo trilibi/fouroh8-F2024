@@ -164,6 +164,44 @@
                 var instances = M.Carousel.init(elems)
             })
 
+            function ShinyArray() {
+                const randomNo = Math.round(Math.random() * 1000)
+                const url =
+                    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" +
+                    randomNo +
+                    ".png"
+                const images = []
+
+                for (var i = 0; i < 10; i++) {
+                    const randomNo = Math.round(Math.random() * 1000)
+                    images.push(
+                        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" +
+                            randomNo +
+                            ".png"
+                    )
+                }
+
+                const mainImg = images.pop()
+
+                return (
+                    <div>
+                        {images.map((u, index) => {
+                            return (
+                                <img
+                                    src={u}
+                                    title={index}
+                                    style={{ width: index % 2 ? 32 : 64 }}
+                                />
+                            )
+                        })}
+                        <img
+                            src={mainImg}
+                            style={{ width: Math.round(Math.random() * 250) }}
+                        />
+                    </div>
+                )
+            }
+
             ReactDOM.render(
                 <div>
                     <nav>
@@ -187,13 +225,15 @@
                             </ul>
                         </div>
                     </nav>
-                    <Poke />
+
+                    <ShinyArray />
+                    {/*<Poke />
 
                     <HelloWorld name="jer" age="46" />
                     <HelloWorld name="je2r" age="4" />
                     <HelloWorld name="je3r" age="6" />
 
-                    <Carousel />
+                    <Carousel />*/}
                 </div>,
                 document.getElementById("root")
             )
