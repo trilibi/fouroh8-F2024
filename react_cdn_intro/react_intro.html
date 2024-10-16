@@ -102,6 +102,29 @@
             </div>
         }
 
+        function ShinyArray() {
+            const randomNo = Math.round(Math.random() * 1000)
+            const url = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/' + randomNo + '.png'
+            const images = []
+
+            for(var i=1; i<=16; i++) {
+                console.log(i)
+                const randomNo = Math.round(Math.random() * 1000)
+                images.push('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/' + randomNo + '.png')
+            }
+
+            const mainImg = images.pop()
+
+            console.log(images)
+            return <div>
+                {images.map(function (u) {
+                    return <img src={u}/>
+                })}
+                <img sirc={mainImg} style={{width: Math.round(Math.random() * 250) }}/>
+            </div>
+
+        }
+
         ReactDOM.render(
             <div>
                 <nav>
@@ -118,6 +141,7 @@
                 <HelloWorld name="Coop" age="15" />,
                 <HelloWorld name="ADC" age="17" />,
                 <Poke />
+                <ShinyArray />
             </div>,
             document.getElementById("root")
             
