@@ -62,11 +62,12 @@
                 })
             },[])
 
-            setInterval(function(){
+            /* setInterval(function(){
                 setIsShiny(function(shiny){
                     return !shiny;
                 })
             })
+                */
 
             if (loading) {
                 <div>Loading...</div>
@@ -88,12 +89,34 @@
                 </div>
         }
 
+        function ShinyArray(){
+            const randomNo = Math.round(Math.random() * 1000);
+            const url = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/'+randomNo+'.png';
+            const images = []; // new Array() // Array()
+            for(var i=1; i <= 16; i++) {
+                console.log(i);
+                const randomNo = Math.round(Math.random() * 1000);
+                images.push('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/'+randomNo+'.png')
+            }
+
+            const mainImg = images.pop()
+
+            console.log(images)
+            return <div>{images.map(function(u, index) {
+                console.log(index % 2)
+                return <img src={u} title={index} style={{width:index % 2 ? 32 : 64}}/>
+            })}
+            <img src={mainImg} style={{width: Math.round(Math.random() * 500)}} />
+            </div>
+        }
+
         ReactDOM.render(
         <div>
-            <HelloWorld name="Ari" age="28"/>
-            <HelloWorld name="Arianna" age="28"/>
-            <HelloWorld name="Joshie" age="29"/>
-            <Poke/>
+            {false && <HelloWorld name="Ari" age="28"/>}
+            {false && <HelloWorld name="Arianna" age="28"/>}
+            {false &&<HelloWorld name="Joshie" age="29"/>}
+            {false && <Poke/>}
+            <ShinyArray/>
         </div>,
         document.getElementById("root")
         )
