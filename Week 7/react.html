@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Original</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="app"></div>
+    </div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+
+    <script type="text/babel">
+        // Component to display the number of seconds in a given number of days
+        const TimeInSeconds = ({ days }) => {
+            const seconds = days * 24 * 60 * 60;
+            return <strong>{seconds} seconds old</strong>;
+        };
+
+        // Component to calculate and display days and seconds based on years
+        const TimeInDays = ({ years }) => {
+            const days = years * 365;
+            return (
+                <strong>{days} days old <TimeInSeconds days={days} /></strong>
+            );
+        };
+
+        // Reusable greeting card component
+        const GreetingCard = ({ name, age }) => {
+            const [clickCount, setClickCount] = React.useState(0);
+
+            const handleCardClick = () => {
+                setClickCount(clickCount + 1);
+            };
+
+            return (
+                <div className="card hoverable" onClick={handleCardClick}>
+                    <div className="card-content">
+                        <span className="card-title">Hello, {name}! ({clickCount} clicks)</span>
+                        <p>You are {age} years old. <TimeInDays years={age} /></p>
+                    </div>
+                </div>
+            );
+        };
+
+        // Pokémon fetching component with Arceus animation
+        const PokeInfo = () => {
+            const [loading, setLoading] = React.useState(true);
+            const [name, setName] = React.useState('');
+            const [frontImage, setFrontImage] = React.useState('');
+            const [frontShiny, setFrontShiny] = React.useState('');
+            const [isShiny, setIsShiny] = React.useState(false);
+            const [abilities, setAbilities] = React.useState([]);
+
+            React.useEffect(() => {
+                const fetchPokemon = async () => {
+                    try {
+                        const response = await fetch('https://pokeapi.co/api/v2/pokemon/arceus');
+                        const data = await response.json();
+                        setName(data.name);
+                        setFrontImage(data.sprites.front_default);  // Default sprite
+                        setFrontShiny(data.sprites.front_shiny);    // Shiny sprite
+                        setAbilities(data.abilities);
+                    } catch (error) {
+                        console.error("Error fetching Pokémon data:", error);
+                    } finally {
+                        setLoading(false);
+                    }
+                };
+
+                fetchPokemon();
+            }, []);
+
+            // Animation: toggling between shiny and regular sprite
+            React.useEffect(() => {
+                const intervalId = setInterval(() => {
+                    setIsShiny(prevIsShiny => !prevIsShiny);
+                }, 1000);  // Toggle every second
+
+                return () => clearInterval(intervalId);
+            }, []);
+
+            if (loading) {
+                return <div>Loading Pokémon data...</div>;
+            }
+
+            return (
+                <div>
+                    <h3>Pokémon: {name}</h3>
+                    <img
+                        src={isShiny ? frontShiny : frontImage}
+                        alt={name}
+                        title={name}
+                        style={{ width: "200px", height: "200px" }}
+                    />
+                    <h4>Abilities:</h4>
+                    <ul>
+                        {abilities.map((item, index) => (
+                            <li key={index}>{item.ability.name}</li>
+                        ))}
+                    </ul>
+                </div>
+            );
+        };
+
+        // Main app rendering
+        const App = () => {
+            return (
+                <div>
+                    <nav>
+                        <div className="nav-wrapper">
+                            <a href="#" className="brand-logo">Welcome to My React App</a>
+                            <ul id="nav-mobile" className="right hide-on-med-and-down">
+                                <li><a href="#poke">Pokémon Info</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                    <GreetingCard name="Bhavya" age={21} />
+                    <PokeInfo />
+                </div>
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+</body>
+</html>
