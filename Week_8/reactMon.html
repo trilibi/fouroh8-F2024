@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>React Lite</title>
 </head>
+
 <body>
     <div class="container">
         <div id="root"></div>
@@ -22,30 +24,30 @@
     <script type="text/babel">
 
         function HowManySeconds(props) {
-            
+
             var secondsOld = props.days * 24 * 60 * 60;
             return <em> {secondsOld} days old.</em>
         }
 
         function HowManyDays(props) {
-            
+
             var daysOld = props.years * 365;
-            return <strong> {daysOld} days old. <HowManySeconds days={daysOld}/></strong>
+            return <strong> {daysOld} days old. <HowManySeconds days={daysOld} /></strong>
         }
 
         function HelloWorld(props) {
             const [count, setCount] = React.useState(0);
 
             return <div className="card hoverable" onClick={
-                () => {setCount(count+1);}
+                () => { setCount(count + 1); }
             }>
-                    <div className="car-content">
-                        <span className="card-title">Hello World, {props.name}! ({count})</span>
-                        <p> I am {props.age} years old.
-                            <HowManyDays years={props.age}/>
-                        </p>
-                    </div>
+                <div className="car-content">
+                    <span className="card-title">Hello World, {props.name}! ({count})</span>
+                    <p> I am {props.age} years old.
+                        <HowManyDays years={props.age} />
+                    </p>
                 </div>
+            </div>
         }
 
         function Poke() {
@@ -57,28 +59,27 @@
             const [isShiny, setIsShiny] = React.useState(false);
             var url = 'https://pokeapi.co/api/v2/pokemon/ditto';
 
-            React.useEffect(function() {
+            React.useEffect(function () {
                 console.log('use effect');
 
-                fetch(url).then(function(results) {
-                results.json()
-                .then(function (data) {
-                    console.log(data.name);
-                    console.log(data.sprites.front_shiny);
-                    console.log(data.abilities[0].ability.name);
-                    setName(data.name);
-                    setAbilities(data.abilities);
-                    setFrontShiny(data.sprites.front_shiny);
-                    setFront(data.sprites.front_default);
-                })
-                .catch(function(e) { console.log(e); })
-                .finally(function() { setLoading(false); });
-            });
+                fetch(url).then(function (results) {
+                    results.json()
+                        .then(function (data) {
+                            console.log(data.name);
+                            console.log(data.sprites.front_shiny);
+                            console.log(data.abilities[0].ability.name);
+                            setName(data.name);
+                            setAbilities(data.abilities);
+                            setFrontShiny(data.sprites.front_shiny);
+                            setFront(data.sprites.front_default);
+                        })
+                        .catch(function (e) { console.log(e); })
+                        .finally(function () { setLoading(false); });
+                });
             }, []);
 
-            setInterval(function() {
-                console.log(isShiny)
-                setIsShiny(function(shiny) {
+            setInterval(function () {
+                setIsShiny(function (shiny) {
                     return !shiny
                 });
             }, 100);
@@ -88,19 +89,19 @@
             }
 
             return <div>Pokemon: {name}
-                <img alt="{name}" 
-                title={name} 
-                src={isShiny ? frontShiny : front} 
-                onClick={function() {
-                    setIsShiny(!isShiny);
-                }}/>
-                    {abilities.map(function(item) {
-                        return <div>
-                            {item.ability.name}
-                            <pre>{JSON.stringify(item)}</pre>
-                            </div>
-                    })}
-                </div>;
+                <img alt="{name}"
+                    title={name}
+                    src={isShiny ? frontShiny : front}
+                    onClick={function () {
+                        setIsShiny(!isShiny);
+                    }} />
+                {abilities.map(function (item) {
+                    return <div>
+                        {item.ability.name}
+                        <pre>{JSON.stringify(item)}</pre>
+                    </div>
+                })}
+            </div>;
         }
 
         // function Carousel() {
@@ -113,30 +114,52 @@
         //     </div>
         // }
 
+        function ShinyArray() {
+            const randomNo = Math.round(Math.random() * 1000);
+            const url = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/' + randomNo + '.png';
+            const images = []; // new Array() // Array()
+
+            for (var i = 1; i <= 16; i++) {
+                console.log(i);
+                const randomNo = Math.round(Math.random() * 1000);
+                images.push('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/' + randomNo + '.png');
+            }
+
+            const mainImg = images.pop();
+
+            console.log(images);
+            return <div>
+                {images.map((u, index) => <img src={u} title={index} style={{ width: index % 2 ? 32 : 64 }} />)}
+                <img src={mainImg} style={{ width: Math.round(Math.random() * 1000), height: 250 }} />
+            </div>
+        }
+
         ReactDOM.render(
             <div>
                 <nav>
                     <div className="nav-wrapper">
-                    <a href="#" className="brand-logo">Solomon</a>
-                    <ul id="nav-mobile" className="right hide-on-med-and-down">
-                        <li><a href="sass.html">Sass</a></li>
-                        <li><a href="badges.html">Components</a></li>
-                        <li><a href="collapsible.html">JavaScript</a></li>
-                    </ul>
+                        <a href="#" className="brand-logo">Solomon</a>
+                        <ul id="nav-mobile" className="right hide-on-med-and-down">
+                            <li><a href="sass.html">Sass</a></li>
+                            <li><a href="badges.html">Components</a></li>
+                            <li><a href="collapsible.html">JavaScript</a></li>
+                        </ul>
                     </div>
                 </nav>
-                <HelloWorld name="Jer" age="46" />
-                <HelloWorld name="Jerry" age="17" />
-                <HelloWorld name="Jeremiah" age="8" />
-                <Poke />
+                {false && <HelloWorld name="Jer" age="46" />}
+                {false && <HelloWorld name="Jerry" age="17" />}
+                {false && <HelloWorld name="Jeremiah" age="8" />}
+                {false && <Poke />}
+                <ShinyArray />
             </div>,
             document.getElementById("root")
         );
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var elems = document.querySelectorAll('.carouselx');
             var instances = M.Carousel.init(elems);
         });
     </script>
 </body>
+
 </html>
