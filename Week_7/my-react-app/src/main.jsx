@@ -33,6 +33,10 @@ createRoot(document.getElementById('root')).render(
     </div>
   </nav>
 <HelloWorld name="Jake" age="23"/>   
+
+{false && <HelloWorld name="Jake" age="23"/>}   
+
+
 <FetchPokemon />
     
   </StrictMode>,
