@@ -15,13 +15,13 @@
 
     <div className="container">
         <div id="root"></div>
-        <div className="carouselex">
+        <!-- <div className="carouselex">
             <a className="carousel-item" href="#one!"><img src="https://picsum.photos/200/300"/></a>
             <a className="carousel-item" href="#two!"><img src="https://picsum.photos/200/300"/></a>
             <a className="carousel-item" href="#three!"><img src="https://picsum.photos/200/300"/></a>
             <a className="carousel-item" href="#four!"><img src="https://picsum.photos/200/300"/></a>
             <a className="carousel-item" href="#five!"><img src="https://picsum.photos/200/300"/></a>
-        </div>
+        </div> -->
     </div>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -121,6 +121,30 @@
             </div>
         }
 
+        function ShinyArray(){
+            const randomNo = Math.round(Math.random() * 100);
+            const url = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+randomNo+'.png';
+            const images = [];
+            
+            for(var i = 0; i <=16; i++){
+                console.log(i);
+                const randomNo = Math.round(Math.random() * 100);
+                images.push('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+randomNo+'.png')
+            }
+
+            const mainImg = images.pop();
+
+            console.log(images)
+                return <div>
+                {images.map(function(u, index){
+                    console.log(index % 2)
+                    return <img src={u} title={index} style={{width: index % 2 ? 32 : 64}}/>;
+                })}
+                <img src={mainImg} style={{width: Math.round(Math.random() * 250)}}/>
+                
+            </div>;
+        }
+
         ReactDOM.render(
             <div>
                 <nav>
@@ -134,11 +158,12 @@
                     </div>
                 </nav>
 
-                <HelloWorld name="Trin" age="22"/>
-                <HelloWorld name="Tree" age="20"/>
-                <HelloWorld name="TJ" age="18"/>
-                <Poke/>
-                <Carousel />
+                {false && <HelloWorld name="Trin" age="22"/>}
+                {false && <HelloWorld name="Tree" age="20"/>}
+                {false && <HelloWorld name="TJ" age="18"/>}
+                {1==2 && <Poke/>}
+                {false && <Carousel />}
+                <ShinyArray/>
                 
             </div>,
             
