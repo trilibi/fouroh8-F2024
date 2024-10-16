@@ -45,15 +45,33 @@
                 </div>
         }
 
-        function Carousel() {
-            return <div className="carousel">
-                    <a className="carousel-item" href="#one!"><img src="https://picsum.photos/200"/></a>
-                    <a className="carousel-item" href="#two!"><img src="https://picsum.photos/200"/></a>
-                    <a className="carousel-item" href="#three!"><img src="https://picsum.photos/200"/></a>
-                    <a className="carousel-item" href="#four!"><img src="https://picsum.photos/200"/></a>
-                    <a className="carousel-item" href="#five!"><img src="https://picsum.photos/200"/></a>
-                </div>
+        //function Carousel() {
+        //    return <div className="carousel">
+        //            <a className="carousel-item" href="#one!"><img src="https://picsum.photos/200"/></a>
+        //            <a className="carousel-item" href="#two!"><img src="https://picsum.photos/200"/></a>
+        //            <a className="carousel-item" href="#three!"><img src="https://picsum.photos/200"/></a>
+        //            <a className="carousel-item" href="#four!"><img src="https://picsum.photos/200"/></a>
+        //            <a className="carousel-item" href="#five!"><img src="https://picsum.photos/200"/></a>
+        //        </div>
       
+        //}
+        function ShinyArray() {
+            const randomNum = Math.round(Math.random() * 1000);
+            const url = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' +randomNum+'.png';
+            const images = [];
+
+            for (var i=0; i<=20; i++) {
+                console.log(i);
+                const randomNum = Math.round(Math.random() * 1000);
+                images.push('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' +randomNum+'.png');
+            }
+
+            const mainImg = images.pop();
+            
+            return <div>{images.map(function(u) {
+                return <img src={u} />;
+            })}</div>;
+            <img src={mainImg} style = {{width:250, height:250}} />
         }
 
         function Poke() {
@@ -71,9 +89,6 @@
             fetch(url).then(function(results) {
                 results.json()
                     .then(function(data) {
-                        console.log(data.name);
-                        console.log(data.sprites.front_shiny);
-                        console.log(data.abilities[0].ability.name);
                         setName(data.name);
                         setFront(data.sprites.front_default);
                         setFrontShiny(data.sprites.front_shiny);
@@ -114,8 +129,8 @@
                 <HelloWorld name='Dylan' age="21" />
                 <HelloWorld name='Carson' age="21" />
                 <HelloWorld name='Jake' age="45" />
-
-                <Poke />
+                {false && <Poke />}
+                <ShinyArray />
             </div>,
             document.getElementById('root')
     );
