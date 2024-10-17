@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 
 function FetchPokemon() {
-  const [userInput, setInput] = useState("lilligant");
+  const defaultPokemon = "lilligant";
+  const [userInput, setInput] = useState(defaultPokemon);
   const [loading, setLoading] = useState(true);
   const [name, setName] = useState("N/A");
   const [abilities, setAbilities] = useState([]);
@@ -10,20 +11,35 @@ function FetchPokemon() {
   const [isShiny, setIsShiny] = useState(false);
   const url = "https://pokeapi.co/api/v2/pokemon/" + userInput;
 
-  const getInput = () => {
-    var input = document.getElementById("pokemonName");
-    setInput(input.value);
+  useEffect(() => {
+    getData();
+  }, [userInput]);
+
+  const getData = () => {
+    fetch(url).then((result) => {
+      result
+        .json()
+        .then((data) => {
+          setName(data.name);
+          setAbilities(data.abilities);
+          setImage(data.sprites.front_default);
+          setShiny(data.sprites.front_shiny);
+        })
+        .catch((e) => {})
+        .finally(() => {
+          setLoading(false);
+        });
+    });
   };
 
-  const PokemonTextBox = () => {
-    return (
-      <>
-        <input id="pokemonName" placeholder="Enter a Pokemon name: "></input>
-        <button type="submit" value="Submit" onClick={() => getInput()}>
-          Search
-        </button>
-      </>
-    );
+  const getInput = () => {
+    var input = document.getElementById("pokemonName").value;
+    if (input == "" || input == null) {
+      input = defaultPokemon;
+    }
+
+    setInput(input);
+    getData();
   };
 
   const ShinyArray = () => {
@@ -54,27 +70,21 @@ function FetchPokemon() {
     );
   };
 
-  useEffect(() => {
-    fetch(url).then((result) => {
-      console.log(result);
-      result
-        .json()
-        .then((data) => {
-          setName(data.name);
-          setAbilities(data.abilities);
-          setImage(data.sprites.front_default);
-          setShiny(data.sprites.front_shiny);
-          console.log(name);
-          console.log(abilities[0].ability.name);
-        })
-        .catch((e) => {
-          console.log(e);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    });
-  }, []);
+  const PokemonTextBox = () => {
+    return (
+      <>
+        <div className="row">
+          <div className="input-field col s6">
+            <input
+              id="pokemonName"
+              placeholder="Enter a Pokemon name: "
+            ></input>
+            <button onClick={() => getInput()}>Search</button>
+          </div>
+        </div>
+      </>
+    );
+  };
 
   if (loading) {
     return (
@@ -96,14 +106,13 @@ function FetchPokemon() {
         />
         <div>
           Pokemon Name: {name}
-          {abilities.map((item) => {
+          {abilities.map((poke) => {
             return (
               <>
-                <div>{item.ability.name}</div>
+                <div>{poke.ability.name}</div>
               </>
             );
           })}
-          <ShinyArray />
         </div>
       </>
     );
