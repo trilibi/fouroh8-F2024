@@ -73,9 +73,10 @@ function FetchPokemon() {
   const PokemonTextBox = () => {
     return (
       <>
-        <div className="row">
-          <div className="input-field col s6">
+        <div className="center-align">
+          <div className="row">
             <input
+              className="validate"
               id="pokemonName"
               placeholder="Enter a Pokemon name: "
             ></input>
@@ -95,7 +96,7 @@ function FetchPokemon() {
     );
   } else {
     return (
-      <>
+      <div className="card">
         <PokemonTextBox />
         <img
           alt="{name}"
@@ -114,7 +115,7 @@ function FetchPokemon() {
             );
           })}
         </div>
-      </>
+      </div>
     );
   }
 }
