@@ -136,7 +136,7 @@
 
             console.log(images)
                 return <div>
-                    <!-- Could also use the arrow function: ()=> over current-->
+                    
                 {images.map(function(u, index){
                     console.log(index % 2)
                     return <img src={u} title={index} style={{width: index % 2 ? 32 : 64}}/>;
@@ -144,6 +144,40 @@
                 <img src={mainImg} style={{width: Math.round(Math.random() * 250)}}/>
                 
             </div>;
+        }
+
+        function KStateTrip(){
+            const [gasCost, setGasCost] = React.useState(3.33);
+            const [totalMilage, setTotalMilage] = React.useState(240);
+            const [vehicles, setVehicles] = React.useState([{mileage: 10}, {mileage: 24}]);
+
+            const [totalCost, setTotalCost] = React.useState(0);
+
+            React.useEffect(function(){
+                let total = 0;
+                vehicles.forEach(function(vehicles) {
+                    total = total + ((totalMilage / vehicles.mileage) * gasCost)
+                    var vehicleCost = (totalMilage / vehicles.mileage * gasCost);
+                    console.log(vehicleCost);
+                    total = total + vehicleCost;
+                })
+                setTotalCost(total)
+            }, [gasCost, totalMilage, vehicles]);
+
+            return <div style={{maxWidth: 200, margin: 8, backgroundColor: 'yellow'}}>
+                Cost: <input 
+                    type="number" 
+                    value ={gasCost} 
+                    onChange={(e) => setGasCost(Number(e.target.value))}/>
+                Total mileage: <input 
+                    type="number" 
+                    value ={totalMilage} 
+                    onChange={(e) => setTotalMilage(Number(e.target.value))}/>
+                <p>
+                    <strong>Total Cost: {totalCost}</strong>    
+                </p>
+                <pre>{JSON.stringify({gasCost, totalMilage, vehicles}, null, 2)}</pre>
+            </div>
         }
 
         ReactDOM.render(
@@ -165,6 +199,7 @@
                 {1==2 && <Poke/>}
                 {false && <Carousel />}
                 <ShinyArray/>
+                <KStateTrip/>
                 
             </div>,
             
