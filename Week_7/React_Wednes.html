@@ -60,19 +60,15 @@
 
             }, []);
 
-           setInterval(function() {
-               setIsShiny(function(shiny) {
-                   return !shiny;
-               });
-           }, 100)
+        //    setInterval(function() {
+        //        setIsShiny(function(shiny) {
+        //            return !shiny;
+        //        });
+        //    }, 100)
 
-            
-            
-            
             if (loading) {
                 return <div>Loading . . .</div>
             }
-
 
             return <div>Pokemon: {name}
                 <img 
@@ -116,7 +112,27 @@
                     <a className="carousel-item" href="#four!"><img src="https://picsum.photos/200"/></a>
                     <a className="carousel-item" href="#five!"><img src="https://picsum.photos/200"/></a>
                 </div>
-      
+        }
+
+        function ShinyArray() {
+            const randomNo = Math.round(Math.random() * 1000);
+            const url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + randomNo + ".png";
+            const images = new Array();
+
+            for (var i=1; i<=10; i++) {
+                const randomNo = Math.round(Math.random() * 1000);
+                console.log(i);
+                images.push("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + randomNo + ".png");
+            }
+
+            const mainImg = images.pop();
+
+            console.log(images);
+            return <div>
+                {images.map((u, index) => <img src={u} title = {index} style = {{width:index % 2 ? 64 : 128 }}/>)}
+                
+                <img src={mainImg} style={{width: Math.round(Math.random() * 300)}} />
+            </div>;
         }
 
         ReactDOM.render (
@@ -131,11 +147,12 @@
                         </ul>
                     </div>
                 </nav>
-                <HelloWorld name='Isaac' age="22" />
-                <HelloWorld name='Issac' age="21" />
-                <HelloWorld name='Izak' age="AHHHHHH" />
-                <Poke />
-                <Carousel />
+                {false && <HelloWorld name='Isaac' age="22" />}
+                {false && <HelloWorld name='Issac' age="21" />}
+                {false && <HelloWorld name='Izak' age="AHHHHHH" />}
+                {false && <Poke />}
+                <ShinyArray />
+                {false &&<Carousel />}
             </div>,
             document.getElementById('root')
     );
