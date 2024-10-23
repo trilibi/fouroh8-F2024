@@ -202,6 +202,75 @@
                 )
             }
 
+            function KStateTrip() {
+                const [gasCost, setGasCost] = React.useState(3.33)
+                const [totalMileage, setTotalMileage] = React.useState(240)
+                const [vehicles, setVehicles] = React.useState([
+                    { mileage: 8 },
+                    { mileage: 15 },
+                    { mileage: 12 },
+                    { mileage: 24 },
+                ])
+
+                const [totalCost, setTotalCost] = React.useState(0)
+
+                React.useEffect(() => {
+                    let total = 0
+                    vehicles.forEach((item) => {
+                        var vehicleCost =
+                            (totalMileage / item.mileage) * gasCost
+                        total = total + vehicleCost
+                    })
+                    setTotalCost(total)
+                }, [gasCost, totalMileage, vehicles])
+
+                return (
+                    <div
+                        style={{
+                            maxWidth: 200,
+                            margin: 8,
+                            backgroundColor: "#ff4",
+                        }}
+                    >
+                        <input
+                            type="number"
+                            value={gasCost}
+                            onChange={(e) => setGasCost(Number(e.target.value))}
+                        />
+                        <input
+                            type="number"
+                            value={totalMileage}
+                            onChange={(e) =>
+                                setTotalMileage(Number(e.target.value))
+                            }
+                        />
+                        <p>
+                            <strong>Total Coust: {totalCost}</strong>
+                        </p>
+                        Add Vehicle:
+                        <input
+                            type="number"
+                            onInput={(e) => {
+                                var v = vehicles
+                                v.push({ mileage: e.target.value })
+                                setVehicles([...v])
+                            }}
+                        />
+                        <pre>
+                            {JSON.stringify(
+                                {
+                                    gasCost,
+                                    totalMileage,
+                                    vehicles,
+                                },
+                                null,
+                                2
+                            )}
+                        </pre>
+                    </div>
+                )
+            }
+
             ReactDOM.render(
                 <div>
                     <nav>
@@ -227,13 +296,14 @@
                     </nav>
 
                     <ShinyArray />
-                    {/*<Poke />
+                    <KStateTrip />
+                    <Poke />
 
                     <HelloWorld name="jer" age="46" />
                     <HelloWorld name="je2r" age="4" />
                     <HelloWorld name="je3r" age="6" />
 
-                    <Carousel />*/}
+                    {/*<Carousel />*/}
                 </div>,
                 document.getElementById("root")
             )
