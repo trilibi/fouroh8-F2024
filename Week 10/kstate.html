@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Intro</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+    <script type="text/babel">
+
+        function HowManyDays(props){
+            console.log(props)
+            var daysOld = props.years * 365
+            return <strong> {daysOld} days old. <HowManySeconds days={daysOld} /></strong>
+        }
+
+        function HowManySeconds(props){
+            console.log(props)
+            var secondsOld = props.days * 24 * 60 * 60
+            return <em> {secondsOld} seconds old.</em>
+        }
+
+        function HelloWorld(props){
+            console.log(props)
+            return <h1>Hello World, {props.name}! I am {props.age} years old.
+                <HowManyDays years={props.age}/>
+            </h1>
+        }
+
+        function Poke(){
+            const [loading, setLoading] = React.useState(true)
+            const [name, setName] = React.useState('N/A')
+            const [frontDefault, setFrontDefault] = React.useState(null)
+            const [frontShiny, setFrontShiny] = React.useState(null)
+            const [abilities, setAbilities] = React.useState([])
+
+            const [isShiny, setIsShiny] = React.useState(false)
+            var url = 'https://pokeapi.co/api/v2/pokemon/bulbasaur'
+
+            React.useEffect(function(){
+                console.log('use effect')
+                fetch(url).then(function(results) {
+                    results.json()
+                    .then(function(data){
+                        console.log(data.name)
+                        console.log(data.sprites.front_default)
+                        console.log(data.sprites.front_shiny)
+                        console.log(data.abilities[0].ability.name)
+
+                        setName(data.name)
+                        setFrontDefault(data.sprites.front_default)
+                        setFrontShiny(data.sprites.front_shiny)
+
+                        setAbilities(data.abilities)
+                    })
+                    .catch(function(e) {console.log(e)})
+                    .finally(function(){setLoading(false)})
+                })
+            },[])
+
+            /* setInterval(function(){
+                setIsShiny(function(shiny){
+                    return !shiny;
+                })
+            })
+                */
+
+            if (loading) {
+                <div>Loading...</div>
+            }
+            return <div>Pokemon: {name} 
+                <img 
+                alt="{name}" 
+                src={isShiny ? frontShiny : frontDefault} 
+                onClick={function(){
+                    setIsShiny(!isShiny)
+                }}/>
+
+                {abilities.map(function(item){
+                    return <div>
+                        {item.ability.name}
+                        <pre>{JSON.stringify(item, null, 2)}</pre>
+                        </div>
+                })}
+                </div>
+        }
+
+        function ShinyArray(){
+            const randomNo = Math.round(Math.random() * 1000);
+            const url = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/'+randomNo+'.png';
+            const images = []; // new Array() // Array()
+            for(var i=1; i <= 16; i++) {
+                console.log(i);
+                const randomNo = Math.round(Math.random() * 1000);
+                images.push('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/'+randomNo+'.png')
+            }
+
+            const mainImg = images.pop()
+
+
+
+            console.log(images)
+            return <div>{images.map(function(u, index) {
+                console.log(index % 2)
+                return <img src={u} title={index} style={{width:index % 2 ? 32 : 64}}/>
+            })}
+            <img src={mainImg} style={{width: Math.round(Math.random() * 500)}} />
+            </div>
+        }
+
+        function KStateTrip(){
+            const [gasCost, setGasCost] = React.useState(3.33);
+            const [totalMileage, setTotalMileage] = React.useState(240);
+            const [vehicles, setVehicles] = React.useState([
+                {mileage: 8}, 
+                {mileage: 24},
+                {mileage: 15},
+                {mileage: 12}
+            ]);
+
+            const [totalCost, setTotalCost] = React.useState(0);
+
+            React.useEffect(function(){
+                let total = 0; // could also do var
+                vehicles.forEach(function(vehicle){
+                    var vehicleCost = (totalMileage / vehicle.mileage) * gasCost
+                    console.log(vehicleCost, vehicle.mileage)
+                    total = total + vehicleCost
+                })
+                setTotalCost(total)
+            }, [gasCost, totalMileage, vehicles])
+
+            return <div style={{maxWidth: 200, margin: 8, backgroundColor: '#ff4'}}> 
+               Gas Cost:  <input 
+                type="number" 
+                value={gasCost}
+                onChange={(e) => setGasCost(Number(e.target.value))} />
+                
+                Total Mileage: <input 
+                type="number" 
+                value={totalMileage}
+                onChange={(e) => setTotalMileage(Number(e.target.value))} />
+
+                <p> 
+                    <strong>Total Cost: {totalCost}</strong>
+                </p>
+             
+                Add Vehicle: <input type= "number" onInput={function (e){
+                    var v = vehicles;
+                    v.push({mileage: e.target.value})
+                    setVehicles([...v])
+                }}/> 
+
+                
+                <pre>{JSON.stringify({gasCost, totalMileage, vehicles}, null, 2)}</pre>
+                </div>
+        }
+
+        ReactDOM.render(
+        <div>
+            {false && <HelloWorld name="Ari" age="28"/>}
+            {false && <HelloWorld name="Arianna" age="28"/>}
+            {false &&<HelloWorld name="Joshie" age="29"/>}
+            {false && <Poke/>}
+            <ShinyArray/>
+            <KStateTrip/>
+        </div>,
+        document.getElementById("root")
+        )
+    </script>
+
+</body>
+</html>
