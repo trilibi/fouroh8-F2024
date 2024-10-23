@@ -159,6 +159,58 @@
         </div>;
     }
 
+    function KStateTrip() {
+        const [gasCost, setGasCost] = React.useState(3.33);
+        const [totalMileage, setTotalMileage] = React.useState(240); // miles/gal
+        const [vehicles, setVehicles] = React.useState([
+            {mileage: 8},
+            {mileage: 24},
+            {mileage: 15},
+            {mileage: 12}
+        ]);
+        const [totalCost, setTotalCost] = React.useState(0);
+
+        React.useEffect(function() { // run whenever [gasCost, totalMileage] changes
+            let total = 0;
+            vehicles.forEach(function(vehicle) {
+                let vehicleCost = (totalMileage / vehicle.mileage * gasCost);
+                total += (Number(totalMileage) / Number(vehicle.mileage)) * Number(gasCost);
+            })
+            setTotalCost(total);
+        }, [gasCost, totalMileage]);
+
+        return <div style={{maxWidth: 500, marginLeft: 100, padding: 8, background: 'chartreuse'}}>
+            <label>
+                gas cost / gallon
+                <input
+                    type="number"
+                    value={gasCost}
+                    onChange={(e) => setGasCost(Number(e.target.value))}/>
+            </label>
+            <label>
+                distance in miles
+                <input
+                    type="number"
+                    value={totalMileage}
+                    onChange={(e) => setTotalMileage(Number(e.target.value))}/>
+            </label>
+            <p>
+                <strong>Total Cost: {totalCost}</strong>
+            </p>
+
+            <p>Add Vehicle:</p>
+            <input type="number" onInput={function(e) { // THIS IS REALLY CRAPPY CODE, AAAAHHHH
+                let v = vehicles;
+                v.push({mileage: e.target.value})
+                setVehicles([...v]);
+            }}/>
+            <pre>
+                {JSON.stringify({gasCost, totalMileage, vehicles}, null, 4)}
+            </pre>
+        </div>
+
+    }
+
     // render the component to the DOM
     ReactDOM.render( // deprecated function, apparently -> https://react.dev/blog/2022/03/08/react-18-upgrade-guide#updates-to-client-rendering-apis
         <div>
@@ -172,11 +224,18 @@
                     </ul>
                 </div>
             </nav>
-            {1==2 && <p>The carousel didn't work :(</p>}
-            {false && <HelloWorld name="Nova" age={98}/>}
-            {false && <HelloWorld name="Charlotte" age={528}/>}
+            <div>
+                <img width={300}
+                     src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.ifunny.co%2Fimages%2F5a72ea981b7f361b51534d5748de58e8749eae12fbd83dad7b2c41e4adb50656_1.gif&f=1&nofb=1&ipt=7a2f3764007657d7f3935d0b6c3a5f69e7221975d4227db99ef6288e980922e5&ipo=images"/>
+            </div>
+            <KStateTrip/>
             <ShinyArray/>
             <Poké/>
+            {<p>The carousel didn't work :(</p>}
+            {<HelloWorld name="Nova" age={98}/>}
+            {<HelloWorld name="Charlotte" age={528}/>}
+
+
         </div>,
         document.getElementById("root"),
     );
@@ -184,10 +243,10 @@
     <script>
 
 
-<!--I don't know what this was for, but I don't think it was doing anything-->
-//        document.addEventListener('DOMContentLoaded', function () {
-//            console.log("LOADED! :3")
-//            let elems = document.querySelectorAll('.carousel');
+        <!--I don't know what this was for, but I don't think it was doing anything-->
+        //        document.addEventListener('DOMContentLoaded', function () {
+        //            console.log("LOADED! :3")
+        //            let elems = document.querySelectorAll('.carousel');
 //            console.log(elems);
 //            let instances = M.Carousel.init(elems);
 //        });
