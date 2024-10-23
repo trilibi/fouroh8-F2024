@@ -149,7 +149,7 @@
         function KStateTrip(){
             const [gasCost, setGasCost] = React.useState(3.33);
             const [totalMilage, setTotalMilage] = React.useState(240);
-            const [vehicles, setVehicles] = React.useState([{mileage: 10}, {mileage: 24}]);
+            const [vehicles, setVehicles] = React.useState([{mileage: 8}, {mileage: 12}, {mileage: 15}, {mileage: 24}]);
 
             const [totalCost, setTotalCost] = React.useState(0);
 
@@ -176,6 +176,15 @@
                 <p>
                     <strong>Total Cost: {totalCost}</strong>    
                 </p>
+
+                Add vehicle:
+                <input 
+                    type="number" onInput={function(e){
+                        var v = vehicles;
+                        v.push({mileage: e.target.value})
+                        setVehicles(...v)
+                }}/>
+                    
                 <pre>{JSON.stringify({gasCost, totalMilage, vehicles}, null, 2)}</pre>
             </div>
         }
