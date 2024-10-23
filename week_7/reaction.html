@@ -12,6 +12,25 @@
 <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.js"></script>
 <script type="text/babel">
 
+    function ShinyArray(){
+        const randomNo = Math.round(Math.random() * 1000);
+        const url = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/'+randomNo+'.png';
+        const images = []; // new Array() // Array()
+        for(var i=1; i <= 16; i++) {
+            console.log(i);
+            const randomNo = Math.round(Math.random() * 1000);
+            images.push('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/'+randomNo+'.png')
+        }
+        const mainImg = images.pop()
+        console.log(images)
+        return <div>{images.map(function(u, index) {
+            console.log(index % 2)
+            return <img src={u} title={index} style={{width:index % 2 ? 32 : 64}}/>
+        })}
+            <img src={mainImg} style={{width: Math.round(Math.random() * 500)}} />
+        </div>
+    }
+
     function HowManyDays(props){
         console.log(props)
         var daysOld = props.years * 365
@@ -36,6 +55,7 @@
             <HelloWorld name="Klay" age="1212"/>
             <HelloWorld name="klayton" age="221"/>
             <HelloWorld name="klaytoner" age="21"/>
+            <ShinyArray/>
         </div>,
         document.getElementById("root")
     )
