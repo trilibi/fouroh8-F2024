@@ -4,6 +4,7 @@ import App from "./App.jsx";
 import HelloWorld from "./components/HelloWorld.jsx";
 import "materialize-css/dist/css/materialize.min.css";
 import FetchPokemon from "./components/Pokemon.jsx";
+import KStateTrip from "./components/GasCost.jsx";
 
 //Carousel Component - It don't work
 
@@ -57,5 +58,6 @@ createRoot(document.getElementById("root")).render(
     {false && <HelloWorld name="Jake" age="23" />}
 
     <FetchPokemon />
+    <KStateTrip />
   </StrictMode>
 );
