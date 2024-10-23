@@ -65,7 +65,57 @@
             </div>;
         }
 
-        
+        function KStateTrip(){
+            const[gasCost, setGasCost] = React.useState(3.33);
+            const [totalMileage, setTotalMileage] = React.useState(240);
+            const [vehicles, setVehicles] = React.useState([
+                {mileage:8},
+                {mileage:12},
+                {mileage:15},
+                {mileage:20}]);
+            const [totalCost, setTotalCost] = React.useState(0);    
+            React.useEffect(function(){
+                let total = 0;
+                vehicles.forEach(function(vehicle){
+                    var vehicleCost = (totalMileage/ vehicle.mileage) * gasCost;
+                    total += vehicleCost;
+                }); 
+                setTotalCost(total);
+            }, [gasCost,totalMileage,vehicles]);
+
+            return <div style = {{maxWidth:200 ,margin:8,backgroundColor: 'yellow'}}>
+                <input 
+                type="number"
+                value={gasCost}
+                onChange = {(e) => 
+                    setGasCost(Number(e.target.value))}/>
+                totalMileage:<input 
+                type="number"
+                value={totalMileage}
+                onChange = {(e) => 
+                    setTotalMileage(Number(e.target.value))}/>
+                totalCost:<input 
+                type="number"
+                value={totalCost}
+                onChange = {(e) => 
+                    setTotalCost(Number(e.target.value))}/>
+                <p>
+                <strong>Total Cost: {totalCost}</strong></p>
+            
+                Add Vehicle:
+                <input type="number" onInput = {function(e){
+                    var v  = vehicles;
+                    v.push({mileage:Number(e.target.value)});
+                    setVehicles([...v]);
+                }}/>
+
+                <pre>{JSON.stringify({gasCost,totalMileage,vehicles},null,2)}</pre>    
+                
+                
+
+                </div>
+        }
+
 
         function Poke(){
             const [loading, setloading] = React.useState(true);
@@ -149,6 +199,7 @@
                 
                 
                 <ShinyArray />
+                <KStateTrip />
             </div>,
             document.getElementById("root")
         );
