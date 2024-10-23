@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Intro</title>
+
+</head>
+<body>
+    <div class="container">
+        <div id="root"></div>
+    </div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+
+     <!-- Compiled and minified CSS -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+     <!-- Compiled and minified JavaScript -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+     
+
+      <script type="text/babel">
+        function HelloWorld(props) {
+            const [count, setCount] = React.useState(0);
+            console.log(props);
+            return <div className="card hoverable">
+                    <div className="card-content">
+                        <span className="card-title">Hello World, {props.name}! ({count})</span>
+                        <p>I am {props.age} years old.</p>
+                    </div>
+                </div>
+        }
+
+        function KStateTrip() {
+            const [gasCost, setGasCost] = React.useState(3.33);
+            const [totalDist, setTotalDist] = React.useState(240);
+            const [vehicles, setVehicles] = React.useState([{mileage: 24}, {mileage: 15}]);
+            const [totalCost, setTotalCost] = React.useState(0);
+
+            React.useEffect(function() {
+                let total = 0;
+                vehicles.forEach(function(vehicle) {
+                    console.log(vehicle)
+                    total += (totalDist / vehicle.mileage) * gasCost;
+                });
+                console.log(gasCost, totalDist, total);
+                setTotalCost(total);
+            }, [gasCost, totalDist, vehicles]);
+
+            return <div style={{maxWidth: 200, margin: 8, backgroundColor: 'lightBlue'}}>
+                    <input 
+                        type="number" 
+                        value={gasCost}
+                        onChange={(e) => setGasCost(Number(e.target.value))}/>
+                    <input 
+                        type="number" 
+                        value={totalDist}
+                        onChange={(e) => setTotalDist(Number(e.target.value))}/>
+                    <p>
+                        <strong>Total Cost: {totalCost}</strong>     
+                    </p>
+
+                    Add Vehicle: 
+                    <input type="number" value onInput={function(e) {
+                        console.log(Number(e.target.value));
+                        setVehicles([...vehicles, {mileage: e.target.value}]);
+                    }}/>
+                    <pre>{JSON.stringify({gasCost, totalDist, vehicles}, null, 2)}</pre>
+                </div>
+        }
+
+        /* function Carousel() {
+            return <div className="carousel carouselx">
+                        <a className="carousel-item" href="#one!"><img src="https://picsum.photos/200"/></a>
+                        <a className="carousel-item" href="#two!"><img src="https://picsum.photos/200"/></a>
+                        <a className="carousel-item" href="#three!"><img src="https://picsum.photos/200"/></a>
+                        <a className="carousel-item" href="#four!"><img src="https://picsum.photos/200"/></a>
+                        <a className="carousel-item" href="#five!"><img src="https://picsum.photos/200"/></a>
+                    </div>
+        } */
+
+        function Poke() {
+            const [loading, setLoading] = React.useState(true);
+            const [name, setName] = React.useState('N\A');
+            const [frontShiny, setFrontShiny] = React.useState(null);
+            const [front, setFront] = React.useState(null);
+            const [abilities, setAbilities] = React.useState([]);
+            const [isShiny, setIsShiny] = React.useState(false);
+            var url = "https://pokeapi.co/api/v2/pokemon/lucario";
+
+            React.useEffect(function() {
+                fetch(url).then(function(results) {
+                    results.json().then(function(data) {
+                        console.log(data);
+                        console.log(data.name);
+                        console.log(data.sprites.front);
+                        console.log(data.sprites.front_shiny);
+                        console.log(data.abilities[0].ability.name);
+                        setName(data.name);
+                        setAbilities(data.abilities);
+                        setFrontShiny(data.sprites.front_shiny);
+                        setFront(data.sprites.front_default);
+                }).catch(function(e) {
+                        console.log(e);
+                }).finally(function() {
+                        setLoading(false);
+                });
+                })
+            }, []);
+            
+            
+
+            if (loading) {
+                return <div>Loading...</div>;
+            }
+
+            return <div>Pokemon: {name}
+                    <img alt={name} src={isShiny ? frontShiny : front} onClick={function() {
+                        setIsShiny(!isShiny)
+                    }}/>
+                    {abilities.map(function(item) {
+                        return <div>
+                            {item.ability.name}
+                            <pre>{JSON.stringify(item)}</pre>  
+                        </div>
+                    })}
+                </div>;
+        }
+
+        ReactDOM.render(
+            <div>
+                <nav>
+                    <div className="nav-wrapper">
+                    <a href="#" className="brand-logo">Logo</a>
+                    <ul id="nav-mobile" className="right hide-on-med-and-down">
+                        <li><a href="sass.html">Sass</a></li>
+                        <li><a href="badges.html">Components</a></li>
+                        <li><a href="collapsible.html">JavaScript</a></li>
+                    </ul>
+                    </div>
+                </nav>
+                <HelloWorld name="Carson" age="20"/>
+                <HelloWorld name="Dillon" age="5"/>
+                <KStateTrip />
+                <Poke />
+                
+            </div>,
+            document.getElementById("root")
+        );
+
+    
+    </script>
+</body>
+</html>
