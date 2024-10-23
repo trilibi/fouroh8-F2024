@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Legendary Pokémon Flying</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <style>
+        .pokemon-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .pokemon {
+            text-align: center;
+            margin: 10px;
+            animation: fly 3s ease-in-out infinite;
+        }
+        .pokemon img {
+            width: 100px;
+            height: 100px;
+            animation: flap 0.5s ease-in-out infinite;
+        }
+
+        /* Flying (up and down movement) */
+        @keyframes fly {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px); /* Move up slightly */
+            }
+        }
+
+        /* Flapping (scale for flapping wings effect) */
+        @keyframes flap {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1); /* Slightly scale up */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="app"></div>
+    </div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+
+    <script type="text/babel">
+        // Reusable greeting card component
+        const GreetingCard = ({ name, age }) => {
+            const [clickCount, setClickCount] = React.useState(0);
+
+            const handleCardClick = () => {
+                setClickCount(clickCount + 1);
+            };
+
+            return (
+                <div className="card hoverable" onClick={handleCardClick}>
+                    <div className="card-content">
+                        <span className="card-title">Hello, {name}! ({clickCount} clicks)</span>
+                        <p>You are {age} years old.</p>
+                    </div>
+                </div>
+            );
+        };
+
+        // Pokémon fetching component with 8 legendary Pokémon and shiny animation
+        const PokeInfo = () => {
+            const [loading, setLoading] = React.useState(true);
+            const [pokemonList, setPokemonList] = React.useState([]);
+            const [isShiny, setIsShiny] = React.useState(false);
+
+            const legendaryPokemonIds = [144, 145, 146, 150, 249, 250, 382, 383]; // Articuno, Zapdos, Moltres, Mewtwo, Lugia, Ho-oh, Kyogre, Groudon
+
+            React.useEffect(() => {
+                const fetchPokemon = async () => {
+                    try {
+                        const fetchedPokemon = await Promise.all(
+                            legendaryPokemonIds.map(async (id) => {
+                                const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+                                const data = await response.json();
+                                return {
+                                    name: data.name,
+                                    frontImage: data.sprites.front_default,
+                                    frontShiny: data.sprites.front_shiny,
+                                    abilities: data.abilities,
+                                };
+                            })
+                        );
+                        setPokemonList(fetchedPokemon);
+                    } catch (error) {
+                        console.error("Error fetching Pokémon data:", error);
+                    } finally {
+                        setLoading(false);
+                    }
+                };
+
+                fetchPokemon();
+            }, []);
+
+            // Shiny animation: toggling between shiny and regular sprite
+            React.useEffect(() => {
+                const intervalId = setInterval(() => {
+                    setIsShiny(prevIsShiny => !prevIsShiny);
+                }, 1000);  // Toggle every second
+
+                return () => clearInterval(intervalId);
+            }, []);
+
+            if (loading) {
+                return <div>Loading Pokémon data...</div>;
+            }
+
+            return (
+                <div className="pokemon-container">
+                    {pokemonList.map((pokemon, index) => (
+                        <div className="pokemon" key={index}>
+                            <h3>{pokemon.name}</h3>
+                            <img
+                                src={isShiny ? pokemon.frontShiny : pokemon.frontImage}
+                                alt={pokemon.name}
+                                title={pokemon.name}
+                            />
+                            <h4>Abilities:</h4>
+                            <ul>
+                                {pokemon.abilities.map((item, i) => (
+                                    <li key={i}>{item.ability.name}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+            );
+        };
+
+        // Main app rendering
+        const App = () => {
+            return (
+                <div>
+                    <nav>
+                        <div className="nav-wrapper">
+                            <a href="#" className="brand-logo">Welcome to Bhavy's React App</a>
+                        </div>
+                    </nav>
+
+                    <GreetingCard name="Bhavy" age={21} />
+                    <PokeInfo />
+                </div>
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+</body>
+</html>
