@@ -71,7 +71,6 @@
                                 setAbilities(data.abilities)
                                 setFront(data.sprites.front_default)
                                 setFrontShiny(data.sprites.front_shiny)
-                                
                             })
                             .catch(function(e) {console.log(e); })
                             .finally(function() { setLoading(false); });     // java script should use false not False like Python does
@@ -107,6 +106,29 @@
                 </div>;
         }
 
+        function ShinyArray() {
+            const randomNo = Math.round(Math.random() * 1000); 
+            const url = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/'+randomNo+'.png';
+            const images = []; // new Array() or Array()
+
+            for(var i=1; i<=16; i++) {
+                const randomNo = Math.round(Math.random() * 1000); 
+                console.log(i);
+                images.push('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/'+randomNo+'.png')
+            }
+
+            const mainImg = images.pop()
+
+            console.log(images)
+            return <div>
+                {images.map(function(u, index) {   // this map function useful in python, java
+                    console.log(index % 2); 
+                return <img src={u} title={index} style={{width:index % 2 ? 32 : 64}}/>;  // conditoin ? expression as true : expression as false
+            })} 
+                <img src={mainImg} style={{width: Math.random(Math.random() * 250)}}/>
+            </div>
+        }
+
         ReactDOM.render(
             <div>
                 <nav>
@@ -119,11 +141,11 @@
                     </ul>
                     </div>
                 </nav>
-                <HelloWorld name="Kio" age="23" />
-                <HelloWorld name="Kyosuke" age="17" />
-                <HelloWorld name="Jeremiah" age="8" />
-                <Poke />
-                
+                {false && <HelloWorld name="Kio" age="23" />}
+                {false && <HelloWorld name="Kyosuke" age="17" />}
+                {false && <HelloWorld name="kyosuke" age="23" />}
+                {1==2 && <Poke />}
+                <ShinyArray />
             </div>,
             document.getElementById("root")
         );
