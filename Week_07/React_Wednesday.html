@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Wednesday</title>
+     <!-- Compiled and minified CSS -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+     <!-- Compiled and minified JavaScript -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+       
+</head>
+<body>
+
+    <div className="container">
+        <div id="root"></div>
+        <!-- <div className="carouselex">
+            <a className="carousel-item" href="#one!"><img src="https://picsum.photos/200/300"/></a>
+            <a className="carousel-item" href="#two!"><img src="https://picsum.photos/200/300"/></a>
+            <a className="carousel-item" href="#three!"><img src="https://picsum.photos/200/300"/></a>
+            <a className="carousel-item" href="#four!"><img src="https://picsum.photos/200/300"/></a>
+            <a className="carousel-item" href="#five!"><img src="https://picsum.photos/200/300"/></a>
+        </div> -->
+    </div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+
+    <script type = "text/babel">
+        
+        function HowManySeconds(props){
+            console.log(props)
+            var secondsOld = props.days*24*60*60
+            return <strong>{secondsOld} seconds old.</strong>
+        }
+
+        function HowManyDays(props){
+            console.log(props)
+            var daysOld = props.years*365
+            return <strong>{daysOld} days old. <HowManySeconds days = {daysOld}/></strong>
+        }
+
+        function HelloWorld(props){
+            const [count, setCount] = React.useState(0)
+            console.log(props, count);
+            //console.log(props);
+            return <div className = "card hoverable" onClick={function(){
+                setCount(count+1);
+            }}>
+                <div className="card-content">
+                    <span className = "card-title">Hello wold, {props.name}! ({count})</span>
+                    <p>Hello World, {props.name}! I am {props.age} years old...
+                        <HowManyDays years={props.age}/>
+                    </p>
+                </div>
+            </div>
+        }
+
+        function Poke(){
+            const [loading, setLoading] = React.useState(true);
+            const [name, setName] = React.useState('N/A');
+            const [frontShiny, setFrontShiny] = React.useState(null);
+            const [front, setFront] = React.useState(null);
+            const [abilities, setAbilities] = React.useState([]);
+
+            
+            const [isShiny, setIsShiny] = React.useState(false);
+            var url = 'https://pokeapi.co/api/v2/pokemon/ditto';
+
+            React.useEffect(function(){
+                console.log('use effect')
+           
+                fetch(url).then(function(results){
+                    results.json()
+                        .then(function(data){
+                            console.log(data.name);
+                            console.log(data.sprites.front_shiny);
+                            console.log(data.abilities[0].ability.name);
+                            setName(data.name);
+                            setFront(data.sprites.front_default);
+                            setFrontShiny(data.sprites.front_shiny);
+                            setAbilities(data.abilities);
+                        })
+                        .catch(function(e){console.log(e); })
+                        .finally(function(){ setLoading(false); });
+                })
+
+                setInterval(function(){
+                    setIsShiny(function(shiny){
+                        return !shiny;
+                    })
+                }, 100)
+
+            }, []);
+
+            if (loading) {
+                return <div>Loading...</div>
+            }
+
+            return <div>Pokemon: {name}
+                <img alt="{name}" title={name} src={isShiny ? frontShiny : front} onClick={function(){
+                    setIsShiny(!isShiny)
+                }}/>
+                    {abilities.map(function(item){
+                        return <div>
+                            {item.ability.name}
+                            <pre>{JSON.stringify(item)}</pre>    
+                        </div>
+                    })}
+                </div>
+        }
+
+        function Carousel() {
+            return  <div className="carousel">
+                <a className="carousel-item" href="#one!"><img src="https://picsum.photos/200/300"/></a>
+                <a className="carousel-item" href="#two!"><img src="https://picsum.photos/200/300"/></a>
+                <a className="carousel-item" href="#three!"><img src="https://picsum.photos/200/300"/></a>
+                <a className="carousel-item" href="#four!"><img src="https://picsum.photos/200/300"/></a>
+                <a className="carousel-item" href="#five!"><img src="https://picsum.photos/200/300"/></a>
+            </div>
+        }
+
+        function ShinyArray(){
+            const randomNo = Math.round(Math.random() * 100);
+            const url = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+randomNo+'.png';
+            const images = [];
+            
+            for(var i = 0; i <=16; i++){
+                console.log(i);
+                const randomNo = Math.round(Math.random() * 100);
+                images.push('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+randomNo+'.png')
+            }
+
+            const mainImg = images.pop();
+
+            console.log(images)
+                return <div>
+                    
+                {images.map(function(u, index){
+                    console.log(index % 2)
+                    return <img src={u} title={index} style={{width: index % 2 ? 32 : 64}}/>;
+                })}
+                <img src={mainImg} style={{width: Math.round(Math.random() * 250)}}/>
+                
+            </div>;
+        }
+
+        function KStateTrip(){
+            const [gasCost, setGasCost] = React.useState(3.33);
+            const [totalMilage, setTotalMilage] = React.useState(240);
+            const [vehicles, setVehicles] = React.useState([{mileage: 8}, {mileage: 12}, {mileage: 15}, {mileage: 24}]);
+
+            const [totalCost, setTotalCost] = React.useState(0);
+
+            React.useEffect(function(){
+                let total = 0;
+                vehicles.forEach(function(vehicles) {
+                    total = total + ((totalMilage / vehicles.mileage) * gasCost)
+                    var vehicleCost = (totalMilage / vehicles.mileage * gasCost);
+                    console.log(vehicleCost);
+                    total = total + vehicleCost;
+                })
+                setTotalCost(total)
+            }, [gasCost, totalMilage, vehicles]);
+
+            return <div style={{maxWidth: 200, margin: 8, backgroundColor: 'yellow'}}>
+                Cost: <input 
+                    type="number" 
+                    value ={gasCost} 
+                    onChange={(e) => setGasCost(Number(e.target.value))}/>
+                Total mileage: <input 
+                    type="number" 
+                    value ={totalMilage} 
+                    onChange={(e) => setTotalMilage(Number(e.target.value))}/>
+                <p>
+                    <strong>Total Cost: {totalCost}</strong>    
+                </p>
+
+                Add vehicle:
+                <input 
+                    type="number" onInput={function(e){
+                        var v = vehicles;
+                        v.push({mileage: e.target.value})
+                        setVehicles(...v)
+                }}/>
+                    
+                <pre>{JSON.stringify({gasCost, totalMilage, vehicles}, null, 2)}</pre>
+            </div>
+        }
+
+        ReactDOM.render(
+            <div>
+                <nav>
+                    <div className="nav-wrapper">
+                    <a href="#" className="brand-logo">Daler Rahimov</a>
+                    <ul id="nav-mobile" className="right hide-on-med-and-down">
+                        <li><a href="sass.html">Sass</a></li>
+                        <li><a href="badges.html">Components</a></li>
+                        <li><a href="collapsible.html">JavaScript</a></li>
+                    </ul>
+                    </div>
+                </nav>
+
+                {false && <HelloWorld name="Daler" age="20"/>}
+                {false && <HelloWorld name="Cris" age="39"/>}
+                {false && <HelloWorld name="Leo" age="37"/>}
+                {1==2 && <Poke/>}
+                {false && <Carousel />}
+                <ShinyArray/>
+                <KStateTrip/>
+                
+            </div>,
+            
+            document.getElementById("root")
+        );
+
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Loaded')
+        var elems = document.querySelectorAll('.carouselex');
+        var instances = M.Carousel.init(elems);
+    });
+    </script>
+
+</body>
+</html>
