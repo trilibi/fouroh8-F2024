@@ -129,6 +129,52 @@
             </div>
         }
 
+        function KstateTrip() {
+            const [gasCost, setGasCost] = React.useState(3.33); 
+            const [totalMileage, setTotalMilage] = React.useState(240);
+            const [vehicles, setVehicles] = React.useState([
+                {mileage: 8}, 
+                {mileage: 12},
+                {mileage: 15},
+                {mileage: 24}]);
+
+            const [totalCost, setTotalCost] = React.useState(0);
+
+            React.useEffect(function() {
+                let total = 0;
+                vehicles.forEach(function(vehicle) {
+                    console.log(vehicle, vehicle.mileage, (totalMileage / vehicle.mileage), gasCost)
+                    var vehicleCost = totalMileage / vehicle.mileage * gasCost
+                    total = total + vehicleCost
+                })
+                setTotalCost(total)
+                console.log(gasCost, totalMileage, total); 
+            }, [gasCost, totalMileage, vehicles]);
+
+            return <div style={{maxWidth: 280, margin: 8, backgroundColor: '#fff456'}}>
+                <input 
+                    type="number" 
+                    value={gasCost}
+                    onChange={(e) => setGasCost(Number(e.target.value))} />
+                    <input 
+                    type="number" 
+                    value={totalMileage}
+                    onChange={(e) => setGasCost(Number(e.target.value))} />
+                <p>
+                    <strong> Total Cost: {totalCost} </strong>
+                </p>
+
+                Add Vehicles: 
+                <input type="number" onInput={function(e) {
+                    var v = vehicles; 
+                    v.push({mileage: e.target.value})
+                    setVehicles([...v])
+                }} />
+
+                <pre> {JSON.stringify({gasCost, totalMileage, vehicles}, null, 2)} </pre>
+                </div>
+        }
+
         ReactDOM.render(
             <div>
                 <nav>
@@ -146,6 +192,7 @@
                 {false && <HelloWorld name="kyosuke" age="23" />}
                 {1==2 && <Poke />}
                 <ShinyArray />
+                <KstateTrip />
             </div>,
             document.getElementById("root")
         );
