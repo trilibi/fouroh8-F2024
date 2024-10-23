@@ -136,6 +136,7 @@
 
             console.log(images)
                 return <div>
+                    <!-- Could also use the arrow function: ()=> over current-->
                 {images.map(function(u, index){
                     console.log(index % 2)
                     return <img src={u} title={index} style={{width: index % 2 ? 32 : 64}}/>;
