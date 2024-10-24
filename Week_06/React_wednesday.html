@@ -114,30 +114,6 @@
         }
         */
 
-        function ShinyArray(){
-            const randomNo = Math.round(Math.random()*1000);
-            const url = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/'+randomNo+'.png'
-            const images = []; // new Array() // Array()
-            for(var i=1;i<=16; i++){
-                console.log(i);
-                const randomNo = Math.round(Math.random()*1000);
-                images.push('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/'+randomNo+'.png');
-            }
-
-            const mainImg = images.pop();
-
-            console.log(images);
-            return (
-                <div>
-                    {images.map(function(u, index) {
-                        console.log(index % 2)
-                        return <img src={u} title={index} style={{width: index %2 ? 32 : 64}}/>;
-                    })}
-                    <img src={mainImg} style={{width: Math.round(Math.random()*250)}}/>
-                </div>
-            );
-        }
-
         ReactDOM.render(
             <div>
                 <nav>
@@ -150,11 +126,10 @@
                     </ul>
                     </div>
                 </nav>
-                {false &&<HelloWorld name="Daler" age={21} />}
-                {false &&<HelloWorld name="Jer" age={46} />}
-                {false &&<HelloWorld name="Jerry" age={27} />}
-                {1 == 2 &&<Poke />}
-                {<ShinyArray />}
+                <HelloWorld name="Daler" age={20} />
+                <HelloWorld name="Daler" age={21} />
+                <HelloWorld name="Daler" age={22} />
+                <Poke />
             </div>,
             document.getElementById("root")
         );
