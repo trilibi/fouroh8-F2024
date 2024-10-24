@@ -1,0 +1,74 @@
+function KStateTrip() { 
+    const [gasCost, setGasCost] = React.useState(3.33);
+    const [totalMileage, setTotalMileage] = React.useState(240);
+    const [vehicles, setVehicles] = React.useState([{mileage: 10}, {mileage: 24}]);
+    const [totalCost, setTotalCost] = React.useState(0);
+    const [newVehicleMileage, setNewVehicleMileage] = React.useState('');
+
+    React.useEffect(() => {
+        let total = 0;
+        vehicles.forEach(vehicle => {
+            let vehicleCost = (totalMileage / vehicle.mileage) * gasCost;
+            total += vehicleCost;
+        });
+        setTotalCost(total);
+    }, [gasCost, totalMileage, vehicles]);
+
+    const addVehicle = () => {
+        const mileage = Number(newVehicleMileage);
+        if (mileage > 0) {
+            setVehicles(prevVehicles => [...prevVehicles, { mileage }]);
+            setNewVehicleMileage(''); // Clear the input after adding
+        }
+    };
+
+    return (
+        <div style={{maxWidth: 200, margin: 8, backgroundColor: "#f77"}}>
+            Cost:
+            <input 
+                type="number"
+                value={gasCost} 
+                onChange={(e) => setGasCost(Number(e.target.value))} 
+            />
+            Total Mileage: 
+            <input 
+                type="number"
+                value={totalMileage} 
+                onChange={(e) => setTotalMileage(Number(e.target.value))} 
+            />
+            <p>
+                <strong>Total Cost: {totalCost.toFixed(2)}</strong>    
+            </p>
+
+            Add Vehicle:
+            <input 
+                type="number" 
+                value={newVehicleMileage}
+                onChange={(e) => setNewVehicleMileage(e.target.value)} 
+            />
+            <button onClick={addVehicle}>Add</button>
+            
+            <pre>{JSON.stringify({gasCost, totalMileage, vehicles}, null, 2)}</pre>
+        </div>
+    );
+}
+
+ReactDOM.render (
+    <div>
+        <nav>
+            <ul>
+                {/* Add your navigation items here */}
+            </ul>
+        </nav>
+        {true && <HelloWorld name='Reiden' age="20" />}
+        {true && <HelloWorld name='Reiden' age="20" />}
+        {true && <HelloWorld name='Reiden' age="20" />}
+        {true && <Poke />}
+        <ShinyArray />
+        <KStateTrip />
+        {false && <Carousel />}
+    </div>,
+    document.getElementById('root')
+);
+
+}
