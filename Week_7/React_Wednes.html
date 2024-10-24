@@ -52,7 +52,7 @@
                         setName(data.name);
                         setAbilities(data.abilities);
                         setFront(data.sprites.front_default);
-                        setIsShiny(data.sprites.front_shiny);
+                        setFrontShiny(data.sprites.front_shiny);
                     })
                     .catch(function(e) { console.log(e); })
                     .finally(function(){ setLoading(false); });
@@ -60,11 +60,11 @@
 
             }, []);
 
-        //    setInterval(function() {
-        //        setIsShiny(function(shiny) {
-        //            return !shiny;
-        //        });
-        //    }, 100)
+           setInterval(function() {
+               setIsShiny(function(shiny) {
+                   return !shiny;
+               });
+           }, 100)
 
             if (loading) {
                 return <div>Loading . . .</div>
