@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vroom</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+    <script type="text/babel">
+
+
+        function Milage(){
+            const [gasCost, setGasCost] = React.useState(3.33);
+            const [totalMileage, setTotalMileage] = React.useState(240);
+            const [vehicles, setVehicles] = React.useState([
+                {mileage: 8},
+                {mileage: 24},
+                {mileage: 15},
+                {mileage: 12}
+            ]);
+
+            const [totalCost, setTotalCost] = React.useState(0);
+
+            React.useEffect(function(){
+                let total = 0; // could also do var
+                vehicles.forEach(function(vehicle){
+                    var vehicleCost = (totalMileage / vehicle.mileage) * gasCost
+                    console.log(vehicleCost, vehicle.mileage)
+                    total = total + vehicleCost
+                })
+                setTotalCost(total)
+            }, [gasCost, totalMileage, vehicles])
+
+            return <div style={{maxWidth: 200, margin: 8, backgroundColor: '#ff4'}}>
+               Gas Cost:  <input
+                type="number"
+                value={gasCost}
+                onChange={(e) => setGasCost(Number(e.target.value))} />
+
+                Total Mileage: <input
+                type="number"
+                value={totalMileage}
+                onChange={(e) => setTotalMileage(Number(e.target.value))} />
+
+                <p>
+                    <strong>Total Cost: {totalCost}</strong>
+                </p>
+
+                Add Vehicle: <input type= "number" onInput={function (e){
+                    var v = vehicles;
+                    v.push({mileage: e.target.value})
+                    setVehicles([...v])
+                }}/>
+
+
+                <pre>{JSON.stringify({gasCost, totalMileage, vehicles}, null, 2)}</pre>
+                </div>
+        }
+
+        ReactDOM.render(
+        <div>
+            <Milage/>
+        </div>,
+        document.getElementById("root")
+        )
+    </script>
+
+</body>
+</html>
