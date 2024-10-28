@@ -19,6 +19,12 @@
     <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.js"></script>
     <script type="text/babel">
 
+        function HowManySeconds(properties) {
+            console.log(properties)
+            var daysOld = properties.days * 24 * 60 * 60
+            return <strong>{daysOld} seconds old</strong>
+        }
+
         function HowManyDays(props) {
             console.log(props)
             var daysOld = props.years * 365
@@ -71,7 +77,7 @@
                 setIsShiny(function(shiny) {
                     return !isShiny
                 })
-            }, 100)
+            }, 1000)
 
             }, [])
 
@@ -103,14 +109,14 @@
         }
 
         function ShinyArray() {
-            const randomNo = Math.round(Math.random() * 1000)
-            const url = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/' + randomNo + '.png'
-            const images = []
+            const randomNo = Math.round(Math.random() * 1000);
+            const url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + randomNo + ".png";
+            const images = new Array();
 
-            for(var i=1; i<=16; i++) {
-                console.log(i)
-                const randomNo = Math.round(Math.random() * 1000)
-                images.push('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/' + randomNo + '.png')
+            for (var i=1; i<=10; i++) {
+                const randomNo = Math.round(Math.random() * 1000);
+                console.log(i);
+                images.push("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/" + randomNo + ".png");
             }
 
             const mainImg = images.pop()
@@ -123,6 +129,46 @@
                 <img sirc={mainImg} style={{width: Math.round(Math.random() * 250) }}/>
             </div>
 
+        }
+
+        function KStateTrip() { 
+            const [gasCost, setGasCost] = React.useState(3.33);
+            const [totalMileage, setTotalMileage] = React.useState(240);
+            const [vehicles, setVehicles] = React.useState([{mileage: 10}, {mileage: 24}]);
+            const [totalCost, setTotalCost] = React.useState(0);
+
+            React.useEffect(function() {
+                let total = 0;
+                vehicles.forEach(function(vehicle) {
+                    let vehicleCost = (totalMileage / vehicle.mileage * gasCost);
+                    total += (totalMileage / vehicle.mileage) * gasCost
+                })
+                setTotalCost(total)
+            }, [gasCost, totalMileage, vehicles]);
+
+            return <div style={{maxWidth: 200, margin: 8, backgroundColor: "#f77"}}>
+                Cost :<input 
+                type = "text"
+                value = {gasCost} 
+                onChange = {(e) => setGasCost(Number(e.target.value))} />
+                Total Mileage: <input 
+                type = "text"
+                value = {totalMileage} 
+                onChange = {(e) => setTotalMileage(Number(e.target.value))} />
+                <p>
+                    <strong>Total Cost: {totalCost}</strong>    
+                </p>
+
+                Add Vehicle:
+                <input type="number" onInput={function (e) {
+                    var v = vehicles;
+                    v.push({mileage: e.target.value});
+                    setVehicles([...v]);
+                    console.log(v, setVehicles);
+                }} />
+                
+                <pre>{JSON.stringify({gasCost, totalMileage, vehicles}, null, 2)}</pre>
+                </div>
         }
 
         ReactDOM.render(
@@ -142,6 +188,7 @@
                 <HelloWorld name="ADC" age="17" />,
                 <Poke />
                 <ShinyArray />
+                <KStateTrip />
             </div>,
             document.getElementById("root")
             
