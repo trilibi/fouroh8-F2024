@@ -17,5 +17,4 @@ function HowManyDays(props){
     return <><strong>{props.age * 365} days old</strong></>
 }
 
-
 export default HelloWorld
