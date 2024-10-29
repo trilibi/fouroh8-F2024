@@ -1,0 +1,55 @@
+<?php
+// Trinity Raburn
+// 10-28-24
+// PHP practice
+
+// String from example
+$str1 = '033000';
+$str2 = 'PHP stands for PHP: Hypertext Preprocessor, it is a widely-used, open source scripting language';
+$str3 = 'www.example.com/public_html/index.php';
+$str4 = 'the quick brown fox jumps over the lazy dog.';
+$str5 = 'football';
+$str6 = 'footboll';
+
+// Splitting string into 2s
+$chunkSize = 2;
+$chunks = str_split($str1, $chunkSize);
+echo implode(':', $chunks) . "\n";
+
+// Finding the location of the first PHP
+$position = strpos($str2, "PHP");
+echo $position !== false ? "The PHP word is present at position: $position\n" : "The PHP word is not present.\n";
+
+// Extracting the file name from the full address
+echo basename($str3) . "\n";
+
+// Replacing the first "the" with "that" from string 4
+echo preg_replace('/\bthe\b/', 'That', $str4, 1) . "\n";
+
+// Finding position of first different character
+for ($i = 0; $i < min(strlen($str5), strlen($str6)); $i++) {
+    if ($str5[$i] !== $str6[$i]) {
+        echo "First different character is at position: $i\n";
+        break;
+    }
+}
+
+// Encrypting string 4 by switching letter by one
+function encryptString($string) {
+    $encrypted = '';
+    foreach (str_split($string) as $char) {
+        if (ctype_alpha($char)) {
+            $nextChar = ++$char;
+            if ($char === 'z') $nextChar = 'a';
+            if ($char === 'Z') $nextChar = 'A';
+            $encrypted .= $nextChar;
+        } else {
+            $encrypted .= $char;
+        }
+    }
+    return $encrypted;
+}
+
+echo encryptString($str4) . "\n";
+
+?>
