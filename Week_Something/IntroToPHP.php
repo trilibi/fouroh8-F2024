@@ -2,16 +2,20 @@
 //Question 1
 	$str1 ='033000';
 
+	$part1 = substr($str1, 0, 2);
+	$part2 = substr($str1, 2, 2);
+	$part3 = substr($str1, 4, 2);
+	$result = $part1.':'.$part2.':'.$part3;
+	print_r($result);
 
 //Question 2
-	$str2 = 'PHP stands for PHP: Hypertext Preprocessor, it is a widely-used, open source scripting
-	language';
+	$str2 = 'PHP stands for PHP: Hypertext Preprocessor, it is a widely-used, open source scripting language';
 	$pos = strpos($str2, "PHP");
 
 	if($pos !== false){
-		echo "The PHP word is present at $pos \n";
+		echo "\nThe PHP word is present at $pos \n";
 	} else {
-		echo "The PHP word is not present.";
+		echo "\nThe PHP word is not present.";
 	}
 
 //Quesiton 3
@@ -35,12 +39,18 @@
 	
 	for($i = 0; $i < strlen($str5); $i++){
 		if($str5[$i] !== $str6[$i]){
-			echo "Position $i or Character $str5[$i] and $str6[$i] are different.";
+			echo "Position $i or Character $str5[$i] and $str6[$i] are different. \n";
 		}
 	}
 	
 	//Part B
+	$encodedMessage = "";
+	for($j = 0; $j < strlen($str4); $j++){
+		$letter = $str4[$j];
+		$encodedMessage .= chr(ord($letter) + 1);
+	}
 
+	print_r($encodedMessage);
 
 
 
