@@ -12,8 +12,12 @@ print_r($str1."\n");
 //2
 $str2_pos = strpos($str2, 'PHP');
 if ($str2_pos >= 0) {
-	print_r('The PHP word is present at '.$str2_pos.'.');
+	print_r('The PHP word is present at '.$str2_pos."\n");
 } else {
-	print_r('The PHP word is not present');
+	print_r("The PHP word is not present\n");
 }
 //3
+$file = explode('/', $str3);
+$file = $file[count($file) - 1];
+echo $file;
+//4
