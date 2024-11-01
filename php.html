@@ -1,0 +1,34 @@
+
+<?php
+
+// Fetch book data from the API
+$results = file_get_contents('https://google.com/books.json');
+$books = json_decode($results);
+
+// Check if the response is valid
+if (isset($books->response->books)) {
+    // Print the title of the first book
+    print_r($books->response->books[0]->title);
+
+    // Initialize an array for simplified book information
+    $simple_books = [];
+    $books_length = count($books->response->books);
+    echo $books_length;
+
+    // Loop through each book and extract relevant information
+    for ($i = 0; $i < $books_length; $i++) {
+        $book = $books->response->books[$i];
+
+        // Ensure all necessary fields are available before adding to the array
+        $simple_books[] = [
+            'title' => $book->title ?? null,
+            'id' => $book->id ?? null,
+            'author' => $book->author ?? null,
+            'cover_image' => $book->cover_image ?? null
+        ];
+    }
+
+    // Print the simplified books array
+    print_r($simple_books);
+} else {
+    echo "No books found.";
