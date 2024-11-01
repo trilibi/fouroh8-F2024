@@ -1,0 +1,48 @@
+<?php
+// Enter your code here, enjoy!
+$str1 = '033000';
+// chunk_split splits a str into chunks, length is 2nd arg
+$chunkedStr1 = chunk_split($str1, 2, ':');
+$chunkedStr1 = rtrim($chunkedStr1, ':'); // Remove the last ':'
+echo $chunkedStr1;
+
+
+$str2 = 'PHP stands for PHP: Hypertext Preprocessor, it is a widely-used, open source scripting language';
+$check = strpos($str2, "PHP");
+echo ("\nThe word PHP is present at $check");
+
+
+$str3 = 'www.example.com/public_html/index.php';
+// basename returns the trailing component name of a filepath
+$fileName = basename($str3);
+echo ("\n$fileName");
+
+
+$str4 = 'the quick brown fox jumps over the lazy dog.';
+$pos = strpos($str4, 'the');
+if ($pos !== false) {
+    // SHOULD replace the first occurrence only
+    $str4 = substr_replace($str4, 'That', $pos, strlen('the'));
+}
+echo ("\n$str4");
+
+
+$str5 = 'football';
+$str6 = 'footboll';
+$position = strspn($str5 ^ $str6, "\0");
+echo "\nFirst difference at position $position: {$str5[$position]} vs {$str6[$position]}";
+
+
+$str4 = 'the quick brown fox jumps over the lazy dog.';
+$encoded = '';
+for($1=0; $i < strlen($str4); $i++) {
+      $letter = substr($str4, $i, 1);
+      $encoded .= chr(ord($letter)+1);
+}
+echo $encoded
+echo "\n";
+
+$decoded = '';
+for($i=0; $i < strlen($encoded); $i++) {
+    $letter = substr($encoded, $i, 1);
+    $decoded .= chr(ord($letter)-1);
