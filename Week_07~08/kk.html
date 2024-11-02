@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Intro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="root"></div>
+    </div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+
+    <script type="text/babel">
+        function HowManySeconds(props) {
+            const secondsOld = props.days * 24 * 60 * 60;
+            return <em>{secondsOld} seconds old.</em>;
+        }
+
+        function HowManyDays(props) {
+            const daysOld = props.years * 365;
+            return <strong>{daysOld} days old. <HowManySeconds days={daysOld} /></strong>;
+        }
+
+        function HelloWorld(props) {
+            const [count,setCount] = React.useState(0);
+            console.log(props, count);
+            return (
+                <div className="card hoverable" onClick={() => setCount(count + 1)}>
+                    <div className="card-content">
+                        <span className="card-title">Hello World, {props.name}! ({count})
+                            <p>I'm {props.age} years old. <HowManyDays years={props.age} /></p>
+                        </span>
+                    </div>
+                </div>
+            );
+        }
+
+        function Carousel(){
+        React.useEffect(() => {
+            var elems = document.querySelectorAll('.carousel');
+            var instances = M.Carousel.init(elems, {
+                indicators: true,
+                duration: 300,
+            });
+
+        const interval = setInterval(() => {
+            instances[0].next(); 
+        }, 3000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    return (
+        <div className="carousel">
+            <a className="carousel-item" href="#one!"><img src="https://i.pinimg.com/enabled_lo/564x/97/4c/cb/974ccb7c0663bbd92a6582cb86393645.jpg"/></a>
+            <a className="carousel-item" href="#two!"><img src="https://i.pinimg.com/564x/e0/cc/76/e0cc767027330ea5cc041d044e280fed.jpg"/></a>
+            <a className="carousel-item" href="#three!"><img src="https://i.pinimg.com/enabled_lo/236x/b6/3d/be/b63dbe3b5eeeda655fee7abe629f6926.jpg"/></a>
+            <a className="carousel-item" href="#four!"><img src="https://i.pinimg.com/enabled_lo/236x/54/96/8e/54968eed6b86be7b0c95e8f6468a8239.jpg"/></a>
+            <a className="carousel-item" href="#five!"><img src="https://i.pinimg.com/enabled_lo/236x/5f/3b/38/5f3b38bf9a7cad42ef66102fa6aa0861.jpg"/></a>
+        </div>
+    );
+}
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(
+            <div>
+                <nav>
+                    <div className="nav-wrapper">
+                        <a href="#" className="brand-logo">Logo</a>
+                        <ul id="nav-mobile" className="right hide-on-med-and-down">
+                            <li><a href="#">sass</a></li>
+                            <li><a href="#">sass <span className="new badge">7</span></a></li>
+                            <li><a href="#">sass</a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <HelloWorld name="yeonwoo" age={21} />
+                <HelloWorld name="minje" age={22} />
+                <HelloWorld name="karin" age={20} />
+                <Carousel />
+            </div>
+        );
+    </script>
+</body>
+</html>
