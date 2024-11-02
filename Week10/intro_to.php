@@ -21,3 +21,17 @@ $file = explode('/', $str3);
 $file = $file[count($file) - 1];
 echo $file;
 //4
+print_r("\nThat".substr($str4, 3));
+//5
+for ($i = 0; $i < strlen($str5); $i++) {
+	echo "\n".$str5[$i].' '.$str6[$i];
+	if ($str5[$i] != $str6[$i]) {
+		print_r("\n".$str5[$i]." is not ".$str6[$i]."\n");
+		$i = strlen($str5);
+	}
+}
+//6
+for ($i = 0; $i < strlen($str4); $i++) {
+	$str4[$i] = chr(ord($str4[$i]) + 1);
+}
+print_r($str4);
