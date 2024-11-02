@@ -20,9 +20,9 @@ for($i = 0; $i < $books_length; $i++){
 	$simple_books[] = [
 		'title' => $book->title
 	];
-}
+}	
 
-print_r($simple_books);
+
 
 for($i = 0; $i < $books_length; $i++){
 	print_r($i);
@@ -32,7 +32,7 @@ for($i = 0; $i < $books_length; $i++){
 	];
 }
 
-print_r($simple_books);
+
 
 for($i = 0; $i < $books_length; $i++){
 	print_r($i);
@@ -42,13 +42,13 @@ for($i = 0; $i < $books_length; $i++){
 	];
 }
 
-print_r($simple_books);
+
 
 for($i = 0; $i < $books_length; $i++){
 	print_r($i);
 	$book = $books->response->books[$i];
 	$simple_books[] = [
-		'cover page' => $book->coverpage
+		'cover' => $book->cover
 	];
 }
 
