@@ -1,0 +1,59 @@
+<?php
+
+// Define the strings
+$str1 = '033000';
+$str2 = 'PHP stands for PHP: Hypertext Preprocessor, it is a widely-used, open source scripting language';
+$str3 = 'www.example.com/public_html/index.php';
+$str4 = 'the quick brown fox jumps over the lazy dog.';
+$str5 = 'football';
+$str6 = 'footboll';
+
+// 1. Split $str1 into chunks of 2 and separate with ':'
+$chunks = str_split($str1, 2);
+$formattedStr1 = implode(':', $chunks);
+echo "Formatted string 1: $formattedStr1\n";
+
+// 2. Check if $str2 contains "PHP"
+$phpPos = strpos($str2, 'PHP');
+if ($phpPos !== false) {
+    echo "The PHP word is present at position: $phpPos\n";
+} else {
+    echo "The PHP word is not present.\n";
+}
+
+// 3. Extract the file name from $str3
+$fileName = basename($str3);
+echo "File name extracted: $fileName\n";
+
+// 4. Replace the first occurrence of 'the' in $str4 with 'That'
+$modifiedStr4 = preg_replace('/\bthe\b/', 'That', $str4, 1);
+echo "Modified string 4: $modifiedStr4\n";
+
+// 5. Find the first character that is different between $str5 and $str6
+$differentChar = '';
+for ($i = 0; $i < min(strlen($str5), strlen($str6)); $i++) {
+    if ($str5[$i] !== $str6[$i]) {
+        $differentChar = $str5[$i];
+        break;
+    }
+}
+echo "First different character: $differentChar\n";
+
+// 6. Encrypt $str4 by replacing each character with the next alphabetic character
+$encryptedStr4 = '';
+foreach (str_split($str4) as $char) {
+    if (ctype_alpha($char)) {
+        if ($char === 'z') {
+            $encryptedStr4 .= 'a';
+        } elseif ($char === 'Z') {
+            $encryptedStr4 .= 'A';
+        } else {
+            $encryptedStr4 .= chr(ord($char) + 1);
+        }
+    } else {
+        $encryptedStr4 .= $char; // Keep non-alphabetic characters unchanged
+    }
+}
+echo "Encrypted string 4: $encryptedStr4\n";
+
+?>
