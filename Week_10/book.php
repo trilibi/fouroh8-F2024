@@ -1,22 +1,31 @@
 <?php
 
-$results = file_get_contents('https://google.com/books.json');
+// Google Books API endpoint (using 'Harry Potter' as a search example)
+$searchQuery = 'Harry Potter';
+$apiUrl = 'https://www.googleapis.com/books/v1/volumes?q=' . urlencode($searchQuery);
+
+// Retrieve JSON data from the API
+$results = file_get_contents($apiUrl);
 $books = json_decode($results);
-print_r($books->response->books[0]->title);
 
-$simple = [];
-$simple[] = 4;
-print_r($simple);
+if (isset($books->items)) {
+    // Create a simplified array of book information
+    $simple_books = [];
+    $books_length = count($books->items);
 
-$simple_books = [];
-$books_length = count($books->response->books);
-echo $books_length;
-// we want to return a simple array of books that includes the title, id, author and cover image
-for ($i=0; $i < $books_length; $i++) {
-	print_r($i);
-	$book =  $books->response->books[$i];
-	$simple_books[] = [
-		'title' => $book->title
-	];
+    // Add title and other information to the book info array
+    for ($i = 0; $i < $books_length; $i++) {
+        $book = $books->items[$i]->volumeInfo;
+        $simple_books[] = [
+            'title' => $book->title ?? 'No Title',
+            'id' => $books->items[$i]->id ?? 'No ID',
+            'authors' => $book->authors[0] ?? 'Unknown Author',
+            'cover' => $book->imageLinks->thumbnail ?? 'No Cover'
+        ];
+    }
+
+    // Output the results
+    print_r($simple_books);
+} else {
+    echo "No books found or an error occurred.";
 }
-print_r($simple_books);
