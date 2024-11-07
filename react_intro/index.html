@@ -81,11 +81,11 @@
                             setFrontShiny(data.sprites.front_shiny)
                             setAbilities(data.abilities)
                         })
-                        .catch(function(e) { console.log(e); })
-                        .finally(function(){ setLoading(false); });
+                        .catch(function (e) { console.log(e); })
+                        .finally(function () { setLoading(false); });
                 })
 
-                setInterval(function() {
+                setInterval(function () {
                     setIsShiny(!isShiny);
                 }, 1000);
             }, []);
@@ -93,22 +93,22 @@
             if (loading) {
                 return <div> Loading...</div>;
             }
-            
+
             return <div>Pokemon: {name}
-                    <img 
+                <img
                     alt="{name}"
                     title={name}
-                    src={isShiny ? frontShiny: front} 
+                    src={isShiny ? frontShiny : front}
                     onClick={function () {
                         setIsShiny(!isShiny)
                     }} />
-                    {abilities.map(function(item) {
-                        return <div>
-                                {item.ability.name}
-                                <pre>{JSON.stringify(item.ability)}</pre>
-                            </div>
-                    })}
+                {abilities.map(function (item) {
+                    return <div>
+                        {item.ability.name}
+                        <pre>{JSON.stringify(item.ability)}</pre>
                     </div>
+                })}
+            </div>
         }
 
         function Carousel() {
@@ -118,6 +118,49 @@
                 <a className="carousel-item" href="#three!"><img src="https://picsum.photos/200/300" /></a>
                 <a className="carousel-item" href="#four!"><img src="https://picsum.photos/200/300" /></a>
                 <a className="carousel-item" href="#five!"><img src="https://picsum.photos/200/300" /></a>
+            </div>
+        }
+
+        function KStateTrip() {
+            const [gasCost, setGasCost] = React.useState(3.33);
+            const [totalMileage, setTotalMilage] = React.useState(240);
+            const [vehicles, setVehicles] = React.useState([
+                {mileage: 8},
+                {mileage: 8},
+                {mileage: 8},
+                {mileage: 8},
+            ]);
+            const [totalCost, setTotalCost] = React.useState(0);
+
+            React.useEffect(function() {
+                let total = 0;
+                vehicles.forEach(function(vehicle) {
+                    var vehicleCost = (totalMileage / vehicle.mileage) * gasCost;
+                    total += vehicleCost;
+
+                    
+                })
+                setTotalCost(total)
+            }, [gasCost, totalMileage, vehicles])
+
+            return <div style={{maxWidth: 200, margin: 8, backgroundColor: "fuchsia"}}>
+                Cost: <input  type="number" 
+                        value={gasCost}
+                        onChange={(e) => setGasCost(e.target.value * 1)} />
+                Total Mileage: <input  type="number" 
+                        value={totalMileage}
+                        onChange={(e) => setTotalMilage(e.target.value * 1)} />
+                <p>
+                    <strong>Total Cost: {totalCost}</strong>
+                </p>
+
+                Add Vehicle:
+                <input type="number" onInput={function (e) {
+                    var v = vehicles;
+                    v.push({mileage: e.target.value})
+                    setVehicles(...v)
+                }} />
+                <pre>{JSON.stringify({ gasCost, totalMileage, vehicles }, null, 2)}</pre>
             </div>
         }
 
@@ -138,7 +181,8 @@
                 <HelloWorld name="Jer" age="46" />
                 <HelloWorld name="Jimmy" age="12" />
                 <Poke />
-                // <Carousel />
+                <KStateTrip />
+                
             </div>,
 
             document.getElementById("root")
