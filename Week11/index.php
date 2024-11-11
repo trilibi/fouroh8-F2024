@@ -38,11 +38,11 @@
         <form action="" method="">
           <label>Num 1 
             <input name="numOne" 
-              value="<?= isset($_REQUEST["numOne"]) ? $_REQUEST["numOne"] : '' ?>" />
+              value="<?= isset($_REQUEST["numOne"]) ? $_REQUEST["numOne"] : '5' ?>" />
           </label>  
           <label>Num 2 
             <input name="numTwo" 
-            value="<?= isset($_REQUEST["numTwo"]) ? $_REQUEST["numTwo"] : '' ?>" />
+            value="<?= isset($_REQUEST["numTwo"]) ? $_REQUEST["numTwo"] : '5' ?>" />
           </label>  
           <button type="submit" name="calculate">All the Maths</button> 
         </form>
