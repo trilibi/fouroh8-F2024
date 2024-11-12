@@ -5,26 +5,28 @@ class Smath {
     public $numTwo = 0;
 
     public function __construct($numOne, $numTwo) {
-        $this->numOne = (int)$numOne;
-        $this->numTwo = (int)$numTwo; // i cast this to int, maybe make float
+        $this->numOne = (float)$numOne;
+        $this->numTwo = (float)$numTwo;
     }
 
     public function add() {
         return $this->numOne + $this->numTwo;
     }
-//TODO write code here!!!!!
+
     public function subtract() {
-        // implement
+        return $this->numOne - $this->numTwo;
     }
 
     public function multiply() {
-        // implement
+        return $this->numOne * $this->numTwo;
     }
 
     public function divide() {
-        // implement
+        return $this->numOne / $this->numTwo;
     }
-    // TODO add _toString() --> LOOK AT CANVAS, BOTTOM LINK
+    public function __toString() {
+        return "Smath completed with {$this->numOne} and {$this->numTwo}";
+    }
 }
 ?>
 <html>
@@ -39,11 +41,11 @@ class Smath {
 <form action="" method="">
     <label>Num 1
         <input name="numOne"
-               value="<?= isset($_REQUEST["numOne"]) ? $_REQUEST["numOne"] : '' ?>" />
+               value="<?= isset($_REQUEST["numOne"]) ? $_REQUEST["numOne"] : '45' ?>" />
     </label>
     <label>Num 2
         <input name="numTwo"
-               value="<?= isset($_REQUEST["numTwo"]) ? $_REQUEST["numTwo"] : '' ?>" />
+               value="<?= isset($_REQUEST["numTwo"]) ? $_REQUEST["numTwo"] : '5' ?>" />
     </label>
     <button type="submit" name="calculate">All the Maths</button>
 </form>
@@ -66,7 +68,7 @@ if ($maths) {
     echo "<p>The quotient is {$maths->divide()}</p>";
 
     try {
-        echo "<p>Smaths as string: {$maths}</p>";
+        echo "<p style='color: green'>Smath as string: {$maths}</p>";
     } catch (Throwable $e) {
         echo "<p style='color:red'>Add a __toString method</p>";
     }
