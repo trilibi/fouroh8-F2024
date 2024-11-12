@@ -1,0 +1,52 @@
+<?php
+// Task 1
+$str1 = '033000';
+$str1_chunks = str_split($str1, 2);
+echo implode(":", $str1_chunks) . "\n"; // Expected output: 03:30:00
+
+// Task 2
+$str2 = 'PHP stands for PHP: Hypertext Preprocessor, it is a widely-used, open source scripting language';
+$pos = strpos($str2, 'PHP');
+if ($pos !== false) {
+    echo "The PHP word is present at position $pos\n"; // Expected output: PHP present at position 0
+} else {
+    echo "The PHP word is not present.\n";
+}
+
+// Task 3
+$str3 = 'www.example.com/public_html/index.php';
+$filename = basename($str3);
+echo "File name: $filename\n"; // Expected output: index.php
+
+// Task 4
+$str4 = 'the quick brown fox jumps over the lazy dog.';
+$str4_modified = preg_replace('/\bthe\b/i', 'That', $str4, 1);
+echo "Modified string: $str4_modified\n"; // Expected output: That quick brown fox jumps over the lazy dog.
+
+// Task 5
+$str5 = 'football';
+$str6 = 'footboll';
+for ($i = 0; $i < min(strlen($str5), strlen($str6)); $i++) {
+    if ($str5[$i] !== $str6[$i]) {
+        echo "First difference between \$str5 and \$str6 is at position $i: '{$str5[$i]}' vs '{$str6[$i]}'\n";
+        break;
+    }
+}
+
+// Task 6
+function encryptString($str) {
+    $result = '';
+    for ($i = 0; $i < strlen($str); $i++) {
+        $char = $str[$i];
+        if (ctype_alpha($char)) {
+            $next_char = chr(((ord($char) + 1 - (ctype_lower($char) ? ord('a') : ord('A'))) % 26) + (ctype_lower($char) ? ord('a') : ord('A')));
+            $result .= $next_char;
+        } else {
+            $result .= $char; // Keep non-alphabetic characters unchanged
+        }
+    }
+    return $result;
+}
+$encrypted_str4 = encryptString($str4);
+echo "Encrypted string: $encrypted_str4\n"; // Expected output: uif rvjdl cspxo gpy kvnqt pwfs uif mbaz eph.
+?>
