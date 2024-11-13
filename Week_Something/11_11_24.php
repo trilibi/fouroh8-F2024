@@ -24,6 +24,20 @@ class Smath {
   public function divide() {
     return $this->numOne / $this->numTwo;
   }
+
+  public function getNumOne() {
+    return $this->numOne;
+  }
+
+  public function getNumTwo() {
+    return $this->numTwo;
+  }
+
+  public function __toString() {
+    return 
+    "The first number is entered is {$this->getNumOne()} and the second number you entered is {$this->getNumTwo()} ";
+  }
+
 }
 ?>
 <html>
@@ -77,6 +91,7 @@ class Smath {
         try {
           echo "<p>Smaths as string: {$maths}</p>";
         } catch (Throwable $e) {
+          echo $e;
           echo "<p style='color:red'>Add a __toString method</p>";
         }
       }
