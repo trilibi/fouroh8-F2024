@@ -15,14 +15,24 @@ class Smath {
 
   public function subtract() {
     // implement
+    return $this->numOne - $this->numTwo;
   }
 
   public function multiply() {
     // implement
+    return $this->numOne * $this->numTwo;
   }
 
   public function divide() {
     // implement
+    if ($this->numTwo == 0) {
+      return "Cannot divide by zero!";
+    }
+    return $this->numOne / $this->numTwo;
+  }
+
+  public function __toString(){
+    return "{$this->numOne} and {$this->numTwo}";
   }
 }
 ?>
@@ -34,11 +44,11 @@ class Smath {
     <form action="" method="">
       <label>Num 1 
         <input name="numOne" 
-          value="<?= isset($_REQUEST["numOne"]) ? $_REQUEST["numOne"] : '' ?>" />
+          value="<?= isset($_REQUEST["numOne"]) ? $_REQUEST["numOne"] : 5 ?>" />
       </label>  
       <label>Num 2 
         <input name="numTwo" 
-        value="<?= isset($_REQUEST["numTwo"]) ? $_REQUEST["numTwo"] : '' ?>" />
+          value="<?= isset($_REQUEST["numTwo"]) ? $_REQUEST["numTwo"] : 10 ?>" />
       </label>  
       <button type="submit" name="calculate">All the Maths</button> 
     </form>
@@ -61,9 +71,9 @@ class Smath {
         echo "<p>The quotient is {$maths->divide()}</p>";
 
         try {
-          echo "<p>Smaths as string: {$maths}</p>";
+          echo "<p style='color:green'>Smaths as string: Smaths Completed with {$maths}</p>";
         } catch (Throwable $e) {
-          echo "<p style='color:red'>Add a __toString method</p>";
+          echo "<p style='color:red'>Error: {$e->getMessage()}</p>";
         }
       }
     ?>
