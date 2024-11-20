@@ -1,0 +1,4 @@
+window.confirm ('Yes or No') - console.log, pop up with ok/cancel
+    - true if click ok
+    - false if click cancel
+
