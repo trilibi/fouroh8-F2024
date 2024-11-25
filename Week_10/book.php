@@ -27,5 +27,5 @@ if (isset($books->items)) {
     // Output the results
     print_r($simple_books);
 } else {
-    echo "No books found or an error occurred.";
+    echo "No books found or an error occurr3ed.";
 }
