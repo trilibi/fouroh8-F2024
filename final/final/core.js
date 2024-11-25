@@ -21,8 +21,10 @@ const App = () => {
       <nav>
         COD Zombies
         <h1>{name}</h1>
-        <input type="text" onInput={(e) => setName(e.target.value)}
-        value={name}/>
+        <input type="text" onInput={(e) => {
+          setName(e.target.value);
+          window.localStorage.setItem('my_name', e.target.value)
+        }} value={name}/>
       </nav>
       <div id="main">
         <Sidebar />
