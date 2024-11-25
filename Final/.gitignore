@@ -1,5 +1,7 @@
 .idea
 *.xml
 *.iml
+notes/*
 .DS_Store
 **/.DS_Store
+.idea
