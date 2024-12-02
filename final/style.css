@@ -53,3 +53,9 @@ body {
   #board .cell.even {
     background: blueviolet;
   }
+
+  .Avatar-Selection {
+    height: 100px;
+    overflow: scroll;
+    background-color: navy;
+  }
