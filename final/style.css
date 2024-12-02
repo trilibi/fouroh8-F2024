@@ -56,3 +56,9 @@ body {
   #board .cell.odd {
     background: #000dff;
   }
+
+  .avatar-picker{
+    height: 100px;
+    overflow: scroll;
+    background: #999;
+  }
