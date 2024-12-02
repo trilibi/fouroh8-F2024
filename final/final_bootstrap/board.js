@@ -20,7 +20,7 @@ export default function Board({ grid, width }) {
           <div className="row" key={"row_" + x}>
             {row.map((col, y) => (
               <div
-                className={getCellClass(x, y)}
+              className={getCellClass(x, y)}
                 title={x + "," + y}
                 key={"col_" + y}
               >
