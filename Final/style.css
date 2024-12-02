@@ -57,3 +57,9 @@ https://www.w3schools.com/css/css3_flexbox.asp
 #board .cell.even {
     background: deeppink;
 }
+
+.avatar-picker {
+    height: 100px;
+    overflow: scroll;
+    background: indigo;
+}
