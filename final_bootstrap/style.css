@@ -53,3 +53,9 @@ body {
   #board .cell.even {
     background: #2d324c;
   }
+
+  .avatar-picker {
+    height: 100px;
+    overflow: scroll;
+    background-color: #5b6494;
+  }

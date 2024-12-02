@@ -11,8 +11,14 @@ function getCellClass(x, y) {
   );
 }
 
-export default function Board({ grid, width }) {
+export default function Board({ grid, width, updatePosition}) {
   // console
+  function cellClicked(e) {
+    let data = e.target.dataset;
+    //console.log('clicked', e.target.dataset);
+    updatePosition(data.x, data.y);
+  }
+
   return (
     <div id="board">
       <div style={{ width: width }}>
@@ -23,6 +29,9 @@ export default function Board({ grid, width }) {
                 className={getCellClass(x, y)}
                 title={x + "," + y}
                 key={"col_" + y}
+                onClick={cellClicked}
+                data-x={x}
+                data-y={y}
               >
                 {x},{y}
               </div>
