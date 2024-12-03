@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Intro</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script crossorigin src=" https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src=" https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src=" https://unpkg.com/babel-standalone@6/babel.js"></script>
+
+    <script type="text/babel">
+
+        function HowManySeconds(properties) {
+            console.log(properties)
+            var daysOld = properties.days * 24 * 60 * 60
+            return <strong>{daysOld} seconds old</strong>
+        }
+
+        function HowManyDays(properties) {
+            console.log(properties)
+            var daysOld = properties.years * 365
+            return <strong>{daysOld} days old <HowManySeconds days={daysOld} /></strong>
+        }
+
+        function HelloWorld(properties) {
+            console.log(properties);
+            return <h1>Hello WOrld, {properties.name}!!!!!!!!!!!!!!!1! I am {properties.age} years old. 
+                <HowManyDays years={properties.age} /></h1>
+        }
+
+        ReactDOM.render (
+            <div>
+                <HelloWorld name='Bob' age="18" />
+                <HelloWorld name='Jake' age="21" />
+                <HelloWorld name='John' age="yoink" />
+                <HowManyDays />
+            </div>,
+            document.getElementById('root')
+    );
+    </script>
+
+</body>
+</html>
