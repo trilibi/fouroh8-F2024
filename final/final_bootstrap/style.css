@@ -54,13 +54,17 @@ body {
     background: #dd6f6f;
   }
 
+  #board .cell.odd {
+    background: black;
+  }
+
   body {
     position: "relative"
   }
 
   .avatar-picker {
     height: 100px;
-    overflow: "scroll"; 
+    overflow: scroll; 
     background: "green"; 
   }
 

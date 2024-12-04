@@ -2,10 +2,9 @@ import Board from "./board";
 import Sidebar from "./sidebar";
 
 const Pokedex = new window.Pokedex.Pokedex() // window where its coming from 
-console.log(window.Pokedex)
 
 const App = () => {
-  const defaultName = window.localStorage.getItem('My_name'); 
+  const defaultName = window.localStorage.getItem('my_name'); 
   const [name, setName] = React.useState(defaultName ? defaultName : 'anon');
   const [grid, setGrid] = React.useState([]); 
   const [pokemonList, setPokemonList] = React.useState([]); 
@@ -26,19 +25,18 @@ const App = () => {
     const new_grid = Array.from({ length: rows }, () => new Array(cols).fill([])); 
     setGrid(new_grid); 
   
-  
-  Pokedex.getPokedexlist()
+  // be careful with type error
+  Pokedex.getPokemonsList()
   .then(function(response) {
     console.log(response)
     let list = response.results; 
     list = list.map((item) => {
-      console.log("https://pokeapi.co/api/v2/pokemon/1").length()
-      console.log(item.slice(34, -1))
+      console.log("https://pokeapi.co/api/v2/pokemon/1".length)
+      console.log(item.url.slice(34, -1))
       item.id = item.url.slice(34, -1); 
       return item; 
     })
-
-    setPokemonList(response.results)
+    setPokemonList(list)
   })
 }, []);
 
@@ -52,27 +50,39 @@ const App = () => {
       <nav>
         Our Grid Game, this class is an easy A 
         <input type="text" onInput={(e) => {
-          setName(e.target.value)
+          console.log(e); 
+          setName(e.target.value); 
           window.localStorage.setItem('my_name', e.target.value); 
-        }} value={name} /> ({myPosition.x}, {myPosition.y}) (Avatar Name: {myAvatar.name}, id# {myAvatar.id}) 
+        }} value = {name} /> ({myPosition.x}, {myPosition.y}) 
+        (Avatar Name: {myAvatar.name} id# {myAvatar.id})
+        <span onClick={() => {
+          setMyAvatar({name: '', id: 0}); 
+        }}> Clear Avatar</span>
+
         (Available Pokemon: {pokemonList.length})
       </nav>
 
-      {myAvatar.id === 0 && <div className='avatar-picker'>No Avatar: 
+      {myAvatar.id === 0 && 
+      <div className='avatar-picker'>No Avatar: 
         {pokemonList.map(function(item) {
           var baseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/25.gif'
           return (<img 
             onClick={() => {
-              console.log(item); }
+              console.log(item);
               setMyAvatar({name: item.name, id: item.id});
-            })
+            }}
             title={item.name} 
-            src={baseUrl + '/' + item.id + '.gif'} />); 
+            src={baseUrl + '/' + item.id + '.gif'}/>); 
+        })}</div>}
 
-      
       <div id="main">
         <Sidebar />
-        <Board grid={grid} width="70%" updatePosition={updatePosition}/>
+        <Board 
+          grid={grid} 
+          width="70%"
+          myAvatar={myAvatar}
+          myPosition={myPosition}
+          updatePosition={updatePosition}/>
       </div>
     </div>
   );
