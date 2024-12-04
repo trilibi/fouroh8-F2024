@@ -51,5 +51,19 @@ body {
     padding-top: 100%;
   }
   #board .cell.even {
-    background: #111;
+    background: #dd6f6f;
+  }
+
+  body {
+    position: "relative"
+  }
+
+  .avatar-picker {
+    height: 100px;
+    overflow: "scroll"; 
+    background: "green"; 
+  }
+
+  .avatar-picker img {
+    height: 25px; 
   }
