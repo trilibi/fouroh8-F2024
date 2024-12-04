@@ -4,26 +4,22 @@ import Sidebar from "./sidebar";
 const Pokedex = new window.Pokedex.Pokedex()
 const pokemon = [];
 
-Pokedex.getPokemonList()
-.then(function(response) {
-  console.log(response)
-  setPokemonList(response.results)
-})
-
 
 const App = () => {
   const defaultName = window.localStorage.getItem('my_name');
   const [name, setName] = React.useState(defaultName ? defaultName : 'anon');
   const [grid, setGrid] = React.useState([]);
-  const [myPosition, setMyPosition] = React.userState({
+  const [myPosition, setMyPosition] = React.useState({
     y: 0,
     y: 0
   });
 
-  const [myAvatar, setMyAvatar] =React.userState({
+  const [myAvatar, setMyAvatar] = React.useState({
     name: '',
     id: 0
   });
+
+  const [pokemonList, setPokemonList] = React.useState([]);
 
   // https://www.geeksforgeeks.org/how-to-create-two-dimensional-array-in-javascript/
   
@@ -34,6 +30,14 @@ const App = () => {
   const new_grid = Array.from({ length: rows }, () => new Array(cols).fill([]));
   setGrid(new_grid);
   console.log(new_grid);
+
+  
+Pokedex.getPokemonsList()
+.then(function(response) {
+  console.log(response)
+  setPokemonList(response.results)
+})
+
   },[]);
 
   function updatePosition(x,y) {
@@ -50,8 +54,20 @@ const App = () => {
         <input type="text"  onInput={(e) => {
           setName(e.target.value);
           window.localStorage.setItem('my_name', e.target.value);
-        }} value={name}/> ({myPosition.x})
+        }} value={name}/> 
+        ({myPosition.x}),({myPosition.y})
+        (Avatar Name: {myAvatar.name}, id# {myAvatar.id})
+        (Available Pokemon: {pokemonList.length})
       </nav>
+      {myAvatar.id === 0 && 
+      <div className="avatar-picker" >No Avatar:
+       {pokemonList.map(function(item){
+        return <div onClick={() => {console.log(item); }}>{item.name}
+        </div>
+       })}
+       </div>
+       }
+
       <div id="main">
         <Sidebar />
         <Board grid={grid} width="90%" />
