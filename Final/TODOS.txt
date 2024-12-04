@@ -1,0 +1,5 @@
+basically just a list of ideas that I have
+
+avatar selector:
+randomly show only 3
+re-roll if you want to

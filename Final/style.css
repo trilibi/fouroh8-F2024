@@ -58,6 +58,10 @@ https://www.w3schools.com/css/css3_flexbox.asp
     background: deeppink;
 }
 
+#board .cell img{
+    width: 25px;
+}
+
 .avatar-picker {
     height: 100px;
     overflow: scroll;
