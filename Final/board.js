@@ -11,7 +11,7 @@ function getCellClass(x, y) {
   );
 }
 
-export default function Board({ grid, width, updatePosition }) {
+export default function Board({ grid, width, myAvatar, myPosition, updatePosition }) {
 
   function cellClicked(e, x, y) {
     // console.log("Clicked");
@@ -35,7 +35,8 @@ export default function Board({ grid, width, updatePosition }) {
                 data-x={x}
                 data-y={y}
               >
-                {x},{y}
+                {myPosition.x == x && myPosition.y == y
+                && <img src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/'+myAvatar.id+'.gif'} />}
               </div>
             ))}
           </div>

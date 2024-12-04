@@ -26,9 +26,15 @@ const App = () => {
     const cols = 10;
     const new_grid = Array.from({ length: rows }, () => new Array(cols).fill([]));
     setGrid(new_grid);
+
     Pokedex.getPokemonsList()
     .then(function(response) {
-      setPokemonList(response.results);
+      let list = response.results;
+      list = list.map((item) => {
+        item.id = item.url.slice(34, -1);
+        return item;
+      });
+      setPokemonList(list);
     })
   }, []);
   
@@ -47,16 +53,27 @@ const App = () => {
           }} value={name}/> 
           ({myPosition.x}, {myPosition.y}) 
           (Avatar Name: {myAvatar.name}, id: {myAvatar.id})
+          <span onClick={() => {setMyAvatar({name: '', id: 0})}}> Clear Avatar </span>
           (Avalable Pokemon: {pokemonList.length})
       </nav>
       {myAvatar.id === 0 && <div className="avatar-picker">No Avatar: {pokemonList.map(function(item){
-        return <div onClick={() => {
-          console.log(item)
-        }}>{item.name}</div>
+        var baseUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/";
+        return <img 
+        title={item.name} 
+        src={baseUrl + item.id + '.gif'} 
+        onClick={() => {
+          console.log(item);
+          setMyAvatar({name: item.name, id: item.id});
+        }}/>
       })}</div>}
       <div id="main">
         <Sidebar />
-        <Board grid={grid} width="70%" updatePosition={updatePosition}/>
+        <Board 
+        grid={grid} 
+        width="70%" 
+        myAvatar={myAvatar}
+        myPosition={myPosition}
+        updatePosition={updatePosition}/>
       </div>
     </div>
   );
