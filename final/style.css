@@ -51,7 +51,25 @@
         float: left;
         padding-top: 100%;
       }
+
+      #board .cell img {
+        width: 25px;
+      }
       #board .cell.even {
-        background: #ad4444;
+        background: #dd6f6f;
+      }
+
+      body {
+        position: relative
+      }
+
+      .avatar-picker {
+        height: 100px;
+        overflow: scroll;
+        background: #fff
+      }
+
+      .avatar-picker img {
+        
       }
   
