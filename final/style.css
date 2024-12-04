@@ -54,8 +54,17 @@ body {
     background: #dd6f6f;
   }
 
+  #board .cell img {
+    width: 25px;
+  }
+
   .avatar-picker {
     height: 100px;
     overflow: scroll;
-    background-color: #378e8e;
+    background-color: white;
+    color:#000;
+  }
+
+  avatar-picker img {
+    height: 25px;
   }
