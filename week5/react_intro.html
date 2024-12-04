@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Intro - Personalized</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+
+    <script type="text/babel">
+        function HowManyDays(props){
+            console.log(props);
+            var daysOld = props.years * 365.25; 
+            return <em>You’ve lived approximately {Math.floor(daysOld)} days!</em>;
+        }
+
+        function GreetingMessage(props){
+            console.log(props);
+            return <h2>{props.message}</h2>;
+        }
+
+        function HelloWorld(props){
+            console.log(props);
+            return (
+                <div>
+                    <GreetingMessage message={`Hello world, ${props.name}!`} />
+                    <p>I am {props.age} years old.</p>
+                    <HowManyDays years={props.age} />
+                </div>
+            );
+        }
+
+        ReactDOM.render(
+            <div>
+                <HelloWorld name="Bhavya" age="25" />
+                <HelloWorld name="Jer" age="46" />
+            </div>,
+            document.getElementById("root")
+        );
+    </script>
+</body>
+</html>
