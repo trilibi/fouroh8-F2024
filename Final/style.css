@@ -6,6 +6,7 @@ body {
     padding: 0;
     margin: 0;
   }
+
   #root,
   #app_root {
     height: 100vh;
@@ -21,19 +22,23 @@ body {
     width: 100%;
     overflow: hidden;
   }
+
   #sidebar {
     background: #444;
     width: 25%;
   }
+
   #board {
     background: #000;
     width: 75%;
   }
+
   #board .row {
     display: flex;
     justify-content: space-around;
     line-height: 25px;
   }
+
   #board .cell {
     border: 1px solid#222;
 
@@ -50,6 +55,13 @@ body {
     float: left;
     padding-top: 100%;
   }
+
+  #board .cell img {
+    width: 25px;
+  }
+
+
+
   #board .cell.even {
     background: #ffaeae;
   }
@@ -57,5 +69,6 @@ body {
   .avatar-picker {
     height: 100px;
     overflow: scroll;
-    background-color: rgb(2, 15, 152);
+    background-color:white;
+    color: black;
   }
