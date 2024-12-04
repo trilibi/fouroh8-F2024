@@ -36,7 +36,6 @@ https://www.w3schools.com/css/css3_flexbox.asp
 }
 #board .cell {
     border: 1px solid#222;
-
     display: flex;
     flex: 1 0 auto;
     height: auto;
@@ -52,4 +51,18 @@ https://www.w3schools.com/css/css3_flexbox.asp
 }
 #board .cell.even {
     background: #4e5a6f;
+}
+
+#board .cell img {
+    width: 25px;
+}
+
+.avatar-picker {
+    height: 100px;
+    overflow: scroll;
+    background-color: rgb(146, 30, 44);
+}
+
+.avatar-picker img {
+    height: 35px;
 }
