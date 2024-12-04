@@ -50,6 +50,11 @@ body {
     float: left;
     padding-top: 100%;
   }
+  
+  #board .cell img{
+    width: 25px
+  }
+
   #board .cell.even {
     background: purple;
   }
@@ -58,4 +63,8 @@ body {
     height: 100px;
     overflow: scroll;
     background: blue;
+  }
+
+  .avatar-picker img{
+    height: 25px;
   }
