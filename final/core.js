@@ -29,7 +29,14 @@ const App = () => {
     Pokedex.getPokemonsList()
     .then(function(response) {
       console.log(response);
-      setPokemonList(response.results);
+      let list = response.results;
+      list = list.map((item) =>{
+        console.log("https://pokeapi.co/api/v2/pokemon/".length)
+        console.log(item.url.slice(34, -1))
+        item.id = item.url.slice(34, -1);
+        return item;
+      })
+      setPokemonList(list);
     })
   }, []);
   
@@ -47,19 +54,34 @@ const App = () => {
           setName(e.target.value);
           window.localStorage.setItem('my_name', e.target.value);
         }} value = {name} /> ({myPosition.x}, {myPosition.y}) 
-        (Avatar Name: {myAvatar.name} id#{myAvatar.id})
+        (Avatar Name: {myAvatar.name} id# {myAvatar.id})
+        <span onClick={() => {
+          setMyAvatar({name: '', id: 0});
+        }
+        }>Clear Avatar</span>
         (Available Pokemon: {pokemonList.length})
       </nav>
-      {myAvatar.id == 0 && <div className="avatar-picker">No Avatar: 
+      {myAvatar.id == 0 && 
+      <div className="avatar-picker">No Avatar: 
         {pokemonList.map(function(item){
-        return <div onClick={() => {
-          console.log(item);
-        }}>{item.name}</div>
-      })}</div>}
+          var baseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated'
+        return (<img 
+        onClick={() => {console.log(item);
+          setMyAvatar({name: item.name, id: item.id});
+         }}
+        title ={item.name}
+        src={baseUrl + '/' + item.id + '.gif'}/>);
+      })}
+      </div>}
       
       <div id="main">
         <Sidebar />
-        <Board grid={grid} width="90%" updatePosition={updatePosition}/>
+        <Board 
+          grid={grid} 
+          width="70%" 
+          myAvatar={myAvatar} 
+          myPosition={myPosition} 
+          updatePosition={updatePosition}/>
       </div>
     </div>
   );
