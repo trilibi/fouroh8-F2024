@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Setup</title>
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- React Libraries -->
+    <script
+      crossorigin
+      src="https://unpkg.com/react@17/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+    ></script>
+
+    <!-- Babel for JSX Transformation -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <!-- PokeAPI Wrapper -->
+    <script src="https://unpkg.com/pokeapi-js-wrapper@1.2.7/dist/index.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- Scripts -->
+    <script
+      src="sidebar.js"
+      type="text/babel"
+      data-plugins="transform-es2015-modules-umd"
+    ></script>
+    <script
+      src="board.js"
+      type="text/babel"
+      data-plugins="transform-es2015-modules-umd"
+    ></script>
+    <script
+      src="core.js"
+      type="text/babel"
+      data-plugins="transform-es2015-modules-umd"
+    ></script>
+
+    <script>
+      // Ensure correct avatar URL
+      async function fetchAvatars() {
+        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=25');
+        const data = await response.json();
+        const avatars = data.results.map((pokemon) => {
+          // Extract Pokémon ID and generate sprite URL
+          const id = pokemon.url.match(/\/(\d+)\//)[1];
+          return {
+            name: pokemon.name,
+            sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${id}.gif`,
+          };
+        });
+        console.log('Fetched Avatars:', avatars);
+        return avatars;
+      }
+
+      // Fetch avatars for debugging
+      fetchAvatars();
+    </script>
+  </body>
+</html>

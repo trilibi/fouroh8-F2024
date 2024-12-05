@@ -1,0 +1,59 @@
+body {
+  background: #333;
+  color: #eee;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+#root,
+#app_root {
+  height: 100vh;
+  width: 100vw;
+}
+
+#main {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+#sidebar {
+  background: #444;
+  width: 25%;
+}
+
+#board {
+  width: 75%;
+}
+
+#board .row {
+  display: flex;
+  justify-content: space-around;
+}
+
+#board .cell {
+  border: 1px solid #222;
+  display: flex;
+  flex: 1 0 auto;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+#board .cell::before {
+  content: "";
+  display: block;
+  padding-top: 100%; /* Maintain a square aspect ratio */
+}
+
+/* Checkerboard styling */
+#board .cell.even {
+  background: red !important; /* Ensure the style is applied */
+}
+
+#board .cell.odd {
+  background: black !important; /* Ensure the style is applied */
+}
