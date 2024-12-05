@@ -56,6 +56,7 @@ Pokedex.getPokemonsList()
   return (
     <div id="app_root">
       <nav myPosition={myPosition}>
+        {/* Include picture of avatar in its same size either on left or right */}
         Our Grid Game, this class is an easy A
         <input type="text"  onInput={(e) => {
           setName(e.target.value);
@@ -67,6 +68,9 @@ Pokedex.getPokemonsList()
           setMyAvatar({name: '', id: 0});
         }}>Clear Avatar</span>}
         (Available Pokemon: {pokemonList.length})
+        <input type="text" placeholder="Search.." name="search"></input> 
+        {/* //Finish search bar (Searches for your avatar)*/}
+        {/* Make sure search bar disappears after avatar is picked */}
       </nav>
       {myAvatar.id === 0 && 
       <div className="avatar-picker" >No Avatar:
