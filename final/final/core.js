@@ -10,7 +10,7 @@ const App = () => {
   const [name, setName] = React.useState(defaultName ? defaultName : 'anon');
   const [grid, setGrid] = React.useState([]);
   const [myPosition, setMyPosition] = React.useState({
-    y: 0,
+    x: 0,
     y: 0
   });
 
@@ -34,7 +34,13 @@ const App = () => {
   
 Pokedex.getPokemonsList()
 .then(function(response) {
-  console.log(response)
+  console.log(response);
+  let list = response.results;
+  list = list.map((item) => {
+    console.log("https://pokeapi.co/api/v2/pokemon/");
+    console.log(item.url.slice(34,-1));
+    item.id = item.url.slice(34,-1);
+  })
   setPokemonList(response.results)
 })
 
@@ -42,7 +48,7 @@ Pokedex.getPokemonsList()
 
   function updatePosition(x,y) {
     console.log('CORE :: ', x, y);
-    setMyPosition({x: x,y});
+    setMyPosition({x: x, y});
   }
 
 
@@ -57,20 +63,32 @@ Pokedex.getPokemonsList()
         }} value={name}/> 
         ({myPosition.x}),({myPosition.y})
         (Avatar Name: {myAvatar.name}, id# {myAvatar.id})
+        {myAvatar.id !== 0 &&<span onClick={() => {
+          setMyAvatar({name: '', id: 0});
+        }}>Clear Avatar</span>}
         (Available Pokemon: {pokemonList.length})
       </nav>
       {myAvatar.id === 0 && 
       <div className="avatar-picker" >No Avatar:
        {pokemonList.map(function(item){
-        return <div onClick={() => {console.log(item); }}>{item.name}
-        </div>
+        var baseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/'
+        return (<img 
+        onClick={() => {
+          setMyAvatar({name: item.name, id: item.id});
+          console.log(item); }}
+        title={item.name} 
+        src={baseUrl + '/' + item.id + '.gif'} />);
        })}
        </div>
        }
 
       <div id="main">
         <Sidebar />
-        <Board grid={grid} width="90%" />
+        <Board grid={grid} width="90%" 
+        myAvatar={myAvatar}
+        myPosition={myPosition}
+        updatePosition={updatePosition}
+        />
       </div>
     </div>
   );
