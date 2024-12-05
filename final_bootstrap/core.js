@@ -23,7 +23,14 @@ const App = () => {
     const new_grid = Array.from({ length: rows }, () => new Array(cols).fill([]));
     setGrid(new_grid);
 
-    Pokedex.getPokemonsList().then(function(p) {setPokemonList(p.results)});
+    Pokedex.getPokemonsList().then(function(p) {
+      let pList = p.results;
+      pList = pList.map((item) => {
+        item.id = item.url.slice(34, -1);
+        return item;
+      })
+      setPokemonList(pList);
+    });
   }, []);
   // https://www.geeksforgeeks.org/how-to-create-two-dimensional-array-in-javascript/
 
@@ -40,17 +47,23 @@ const App = () => {
         <input type="text" onInput={(e) => {
           setName(e.target.value);
           window.localStorage.setItem('my_name', e.target.value);
-        }} value={name}/> ({myPosition.x}, {myPosition.y}) ({myAvatar.name}, id#{myAvatar.id}) 
+        }} value={name}/> ({myPosition.x}, {myPosition.y}) ({myAvatar.name}, id#{myAvatar.id})
+        <span onClick={() => {setMyAvatar({name: '', id: 0})}}> Clear Avatar  </span>
         (Available Pokemon: {pokemonList.length})
       </nav>
-      {myAvatar.id === 0 && <div className="avatar-picker">No Avatar: {pokemonList.map(function(item) {
-        return <div onClick={() => {
+      {myAvatar.id === 0 && 
+      <div className="avatar-picker">No Avatar: 
+      {pokemonList.map(function(item) {
+        let baseURL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/";
+        return <img title={item.name} src={baseURL + '/' + item.id + '.gif'} onClick={() => {
           console.log(item);
-        }}>{item.name}</div>
-      })}</div>}
+          setMyAvatar({name: item.name, id: item.id})
+        }}/>
+      })}
+      </div>}
       <div id="main">
         <Sidebar />
-        <Board grid={grid} width="50%" updatePosition={updatePosition}/>
+        <Board grid={grid} width="50%" avatar={myAvatar} myPosition={myPosition} updatePosition={updatePosition}/>
       </div>
     </div>
   );

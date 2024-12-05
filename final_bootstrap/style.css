@@ -50,6 +50,11 @@ body {
     float: left;
     padding-top: 100%;
   }
+
+  #board .cell img {
+    width: 40%;
+  }
+
   #board .cell.even {
     background: #2d324c;
   }
@@ -58,4 +63,9 @@ body {
     height: 100px;
     overflow: scroll;
     background-color: #5b6494;
+  }
+
+  .avatar-picker img {
+    height: 40%;
+
   }
