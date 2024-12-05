@@ -35,7 +35,9 @@ export default function Board({ grid, width, updatePosition }) {
                 data-x={x}
                 data-y={y}
               >
+                {myPosition.x == x && myPosition.y == y && "X"}
                 {x},{y}
+                <img src = {"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/"+myAvatar.id+".gif"}/>
               </div>
             ))}
           </div>

@@ -22,6 +22,7 @@ const App = () => {
   React.useEffect(function() {    
     const rows = 8;
     const cols = 8;
+    
     const new_grid = Array.from({ length: rows }, () => new Array(cols).fill([]));
     setGrid(new_grid);
     //console.log(grid);
@@ -29,6 +30,12 @@ const App = () => {
     Pokedex.getPokemonsList()
     .then(function(response) {
       console.log(response);
+      let list = response.results;
+      list = list.map(function(item, index){
+        
+        item.id = item.url.slice(34,-1);
+        return item;
+      });
       setPokemonList(response.results);
     })
   }, []);
@@ -46,15 +53,22 @@ const App = () => {
           console.log(e);
           setName(e.target.value);
           window.localStorage.setItem('my_name', e.target.value);
-        }} value = {name} /> ({myPosition.x}, {myPosition.y}) 
+        }} value = {name} /> 
+        ({myPosition.x}, {myPosition.y}) 
         (Avatar Name: {myAvatar.name} id#{myAvatar.id})
+        <span>Clear Avatar</span>
         (Available Pokemon: {pokemonList.length})
       </nav>
       {myAvatar.id == 0 && <div className="avatar-picker">No Avatar: 
         {pokemonList.map(function(item){
+          var baseUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/";
         return <div onClick={() => {
           console.log(item);
-        }}>{item.name}</div>
+          setMyAvatar({name: item.name, id: item.id});
+        }}>{item.name}
+        <img src={baseUrl + item.id + ".gif"} />
+        </div>
+
       })}</div>}
       
       <div id="main">
