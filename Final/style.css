@@ -61,7 +61,14 @@ body {
   .avatar-picker{
     height:100px;
     overflow:scroll;
-    background: blue;
+    background: white;
   }
 
+  .avatar-picker img{
+    height: 35px
+  }
+
+  #board .cell image{
+    height: 45px
+  }
  
