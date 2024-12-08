@@ -22,7 +22,6 @@ const App = () => {
   React.useEffect(function() {    
     const rows = 8;
     const cols = 8;
-    
     const new_grid = Array.from({ length: rows }, () => new Array(cols).fill([]));
     setGrid(new_grid);
     //console.log(grid);
@@ -31,12 +30,13 @@ const App = () => {
     .then(function(response) {
       console.log(response);
       let list = response.results;
-      list = list.map(function(item, index){
-        
-        item.id = item.url.slice(34,-1);
+      list = list.map((item) =>{
+        console.log("https://pokeapi.co/api/v2/pokemon/".length)
+        console.log(item.url.slice(34, -1))
+        item.id = item.url.slice(34, -1);
         return item;
-      });
-      setPokemonList(response.results);
+      })
+      setPokemonList(list);
     })
   }, []);
   
@@ -53,27 +53,35 @@ const App = () => {
           console.log(e);
           setName(e.target.value);
           window.localStorage.setItem('my_name', e.target.value);
-        }} value = {name} /> 
-        ({myPosition.x}, {myPosition.y}) 
-        (Avatar Name: {myAvatar.name} id#{myAvatar.id})
-        <span>Clear Avatar</span>
+        }} value = {name} /> ({myPosition.x}, {myPosition.y}) 
+        (Avatar Name: {myAvatar.name} id# {myAvatar.id})
+        <span onClick={() => {
+          setMyAvatar({name: '', id: 0});
+        }
+        }>Clear Avatar</span>
         (Available Pokemon: {pokemonList.length})
       </nav>
-      {myAvatar.id == 0 && <div className="avatar-picker">No Avatar: 
+      {myAvatar.id == 0 && 
+      <div className="avatar-picker">No Avatar: 
         {pokemonList.map(function(item){
-          var baseUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/";
-        return <div onClick={() => {
-          console.log(item);
+          var baseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated'
+        return (<img 
+        onClick={() => {console.log(item);
           setMyAvatar({name: item.name, id: item.id});
-        }}>{item.name}
-        <img src={baseUrl + item.id + ".gif"} />
-        </div>
-
-      })}</div>}
+         }}
+        title ={item.name}
+        src={baseUrl + '/' + item.id + '.gif'}/>);
+      })}
+      </div>}
       
       <div id="main">
         <Sidebar />
-        <Board grid={grid} width="90%" updatePosition={updatePosition}/>
+        <Board 
+          grid={grid} 
+          width="70%" 
+          myAvatar={myAvatar} 
+          myPosition={myPosition} 
+          updatePosition={updatePosition}/>
       </div>
     </div>
   );
