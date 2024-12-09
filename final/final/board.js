@@ -1,3 +1,5 @@
+import Avatar from "./avatar";
+
 function getCellClass(x, y) {
   return (
     "cell " +
@@ -11,7 +13,7 @@ function getCellClass(x, y) {
   );
 }
 
-export default function Board({ grid, myAvatar, myPosition, width, updatePosition }) {
+export default function Board({ grid, myAvatar, myPosition, width, updatePosition, avatars }) {
 
     function cellClicked(e, x, y) {
       // console.log('clicked');
@@ -24,11 +26,12 @@ export default function Board({ grid, myAvatar, myPosition, width, updatePositio
   // console
   return (
     <div id="board">
+      <pre>{JSON.stringify(avatars)}</pre>
       <div style={{ width: width }}>
         {grid.map((row, x) => (
           <div className="row" key={"row_" + x}>
-            {row.map((col, y) => (
-              <div
+            {row.map((col, y) => {
+              return <div
                 className={getCellClass(x, y)}
                 title={x + "," + y}
                 key={"col_" + y}
@@ -38,8 +41,14 @@ export default function Board({ grid, myAvatar, myPosition, width, updatePositio
               >
                 {myPosition.x == x && myPosition.y == y && 
                  <img src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/'+myAvatar.id+'.gif'}/>}
+                 
+                 {Object.values(avatars).map((a) => {
+                  if (a.x === x && a.y === y) {
+                    return (<div>{<img src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/'+a.avatar.id+'.gif'}/>}</div>);
+                  }
+                 })}
               </div>
-            ))}
+            })}
           </div>
         ))}
       </div>

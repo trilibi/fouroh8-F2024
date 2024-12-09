@@ -26,7 +26,7 @@ body {
     width: 25%;
   }
   #board {
-    background: #000;
+    background: #09561c;
     width: 75%;
   }
   #board .row {
@@ -43,6 +43,7 @@ body {
     text-align: center;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
   /* hover */
   #board .cell::before {
@@ -52,19 +53,20 @@ body {
   }
   
   #board .cell img{
-    width: 25px
+    width: 45px;
+    position: absolute;
   }
 
   #board .cell.even {
-    background: purple;
+    background: green;
   }
 
   .avatar-picker {
     height: 100px;
     overflow: scroll;
-    background: blue;
+    background: rgb(93, 93, 93);
   }
 
   .avatar-picker img{
-    height: 25px;
+    height: 35px;
   }
