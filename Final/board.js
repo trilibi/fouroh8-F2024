@@ -17,6 +17,7 @@ export default function Board({
   updatePosition,
   myAvatar,
   myPosition,
+  avatars,
 }) {
   const cellClicked = (e, x, y) => {
     updatePosition(x, y);
@@ -25,6 +26,7 @@ export default function Board({
   // console
   return (
     <div id="board">
+      <pre>{JSON.stringify(avatars)}</pre>
       <div style={{ width: width }}>
         {grid.map((row, x) => (
           <div className="row" key={"row_" + x}>
@@ -46,6 +48,19 @@ export default function Board({
                     }
                   ></img>
                 )}
+                {Object.values(avatars).map((a) => {
+                  if (a.x === x && a.y === y) {
+                    return (
+                      <img
+                        src={
+                          "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/" +
+                          a.avatar.id +
+                          ".gif"
+                        }
+                      />
+                    );
+                  }
+                })}
               </div>
             ))}
           </div>

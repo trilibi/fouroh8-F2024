@@ -2,15 +2,24 @@ import Board from "./board";
 import Sidebar from "./sidebar";
 
 const Pokedex = new window.Pokedex.Pokedex();
+const socket = io("http://54.234.88.206:3405");
+
+function sendUpdate(data) {
+  if (data.name == "anon") {
+    alert("Please set a name");
+    return;
+  }
+  socket.emit("avatar", data);
+}
 
 const App = () => {
-  // ?? null coalescing
   const defaultName = window.localStorage.getItem("name");
   const [name, setName] = React.useState(defaultName ? defaultName : "anon");
   const [grid, setGrid] = React.useState([]);
   const [pokemonList, setPokemonList] = React.useState([]);
   const [myPosition, setMyPosition] = React.useState({ x: 0, y: 0 });
   const [myAvatar, setMyAvatar] = React.useState({ name: "", id: 0 });
+  const [avatars, setAvatars] = React.useState({});
 
   // https://www.geeksforgeeks.org/how-to-create-two-dimensional-array-in-javascript/
   React.useEffect(() => {
@@ -18,8 +27,15 @@ const App = () => {
     const cols = 10;
     setGrid(Array.from({ length: rows }, () => new Array(cols).fill([])));
 
+    socket.on("avatar", function (data) {
+      console.log(data);
+      setAvatars((prevState) => {
+        prevState[data.name] = data;
+        return Object.assign({}, prevState);
+      });
+    });
+
     Pokedex.getPokemonsList().then(function (response) {
-      console.log(response);
       let list = response.results;
       list = list.map((item) => {
         item.id = item.url.slice(34, -1);
@@ -28,6 +44,15 @@ const App = () => {
       setPokemonList(response.results);
     });
   }, []);
+
+  React.useEffect(() => {
+    sendUpdate({
+      name: name,
+      avatar: myAvatar,
+      x: myPosition.x,
+      y: myPosition.y,
+    });
+  }, [myPosition]);
 
   const updatePosition = (x, y) => {
     setMyPosition({ x: x, y: y });
@@ -58,7 +83,6 @@ const App = () => {
       </nav>
       {myAvatar.id == 0 && (
         <div className="avatar-picker">
-          No Avatar:{" "}
           {pokemonList.map(function (item) {
             var baseUrl =
               "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/";
@@ -82,6 +106,7 @@ const App = () => {
           updatePosition={updatePosition}
           myAvatar={myAvatar}
           myPosition={myPosition}
+          avatars={avatars}
         />
       </div>
     </div>
