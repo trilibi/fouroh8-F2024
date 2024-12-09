@@ -43,6 +43,7 @@ body {
     text-align: center;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
   /* hover */
   #board .cell::before {
@@ -51,7 +52,7 @@ body {
     padding-top: 100%;
   }
   #board .cell.even {
-    background: blueviolet;
+    background: rgb(167, 101, 43);
   }
 
   .Avatar-Selection {
@@ -61,5 +62,6 @@ body {
   }
 
   #board .cell img {
-    width: 25px;
+    width: 75px;
+    position: absolute;
   }
