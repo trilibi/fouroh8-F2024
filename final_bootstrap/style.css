@@ -36,7 +36,7 @@ body {
   }
   #board .cell {
     border: 1px solid#222;
-
+    
     display: flex;
     flex: 1 0 auto;
     height: auto;
@@ -52,7 +52,8 @@ body {
   }
 
   #board .cell img {
-    width: 40%;
+    width: 25px;
+    position: relative;
   }
 
   #board .cell.even {

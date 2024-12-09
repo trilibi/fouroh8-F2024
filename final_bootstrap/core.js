@@ -3,6 +3,17 @@ import Sidebar from "./sidebar";
 
 const Pokedex = new window.Pokedex.Pokedex();
 
+const socket = io('http://54.234.88.206:3405');
+
+function sendUpdate(data) {
+  if (data.name == 'anon') {
+    console.log("Please set name");
+    return;
+  }
+  console.log({data});
+  socket.emit('avatar', data);
+}
+
 const App = () => {
   const defaultName = window.localStorage.getItem('my_name');
   const [name, setName] = React.useState(defaultName ? defaultName : 'anon');
@@ -16,12 +27,20 @@ const App = () => {
     id: 0
   });
   const [pokemonList, setPokemonList] = React.useState([]);
+  const [avatars, setAvatars] = React.useState({});
 
   React.useEffect(() => {
     const rows = 10;
     const cols = 10;
     const new_grid = Array.from({ length: rows }, () => new Array(cols).fill([]));
     setGrid(new_grid);
+
+    socket.on('avatar', function(data) {
+      setAvatars(function(previous) {
+          previous[data.name] = data;
+          return Object.assign({}, previous);
+      })
+    })
 
     Pokedex.getPokemonsList().then(function(p) {
       let pList = p.results;
@@ -33,6 +52,15 @@ const App = () => {
     });
   }, []);
   // https://www.geeksforgeeks.org/how-to-create-two-dimensional-array-in-javascript/
+
+  React.useEffect(() => {
+    sendUpdate({
+        name: name,
+        avatar: myAvatar,
+        x: myPosition.x,
+        y: myPosition.y
+    })
+  }, [myPosition]);
 
   function updatePosition(x, y) {
     //console.log('CORE:: ', x, y);
@@ -63,7 +91,7 @@ const App = () => {
       </div>}
       <div id="main">
         <Sidebar />
-        <Board grid={grid} width="50%" avatar={myAvatar} myPosition={myPosition} updatePosition={updatePosition}/>
+        <Board grid={grid} width="50%" avatar={myAvatar} myPosition={myPosition} avatars={avatars} updatePosition={updatePosition}/>
       </div>
     </div>
   );
