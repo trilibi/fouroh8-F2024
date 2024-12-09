@@ -43,6 +43,7 @@ body {
     text-align: center;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
   /* hover */
   #board .cell::before {
@@ -51,7 +52,7 @@ body {
     padding-top: 100%;
   }
   #board .cell.even {
-    background: #c72424;
+    background: green;
   }
 
   body{
@@ -61,14 +62,15 @@ body {
   .avatar-picker{
     height:100px;
     overflow:scroll;
-    background: white;
+    background: tan;
   }
 
   .avatar-picker img{
     height: 35px
   }
 
-  #board .cell image{
-    height: 45px
+  #board .cell img{
+    width: 25px;
+    position: absolute;
   }
  
