@@ -43,6 +43,7 @@ body {
     text-align: center;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
   /* hover */
   #board .cell::before {
@@ -52,6 +53,7 @@ body {
   }
   #board .cell img {
     width: 25px;
+    position: absolute;
   }
   #board .cell.even {
     background: #ff0000;

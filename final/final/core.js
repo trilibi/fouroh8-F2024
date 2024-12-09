@@ -4,6 +4,15 @@ import Sidebar from "./sidebar";
 const Pokedex = new window.Pokedex.Pokedex()
 const pokemon = [];
 
+const socket = io('http://54.234.88.206:3405');
+
+function sendUpdate(data) {
+  if (data.name == 'anon') {
+    console.error('Please set name');
+  }
+  console.log({data});
+  socket.emit('avatar', data);
+}
 
 const App = () => {
   const defaultName = window.localStorage.getItem('my_name');
@@ -18,6 +27,7 @@ const App = () => {
     name: '',
     id: 0
   });
+  const [avatars, setAvatars] = React.useState({});
 
   const [pokemonList, setPokemonList] = React.useState([]);
 
@@ -29,7 +39,13 @@ const App = () => {
   const cols = 10;
   const new_grid = Array.from({ length: rows }, () => new Array(cols).fill([]));
   setGrid(new_grid);
-  console.log(new_grid);
+
+  socket.on('avatar', function(data){
+    setAvatars(function(previous){
+      previous[data.name] = data;
+      return Object.assign({}, previous);
+    })
+  })
 
   
 Pokedex.getPokemonsList()
@@ -37,14 +53,21 @@ Pokedex.getPokemonsList()
   console.log(response);
   let list = response.results;
   list = list.map((item) => {
-    console.log("https://pokeapi.co/api/v2/pokemon/");
-    console.log(item.url.slice(34,-1));
     item.id = item.url.slice(34,-1);
   })
   setPokemonList(response.results)
 })
 
   },[]);
+
+  React.useEffect(() => {
+    sendUpdate({
+        name: name,
+        avatar: myAvatar,
+        x: myPosition.x,
+        y: myPosition.y
+    })
+}, [myPosition]);
 
   function updatePosition(x,y) {
     console.log('CORE :: ', x, y);
@@ -55,7 +78,7 @@ Pokedex.getPokemonsList()
 
   return (
     <div id="app_root">
-      <nav myPosition={myPosition}>
+      <nav>
         {/* Include picture of avatar in its same size either on left or right */}
         Our Grid Game, this class is an easy A
         <input type="text"  onInput={(e) => {
@@ -91,6 +114,7 @@ Pokedex.getPokemonsList()
         <Board grid={grid} width="90%" 
         myAvatar={myAvatar}
         myPosition={myPosition}
+        avatars={avatars}
         updatePosition={updatePosition}
         />
       </div>
