@@ -35,7 +35,7 @@ body {
     line-height: 25px;
   }
   #board .cell {
-    border: 1px solid#222;
+    border: 1px solid#3b5589;
 
     display: flex;
     flex: 1 0 auto;
