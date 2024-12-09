@@ -35,7 +35,7 @@ body {
     line-height: 25px;
   }
   #board .cell {
-    border: 1px solid#3b5589;
+    border: 1px solid#5dd51c;
 
     display: flex;
     flex: 1 0 auto;
@@ -43,6 +43,7 @@ body {
     text-align: center;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
   /* hover */
   #board .cell::before {
@@ -52,11 +53,15 @@ body {
   }
   #board .cell img {
     width: 25px;
+    position: absolute;
   }
   #board .cell.even {
-    background: #833c3c;
+    background: #7171fd;
   }
 
+  #board .cell.odd {
+    background: rgba(147, 11, 20, 0.815);
+  }
   .avatar-picker {
     height: 100px;
     overflow: scroll;
