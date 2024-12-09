@@ -11,15 +11,16 @@ function getCellClass(x, y) {
   );
 }
 
-export default function Board({ grid, width, updatePosition }) {
-
-  function cellClicked(e, x, y) {
-    // console.log('clicked');
-    // console.log(e.target.dataset)
-    // console.log(e.target.dataset.x, e.target.dataset.y);
-    // console.log(x, y);
+export default function Board({
+  grid,
+  width,
+  updatePosition,
+  myAvatar,
+  myPosition,
+}) {
+  const cellClicked = (e, x, y) => {
     updatePosition(x, y);
-  }
+  };
 
   // console
   return (
@@ -32,11 +33,19 @@ export default function Board({ grid, width, updatePosition }) {
                 className={getCellClass(x, y)}
                 title={x + "," + y}
                 key={"col_" + y}
-                onClick={(e) => cellClicked(e,x, y)}
+                onClick={(e) => cellClicked(e, x, y)}
                 data-x={x}
                 data-y={y}
               >
-                {x},{y}
+                {myPosition.x == x && myPosition.y == y && (
+                  <img
+                    src={
+                      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/" +
+                      myAvatar.id +
+                      ".gif"
+                    }
+                  ></img>
+                )}
               </div>
             ))}
           </div>
