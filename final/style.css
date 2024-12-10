@@ -44,6 +44,7 @@
         text-align: center;
         align-items: center;
         justify-content: center;
+        position: relative;
       }
       /* hover */
       #board .cell::before {
@@ -54,6 +55,8 @@
 
       #board .cell img {
         width: 25px;
+        position: absolute;
+        top: 5px;
       }
       #board .cell.even {
         background: #dd6f6f;
@@ -70,6 +73,6 @@
       }
 
       .avatar-picker img {
-        
+        width: 25px;
       }
   
