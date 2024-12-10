@@ -1,3 +1,5 @@
+import Avatar from "./avatars"
+
 function getCellClass(x, y) {
     return (
         "cell " +
@@ -17,13 +19,19 @@ export default function Board({
     myPosition,
     width,
     updatePosition,
+    avatars,
 }) {
     const cellClicked = (e, x, y) => {
         updatePosition(x, y)
     }
+    console.log(myAvatar)
+
+    const baseURL =
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/"
     // console
     return (
         <div id="board">
+            <pre>{JSON.stringify(avatars)}</pre>
             <div style={{ width: width }}>
                 {grid.map((row, x) => (
                     <div className="row" key={"row_" + x}>
@@ -41,13 +49,29 @@ export default function Board({
                                     myPosition.y == y &&
                                     myAvatar.id != 0 && (
                                         <img
-                                            src={
-                                                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/" +
-                                                myAvatar.id +
-                                                ".gif"
-                                            }
+                                            src={baseURL + myAvatar.id + ".gif"}
                                         />
                                     )}
+                                {Object.values(avatars).map((a) => {
+                                    if (
+                                        a.x === x &&
+                                        a.y === y &&
+                                        a.avatar.id != myAvatar.id
+                                    ) {
+                                        return (
+                                            <div>
+                                                {a.avatar.id}
+                                                <img
+                                                    src={
+                                                        baseURL +
+                                                        a.avatar.id +
+                                                        ".gif"
+                                                    }
+                                                />
+                                            </div>
+                                        )
+                                    }
+                                })}
                             </div>
                         ))}
                     </div>
