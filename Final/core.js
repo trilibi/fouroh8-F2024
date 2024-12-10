@@ -5,7 +5,7 @@ const Pokedex = new window.Pokedex.Pokedex();
 const socket = io("http://54.234.88.206:3405");
 
 function sendUpdate(data) {
-  if (data.name == "anon") {
+  if (data.name === "anon") {
     alert("Please set a name");
     return;
   }
@@ -81,25 +81,9 @@ const App = () => {
           Clear Avatar
         </button>
       </nav>
-      {myAvatar.id == 0 && (
-        <div className="avatar-picker">
-          {pokemonList.map(function (item) {
-            var baseUrl =
-              "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/";
-            return (
-              <img
-                title={item.name}
-                src={baseUrl + item.id + ".gif"}
-                onClick={() => {
-                  setMyAvatar({ name: item.name, id: item.id });
-                }}
-              ></img>
-            );
-          })}
-        </div>
-      )}
+
       <div id="main">
-        <Sidebar />
+        <Sidebar pokemonList={pokemonList} setAvatarFunction={setMyAvatar} myAvatar={myAvatar.id}/>
         <Board
           grid={grid}
           width="90%"

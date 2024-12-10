@@ -1,3 +1,5 @@
+/*Color Pallete: https://coolors.co/palette/012a4a-013a63-01497c-014f86-2a6f97-2c7da0-468faf-61a5c2-89c2d9-a9d6e5*/
+
 body {
     background: #333;
     color: #eee;
@@ -41,6 +43,7 @@ body {
 
   #board .cell {
     border: 1px solid#222;
+    background: #014F86;
 
     display: flex;
     flex: 1 0 auto;
@@ -63,12 +66,30 @@ body {
   }
 
   #board .cell.even {
-    background: #ffaeae;
+    background: #A9D6E5;
   }
 
   .avatar-picker {
-    height: 100px;
+    margin-top: 10vh;
+    height: 80vh;
     overflow: scroll;
     background-color:white;
     color: black;
+  }
+
+  .avatar-picker::-webkit-scrollbar-track {
+    background:black  ;
+  }
+
+.avatar-picker::-webkit-scrollbar-thumb {
+  background-color:black;
+}
+
+  .avatar-picker img {
+    width: 50px;
+    margin: 10px;
+  }
+
+  .avatar-picker :hover {
+    background: darkgrey;
   }

@@ -39,7 +39,7 @@ export default function Board({
                 data-x={x}
                 data-y={y}
               >
-                {myPosition.x == x && myPosition.y == y && (
+                {myPosition.x === x && myPosition.y === y && (
                   <img
                     src={
                       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/" +
