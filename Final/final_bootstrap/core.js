@@ -2,13 +2,22 @@ import Board from "./board";
 import Sidebar from "./sidebar";
 
 const Pokedex = new window.Pokedex.Pokedex();
+
+const socket = io('http://54.234.88.206:3405');
+
+function sendUpdate(data) {
+    if (data.name != "anon") {
+        socket.emit('avatar', data)
+    }
+}
+
 const pokemon = [];
 
 
 
 const App = () => {
     const defaultName = (window.localStorage.getItem('myName'));
-    const [name, setName] = React.useState(defaultName ? defaultName : 'secret');
+    const [name, setName] = React.useState(defaultName ? defaultName : 'Brokem');
     const [grid, setgrid] = React.useState([]);
     const [pokemonList, setPokemonList] = React.useState([]);
     const [myPosition, setMyPosition] = React.useState({
@@ -20,6 +29,8 @@ const App = () => {
         id:0
     });
 
+    const [ avatar, setAvatars] = React.useState({});
+
   // https://www.geeksforgeeks.org/how-to-create-two-dimensional-array-in-javascript/
 
     React.useEffect(function() {
@@ -27,6 +38,14 @@ const App = () => {
         const cols = 10;
         const new_grid = Array.from({ length: rows }, () => new Array(cols).fill([]));
         setgrid(new_grid);
+
+        socket.on("avatar", function(data) {
+            console.log(data)
+            setAvatars(function(previous) {
+                previous[data.name] = data;
+                return Object.assign({}, previous);
+            })
+        })
 
         Pokedex.getPokemonsList()
             .then(function(response) {
@@ -39,6 +58,17 @@ const App = () => {
                 setPokemonList(allPokemon);
             });
     }, [])
+
+    React.useEffect(() => {
+        // while (true) {
+            sendUpdate({
+                name: name,
+                avatar: myAvatar,
+                x: myPosition.x,
+                y: myPosition.y
+            })
+        // }
+    }, [myPosition]);
 
     function updatePosition(x,y) {
         console.log('CORE', x, y)
@@ -78,6 +108,7 @@ const App = () => {
                     grid={grid}
                     width="90%"
                     myAvatar={myAvatar}
+                    avatars={{avatar}}
                     myPosition={myPosition}
                     updatePosition={updatePosition} />
             </div>
