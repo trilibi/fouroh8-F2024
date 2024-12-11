@@ -48,7 +48,7 @@ body {
   }
 
   #board .cell img{
-    width: 25px;
+    width: 75%;
     position: absolute;
   }
 
@@ -71,4 +71,7 @@ body {
     height: 35px;
   }
 
-  
+  .emoji {
+    cursor: pointer;
+    font-size: 24px;
+  }
