@@ -1,9 +1,9 @@
 body {
-    background: #333;
-    color: #eee;
+    background: #2f2f2f;
+    color: #c067ad;
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
       "Lucida Sans", Arial, sans-serif;
-    padding: 0;
+    padding: 20px;
     margin: 0;
   }
   #root,
@@ -22,20 +22,21 @@ body {
     overflow: hidden;
   }
   #sidebar {
-    background: #444;
-    width: 25%;
+    background: #ffe0f8;
+    width: 20%;
   }
   #board {
-    background: #000;
+    background: #2f2f2f;
     width: 75%;
   }
   #board .row {
     display: flex;
     justify-content: space-around;
     line-height: 25px;
+
   }
   #board .cell {
-    border: 1px solid#222;
+    border: 2px solid #ffffff;
 
     display: flex;
     flex: 1 0 auto;
@@ -43,6 +44,7 @@ body {
     text-align: center;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
   /* hover */
   #board .cell::before {
@@ -51,16 +53,21 @@ body {
     padding-top: 100%;
   }
   #board .cell img{
-    width: 25px;
+    width: 35px;
+    position: absolute;
   }
   #board .cell.even {
-    background: #8d1212;
+    background: #ff8ae6;
   }
   .avatar-picker{
     height:100px;
     overflow: scroll;
-    background-color: #bbbbbb;
+    background-color: #ffe0f8;
   }
   .avatar-picker img{
     height: 35px;
+  }
+  
+  .emoji{
+    cursor: pointer;
   }
