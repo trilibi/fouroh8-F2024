@@ -90,7 +90,11 @@ const App = () => {
       })}
       </div>}
       <div id="main">
-        <Sidebar />
+        <Sidebar 
+          socket={socket}
+          name={name}
+          myAvatar={myAvatar}
+          myPosition={myPosition}/>
         <Board grid={grid} width="50%" avatar={myAvatar} myPosition={myPosition} avatars={avatars} updatePosition={updatePosition}/>
       </div>
     </div>

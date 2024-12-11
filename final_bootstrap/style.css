@@ -70,3 +70,13 @@ body {
     height: 40%;
 
   }
+
+  .bubble {
+    background: #fff;
+    padding: 1px 4px;
+    border-radius: 8px;
+    position: absolute;
+    top:-5px;
+    right: -14px;
+    z-index: 10;
+  }
