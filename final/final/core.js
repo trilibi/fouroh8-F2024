@@ -91,7 +91,7 @@ Pokedex.getPokemonsList()
           setMyAvatar({name: '', id: 0});
         }}>Clear Avatar</span>}
         (Available Pokemon: {pokemonList.length})
-        <input type="text" placeholder="Search.." name="search"></input> 
+        <input type="text" placeholder="Avatar Search" name="search"></input> 
         {/* //Finish search bar (Searches for your avatar)*/}
         {/* Make sure search bar disappears after avatar is picked */}
       </nav>
@@ -110,7 +110,12 @@ Pokedex.getPokemonsList()
        }
 
       <div id="main">
-        <Sidebar />
+        <Sidebar 
+        socket={socket}
+        name={name}
+        myAvatar={myAvatar}
+        myPosition={myPosition}
+        />
         <Board grid={grid} width="90%" 
         myAvatar={myAvatar}
         myPosition={myPosition}
