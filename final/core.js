@@ -100,9 +100,14 @@ React.useEffect(() => {
          title={item.name} src={baseURL + '/' + item.id + '.gif'} />)})}
          </div>}
 
-      <div id="main">
-        <Sidebar />
-        <Board grid={grid} 
+    <div id="main">
+      <Sidebar 
+        socket = {socket}
+        name = {name}
+        myAvatar = {myAvatar}
+        myPosition = {myPosition}/>
+
+      <Board grid={grid} 
         width="70%" 
         myAvatar={myAvatar}
         avatars = {avatars}
