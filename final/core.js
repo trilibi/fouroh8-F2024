@@ -108,7 +108,12 @@ function updatePosition(x,y){
       })}
       </div>}
       <div id="main">
-        <Sidebar />
+        <Sidebar 
+        socket={socket}
+        name={name}
+        myAvatar={myAvatar.id}
+        myPosition={myPosition}/>
+
         <Board 
         grid={grid} 
         width="70%" 
