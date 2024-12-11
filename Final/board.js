@@ -1,3 +1,5 @@
+import Avatar from "./avatar";
+
 function getCellClass(x, y) {
   return (
     "cell " +
@@ -11,7 +13,7 @@ function getCellClass(x, y) {
   );
 }
 
-export default function Board({ grid, width, updatePosition, myAvatar, myPosition }) {
+export default function Board({ grid, width, updatePosition, avatars, myAvatar, myPosition }) {
     const baseUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/"
 
     function cellClicked(e, x, y) {
@@ -25,6 +27,7 @@ export default function Board({ grid, width, updatePosition, myAvatar, myPositio
 
   return (
     <div id="board">
+        <pre>{JSON.stringify(avatars)}</pre>
       <div style={{ width: width }}>
         {grid.map((row, x) => (
           <div className="row" key={"row_" + x}>
@@ -38,7 +41,8 @@ export default function Board({ grid, width, updatePosition, myAvatar, myPositio
                 data-y={y}
               >
                   {myPosition.x == x && myPosition.y == y
-                      && <img src={baseUrl + myAvatar.id + '.gif'} alt="avatar"/>}
+                      && <img src={baseUrl + myAvatar.id + '.gif'} alt="avatar"/>
+                  }
               </div>
             ))}
           </div>

@@ -47,6 +47,7 @@ https://www.w3schools.com/css/css3_flexbox.asp
     text-align: center;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 /* hover */
 #board .cell::before {
@@ -59,11 +60,27 @@ https://www.w3schools.com/css/css3_flexbox.asp
 }
 
 #board .cell img{
-    width: 25px;
+    width: 80%;
+    position: absolute;
 }
 
 .avatar-picker {
     height: 100px;
     overflow: scroll;
     background: indigo;
+}
+
+.bubble {
+    background: #fff;
+    padding: 1px 4px;
+    border-radius: 8px;
+    position: absolute;
+    top:-5px;
+    right: -14px;
+    z-index: 10;
+}
+
+.emoji {
+    cursor: pointer;
+    font-size: 24px;
 }
