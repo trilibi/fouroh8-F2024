@@ -22,11 +22,11 @@ body {
     overflow: hidden;
   }
   #sidebar {
-    background: #444;
+    background: #7a0d6c;
     width: 25%;
   }
   #board {
-    background: #000;
+    background: #490c75;
     width: 75%;
   }
   #board .row {
@@ -35,7 +35,7 @@ body {
     line-height: 25px;
   }
   #board .cell {
-    border: 1px solid#5dd51c;
+    border: 1px solid#d51c1c;
 
     display: flex;
     flex: 1 0 auto;
@@ -52,15 +52,15 @@ body {
     padding-top: 100%;
   }
   #board .cell img {
-    width: 25px;
+    width: 50%;
     position: absolute;
   }
   #board .cell.even {
-    background: #7171fd;
+    background: #f96930;
   }
 
   #board .cell.odd {
-    background: rgba(147, 11, 20, 0.815);
+    background: #ab2727;
   }
   .avatar-picker {
     height: 100px;
@@ -70,4 +70,23 @@ body {
 
   .avatar-picker img {
     height: 50px;
+  }
+
+  .emoji {
+    cursor: pointer;
+    font-size: 24px;
+  }
+
+  .bubble {
+    background: #fff;
+    padding: 1px 4px;
+    border-radius: 8px;
+    position: absolute;
+    top:-5px;
+    right: -14px;
+    z-index: 10;
+  }
+
+  .chat img {
+    width: 25px;
   }
