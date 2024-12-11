@@ -32,17 +32,18 @@ body {
   #board .row {
     display: flex;
     justify-content: space-around;
-    line-height: 25px;
+    line-height: 0px;
   }
+
   #board .cell {
     border: 1px solid#222;
-
     display: flex;
     flex: 1 0 auto;
     height: auto;
     text-align: center;
     align-items: center;
     justify-content: center;
+    position: relative; 
   }
   /* hover */
   #board .cell::before {
@@ -50,6 +51,11 @@ body {
     float: left;
     padding-top: 100%;
   }
+
+  #board .cell img {
+    width: 25px; 
+  }
+
   #board .cell.even {
     background: #dd6f6f;
   }
@@ -59,15 +65,25 @@ body {
   }
 
   body {
-    position: "relative"
+    position: relative; 
   }
 
   .avatar-picker {
     height: 100px;
     overflow: scroll; 
-    background: "green"; 
+    background-color: rgb(23, 67, 8); 
   }
 
   .avatar-picker img {
-    height: 25px; 
+    height: 50px; 
+  }
+
+  .bubble {
+    background: #fff;
+    padding: 1px 4px;
+    border-radius: 8px;
+    position: absolute;
+    top:-5px;
+    right: -14px;
+    z-index: 10;
   }
