@@ -83,7 +83,13 @@ const App = () => {
       </nav>
 
       <div id="main">
-        <Sidebar pokemonList={pokemonList} setAvatarFunction={setMyAvatar} myAvatar={myAvatar.id}/>
+        <Sidebar
+          pokemonList={pokemonList}
+          setAvatarFunction={setMyAvatar}
+          myAvatar={myAvatar.id}
+          socket={socket}
+          name={name}
+        />
         <Board
           grid={grid}
           width="90%"
@@ -91,6 +97,7 @@ const App = () => {
           myAvatar={myAvatar}
           myPosition={myPosition}
           avatars={avatars}
+          position={myPosition}
         />
       </div>
     </div>
