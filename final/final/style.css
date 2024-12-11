@@ -76,5 +76,6 @@ body {
     z-index: 10;
   }
   .emoji {
-    
+    cursor: pointer;
+    font-size: 24px;
   }

@@ -18,6 +18,7 @@ const App = () => {
   const defaultName = window.localStorage.getItem('my_name');
   const [name, setName] = React.useState(defaultName ? defaultName : 'anon');
   const [grid, setGrid] = React.useState([]);
+  const [filter, setFilter] = React.useState();
   const [myPosition, setMyPosition] = React.useState({
     x: 0,
     y: 0
@@ -91,13 +92,18 @@ Pokedex.getPokemonsList()
           setMyAvatar({name: '', id: 0});
         }}>Clear Avatar</span>}
         (Available Pokemon: {pokemonList.length})
-        <input type="text" placeholder="Avatar Search" name="search"></input> 
-        {/* //Finish search bar (Searches for your avatar)*/}
+        <input onInput={(e) => {
+          setFilter(e.target.value);
+        }} placeholder="Avatar Search" name="search"></input> 
         {/* Make sure search bar disappears after avatar is picked */}
+
       </nav>
       {myAvatar.id === 0 && 
       <div className="avatar-picker" >No Avatar:
-       {pokemonList.map(function(item){
+       {pokemonList
+       .filter(function(item){
+        return filter ? item.name.includes(filter): true
+       }).map(function(item){
         var baseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/'
         return (<img 
         onClick={() => {
@@ -116,7 +122,8 @@ Pokedex.getPokemonsList()
         myAvatar={myAvatar}
         myPosition={myPosition}
         />
-        <Board grid={grid} width="90%" 
+        <Board grid={grid} 
+        width="90%" 
         myAvatar={myAvatar}
         myPosition={myPosition}
         avatars={avatars}
