@@ -5,16 +5,19 @@ export default function Sidebar({socket, name, myAvatar, myPosition}) {
     '🎉', '😁', '💕', '🥺', '😅', '🔥', '☺️', '🤦', '♥️', '🤷',
     '🙄', '😆', '🤗', '😉', '🎂', '🤔', '👏', '🙂', '😳', '🥳',
     '😎', '👌', '💜', '😔', '💪', '✨', '💖', '👀', '😋', '😏',
-    '😢', '👉', '💗', '😩', '💯', '🌹', '💞', '🎈', '💙', '😃'];
+    '😢', '👉', '💗', '😩', '💯', '🌹', '💞', '🎈', '💙', '😃', 
+    'small fart', '(●\'◡\'●)', 'UwU'];
 
     React.useEffect(() => {
       socket.on('chat', (msg) => {
-        setMessages(old => [...old, msg]);
+        setMessages(old => [msg, ...old]);
       });
     }, []);
 
   function sendEmoji(em) {
     console.log(em);
+
+    setMessages(old => [ {name, em}, ...old]);
     socket.emit("chat", {name, em, avatarId: myAvatar.id});
   }
 
