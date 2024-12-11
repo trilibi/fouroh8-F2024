@@ -29,7 +29,7 @@ export default function Sidebar({socket, name, myAvatar, myPosition}) {
             {em}
         </span>)}
         <hr />
-        {messages.map(obj => <div>
+        {messages.reverse().map(obj => <div>
             {obj.name}
             <img
                 src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/'
