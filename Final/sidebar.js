@@ -14,6 +14,7 @@ export default function Sidebar({ socket, name, myAvatar, myPosition }) {
   }, []);
 
   function sendEmoji(em) {
+    setMessages(old => [...old, {name, em}]);
     socket.emit('chat', {name: name, em: em, avatarId: myAvatar.id});
   }
 
