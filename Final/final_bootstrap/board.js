@@ -43,13 +43,18 @@ export default function Board({ grid, myAvatar, myPosition, width, updatePositio
                                         src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/'
                                             + myAvatar.id + '.gif'}
                                     />}
-
                                 {Object.values(avatars).map((a) => {
-                                    if (a.x === x && a.y === y) {
-                                        return (<div><img
-                                            src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/'
-                                                + a.avatar.id + '.gif'}/></div>)
-                                    }
+                                  if (a.x === x && a.y === y) {
+                                    return (<div>{a.avatar.id}</div>);
+                                  }
+                                })}
+                                {Object.values(avatars).map((a) => {
+                                  if (a.x === x && a.y === y) {
+                                    return (<div><img
+                                      src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/'
+                                        +a.avatar.id+'.gif'}
+                                      /></div>);
+                                  }
                                 })}
                             </div>
                         ))}

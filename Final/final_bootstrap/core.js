@@ -33,14 +33,13 @@ const App = () => {
 
   // https://www.geeksforgeeks.org/how-to-create-two-dimensional-array-in-javascript/
 
-    React.useEffect(function() {
+    React.useEffect(function () {
         const rows = 10;
         const cols = 10;
         const new_grid = Array.from({ length: rows }, () => new Array(cols).fill([]));
         setgrid(new_grid);
 
-        socket.on("avatar", function(data) {
-            console.log(data)
+        socket.on('avatar', function(data) {
             setAvatars(function(previous) {
                 previous[data.name] = data;
                 return Object.assign({}, previous);
@@ -103,7 +102,11 @@ const App = () => {
 
                 })}</div>}
             <div id="main">
-                <Sidebar />
+                <Sidebar
+                    socket={socket}
+                    name={name}
+                    myAvatar={myAvatar}
+                    myPosition={myPosition}/>
                 <Board
                     grid={grid}
                     width="90%"
