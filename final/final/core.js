@@ -62,8 +62,6 @@ const App = () => {
     })
   }, [myPosition]);
 
-
-
 function updatePosition(x, y) {
   console.log('CORE :: ', x, y);
   setMyPosition({x: x, y: y});
@@ -97,10 +95,14 @@ function updatePosition(x, y) {
       </div>}
 
       <div id="main">
-        <Sidebar />
+        <Sidebar 
+          socket={socket}
+          name={name}
+          myAvatar={myAvatar}
+          myPosition={myPosition}/>
         <Board 
         grid={grid} 
-        width="70%" 
+        width="65%" 
         myAvatar={myAvatar}
         myPosition={myPosition}
         avatars={avatars}

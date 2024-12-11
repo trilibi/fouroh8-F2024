@@ -26,7 +26,7 @@ export default function Board({ grid, myAvatar, myPosition, width, updatePositio
   // console
   return (
     <div id="board">
-      <pre>{JSON.stringify(avatars)}</pre>
+      {/* <pre>{JSON.stringify(avatars)}</pre> */}
       <div style={{ width: width }}>
         {grid.map((row, x) => (
           <div className="row" key={"row_" + x}>
