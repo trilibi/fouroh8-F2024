@@ -34,6 +34,7 @@ https://www.w3schools.com/css/css3_flexbox.asp
   display: flex;
   justify-content: space-around;
   line-height: 25px;
+  
 }
 #board .cell {
   border: 1px solid#222;
@@ -44,10 +45,16 @@ https://www.w3schools.com/css/css3_flexbox.asp
   text-align: center;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
+#board .cell:active {
+  transform: none;
+  box-shadow: none;
+}
+
 #board .cell img{
   width: 100%;
-  height: 100%; 
+  height:100%; 
 }
 /* hover */
 #board .cell::before {
@@ -56,14 +63,14 @@ https://www.w3schools.com/css/css3_flexbox.asp
   padding-top: 100%;
 }
 #board .cell.even {
-  background: #ff0000;
+  background: #11ff00;
 }
 #board .cell.odd {
   background: #000dff;
 }
 
 .avatar-picker{
-  height: 100px;
+  height: 200px;
   overflow: scroll;
   background: #999;
 }
