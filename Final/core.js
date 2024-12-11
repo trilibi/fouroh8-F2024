@@ -27,7 +27,7 @@ const App = () => {
         const g = Array.from({ length: rows }, () => new Array(cols).fill([]))
         setGrid(g)
 
-        socket.on('avatar', (data) => {
+        socket.on("avatar", (data) => {
             console.log(data)
             setAvatars((prev) => {
                 prev[data.name] = data
@@ -39,7 +39,7 @@ const App = () => {
         Pokedex.getPokemonsList().then(function (response) {
             let list = response.results
             list = list.map((item) => {
-                console.log("https://pokeapi.co/api.v2.pokemon/".length)
+                // console.log("https://pokeapi.co/api.v2.pokemon/".length)
                 item.id = item.url.slice(34, -1)
                 return item
             })
@@ -47,15 +47,15 @@ const App = () => {
         })
     }, [])
 
-    const socket = io('http://54.234.88.206:3405')
+    const socket = io("http://54.234.88.206:3405")
 
     const sendUpdate = (data) => {
-        if (data.name == 'anon') {
-            console.error('Please set name.')
-            return;
+        if (data.name == "anon") {
+            console.error("Please set name.")
+            return
         }
-        console.log({data})
-        socket.emit('avatar', data)
+        console.log({ data })
+        socket.emit("avatar", data)
     }
 
     React.useEffect(() => {
@@ -63,7 +63,7 @@ const App = () => {
             name: name,
             avatar: myAvatar,
             x: myPosition.x,
-            y: myPosition.y
+            y: myPosition.y,
         })
     }, [myPosition])
 
@@ -120,7 +120,12 @@ const App = () => {
                 </div>
             )}
             <div id="main">
-                <Sidebar />
+                <Sidebar
+                    socket={socket}
+                    name={name}
+                    myAvatar={myAvatar}
+                    myPosition={myPosition}
+                />
                 <Board
                     grid={grid}
                     width="60%"

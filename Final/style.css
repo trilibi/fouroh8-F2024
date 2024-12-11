@@ -68,3 +68,17 @@ https://www.w3schools.com/css/css3_flexbox.asp
 .avatar-picker img {
     height: 35px;
 }
+
+.bubble {
+    background: #fff;
+    padding: 1px 4px;
+    border-radius: 8px;
+    position: absolute;
+    top: -5px;
+    right: -14px;
+    z-index: 10;
+}
+
+.emoji {
+    cursor: pointer;
+}

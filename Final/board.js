@@ -56,11 +56,11 @@ export default function Board({
                                     if (
                                         a.x === x &&
                                         a.y === y &&
-                                        a.avatar.id != myAvatar.id
+                                        a.avatar.id != myAvatar.id &&
+                                        a.avatar.id != 0
                                     ) {
                                         return (
                                             <div>
-                                                {a.avatar.id}
                                                 <img
                                                     src={
                                                         baseURL +
