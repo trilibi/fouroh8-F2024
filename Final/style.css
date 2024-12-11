@@ -1,76 +1,92 @@
+
 body {
-    background: #333;
-    color: #eee;
-    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-      "Lucida Sans", Arial, sans-serif;
-    padding: 0;
-    margin: 0;
-  }
-  #root,
-  #app_root {
-    height: 100vh;
-    width: 100vw;
-  }
-  /* 
-  https://developer.mozilla.org/en-US/docs/Web/CSS/flex
-  https://www.w3schools.com/css/css3_flexbox.asp
-  */
-  #main {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-  }
-  #sidebar {
-    background: #444;
-    width: 25%;
-  }
-  #board {
-    background: #000;
-    width: 75%;
-  }
-  #board .row {
-    display: flex;
-    justify-content: space-around;
-    line-height: 25px;
-  }
-  #board .cell {
-    border: 1px solid#222;
+  background: #8a1717;
+  color: #eee;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  padding: 0;
+  margin: 5px;
+}
+#root,
+#app_root {
+  height: 100vh;
+  width: 100vw;
+}
+/* 
+https://developer.mozilla.org/en-US/docs/Web/CSS/flex
+https://www.w3schools.com/css/css3_flexbox.asp
+*/
+#main {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+#sidebar {
+  background: #444;
+  width: 25%;
+}
+#board {
+  background: #000;
+  width: 75%;
+}
+#board .row {
+  display: flex;
+  justify-content: space-around;
+  line-height: 25px;
+}
+#board .cell {
+  border: 1px solid#222;
 
-    display: flex;
-    flex: 1 0 auto;
-    height: auto;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-  /* hover */
-  #board .cell::before {
-    content: "";
-    float: left;
-    padding-top: 100%;
-  }
-  #board .cell.even {
-    background: green;
-  }
+  display: flex;
+  flex: 1 0 auto;
+  height: auto;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+/* hover */
+#board .cell::before {
+  content: "";
+  float: left;
+  padding-top: 100%;
+}
 
-  body{
-    position: relative
-  }
+#board .cell img {
+  width: 35px;
+  position: absolute;
+}
+#board .cell.even {
+  background: green;
+}
 
-  .avatar-picker{
-    height:100px;
-    overflow:scroll;
-    background: tan;
-  }
+body {
+  position: relative
+}
 
-  .avatar-picker img{
-    height: 35px
-  }
+.avatar-picker {
+  height: 100px;
+  overflow: scroll;
+  background: tan
+}
 
-  #board .cell img{
-    width: 25px;
-    position: absolute;
-  }
- 
+.avatar-picker img {
+  width: 35px;
+}
+
+.bubble {
+  background: #fff;
+  padding: 1px 4px;
+  border-radius: 8px;
+  position: absolute;
+  top:-5px;
+  right: -14px;
+  z-index: 10;
+}
+
+.emoji {
+  cursor: pointer;
+  font-size: 20px;
+}
+

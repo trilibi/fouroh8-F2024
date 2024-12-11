@@ -44,13 +44,15 @@ function getCellClass(x, y) {
                   
                   {myPosition.x == x && myPosition.y == y &&
                   <img 
-                  src= {'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/'+myAvatar.id+'.gif'}
+                  src= {'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/'
+                    +myAvatar.id+'.gif'}
                   />}
 
                   {Object.values(avatars).map((a) => {
                     if (a.x === x && a.y === y) {
                       return(<div><img 
-                        src= {'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/'+a.avatar.id+'.gif'}
+                        src= {'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/'
+                          +a.avatar.id+'.gif'}
                         /></div>)
                     }
                   })}
