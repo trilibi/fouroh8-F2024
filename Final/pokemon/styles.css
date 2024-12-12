@@ -1,0 +1,138 @@
+/*Color Pallete: https://coolors.co/palette/012a4a-013a63-01497c-014f86-2a6f97-2c7da0-468faf-61a5c2-89c2d9-a9d6e5*/
+
+body {
+  background: #333;
+  color: #eee;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+#root,
+#app_root {
+  height: 100vh;
+  width: 100vw;
+}
+/* 
+https://developer.mozilla.org/en-US/docs/Web/CSS/flex
+https://www.w3schools.com/css/css3_flexbox.asp
+*/
+#main {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+#sidebar {
+  background: #444;
+  width: 25%;
+  border: white 1px solid;
+}
+
+#board {
+  background: #000;
+  width: 75%;
+}
+
+#board .row {
+  display: flex;
+  justify-content: space-around;
+  line-height: 25px;
+}
+
+#board .cell {
+  border: 1px solid#222;
+  background: #860101;
+
+  display: flex;
+  flex: 1 0 auto;
+  height: auto;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+/* hover */
+#board .cell::before {
+  content: "";
+  float: left;
+  padding-top: 100%;
+}
+
+#board .cell img {
+  width: 25%;
+  position: absolute;
+}
+
+#board .cell.even {
+  background: #A9D6E5;
+}
+
+.avatar-picker {
+  height: 50vh;
+  overflow: scroll;
+  background-color:white;
+  color: black;
+}
+
+.avatar-picker::-webkit-scrollbar-track {
+  background:black  ;
+}
+
+.avatar-picker::-webkit-scrollbar-thumb {
+background-color:black;
+}
+
+.avatar-picker img {
+  width: 50px;
+  margin: 10px;
+}
+
+.avatar-picker :hover {
+  background: darkgrey;
+}
+
+.bubble {
+  background: #fff;
+  padding: 1px 4px;
+  border-radius: 8px;
+  position: absolute;
+  top:-5px;
+  right: -14px;
+  z-index: 10;
+}
+
+.emoji {
+  cursor: pointer;
+}
+
+#chat {
+  overflow: scroll;
+  height: 20vh;
+  background-color: white;
+  color: black;
+  width: 25%;
+  position: absolute;
+  bottom: 10%;
+}
+
+#chatOptions {
+  width: 25%;
+  position: absolute;
+  bottom: 0;
+}
+
+.message {
+  background-color: darkgrey;
+  margin-left: auto;
+  text-align: end;
+}
+
+#playerInfo {
+  display: flex;
+  justify-content: space-around;
+ 
+
+}
