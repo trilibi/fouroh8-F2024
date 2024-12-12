@@ -28,6 +28,7 @@ body {
   #sidebar {
     background: #444;
     width: 25%;
+    border: white 1px solid;
   }
 
   #board {
@@ -112,10 +113,26 @@ body {
     height: 20vh;
     background-color: white;
     color: black;
+    width: 25%;
+    position: absolute;
+    bottom: 10%;
   }
+
+  #chatOptions {
+    width: 25%;
+    position: absolute;
+    bottom: 0;
+ }
 
   .message {
     background-color: darkgrey;
     margin-left: auto;
     text-align: end;
+  }
+
+  #playerInfo {
+    display: flex;
+    justify-content: space-around;
+   
+
   }

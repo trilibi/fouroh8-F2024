@@ -4,6 +4,8 @@ export default function Sidebar({
   myAvatar,
   socket,
   name,
+  setName,
+  setMyPosition,
 }) {
   const [messages, setMessages] = React.useState([]);
   const emoji = [
@@ -73,16 +75,26 @@ export default function Sidebar({
 
   return (
     <div id="sidebar">
-      {emoji.map((em) => (
-        <span
-          onClick={() => {
-            sendEmoji(em);
+      <div id="playerInfo">
+        <input
+          type="text"
+          onInput={(e) => {
+            setName(e.target.value);
+            window.localStorage.setItem("name", e.target.value);
           }}
-          className="emoji"
+          placeholder="Please Enter a Name"
+          title="Name Input"
+        />
+
+        <button
+          onClick={() => {
+            setAvatarFunction({ name: "", id: 0 });
+            setMyPosition({ x: 0, y: 0 });
+          }}
         >
-          {em}
-        </span>
-      ))}
+          Clear Avatar
+        </button>
+      </div>
       <hr />
 
       {myAvatar === 0 && (
@@ -102,6 +114,24 @@ export default function Sidebar({
           })}
         </div>
       )}
+
+      {myAvatar !== 0 && (
+        <div>
+          <div>
+            <h1>Welcome: {name}</h1>
+
+            <h2>Current Avatar: </h2>
+            <img
+              src={
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/" +
+                myAvatar +
+                ".gif"
+              }
+            />
+          </div>
+        </div>
+      )}
+
       <div id="chat">
         {messages.map((obj) => (
           <div className="message">
@@ -116,6 +146,19 @@ export default function Sidebar({
             {obj.em}
           </div>
         ))}
+      </div>
+      <div id="chatOptions">
+        {emoji.map((em) => (
+          <span
+            onClick={() => {
+              sendEmoji(em);
+            }}
+            className="emoji"
+          >
+            {em}
+          </span>
+        ))}
+        <hr />
       </div>
     </div>
   );

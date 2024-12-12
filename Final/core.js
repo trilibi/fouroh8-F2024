@@ -28,7 +28,6 @@ const App = () => {
     setGrid(Array.from({ length: rows }, () => new Array(cols).fill([])));
 
     socket.on("avatar", function (data) {
-      console.log(data);
       setAvatars((prevState) => {
         prevState[data.name] = data;
         return Object.assign({}, prevState);
@@ -61,25 +60,8 @@ const App = () => {
   return (
     <div id="app_root">
       <nav>
-        <input
-          type="text"
-          onInput={(e) => {
-            setName(e.target.value);
-            window.localStorage.setItem("name", e.target.value);
-          }}
-          placeholder="Please Enter a Name"
-          title="Name Input"
-        />
         ({myPosition.x}, {myPosition.y}) (Avatar Name: {myAvatar.name}, Id:,
         {myAvatar.id}) (Available Pokemon: {pokemonList.length});
-        <button
-          onClick={() => {
-            setMyAvatar({ name: "", id: 0 });
-            setMyPosition({ x: 0, y: 0 });
-          }}
-        >
-          Clear Avatar
-        </button>
       </nav>
 
       <div id="main">
@@ -89,6 +71,8 @@ const App = () => {
           myAvatar={myAvatar.id}
           socket={socket}
           name={name}
+          setName={setName}
+          setMyPosition={setMyPosition}
         />
         <Board
           grid={grid}
