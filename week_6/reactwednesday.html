@@ -47,8 +47,7 @@
                 
                         </p>
                 </div>
-                   
-                </div>
+            </div>
         }
 
         function Poke(){
@@ -112,16 +111,87 @@
 
         }
 
-        // function Carousel(){
-        //     return <div className="carousel">
-        //         <a className="carousel-item" href="#one!"><img src="https://picsum.photos/200/300"/></a>
-        //         <a className="carousel-item" href="#two!"><img src="https://picsum.photos/200/300"/></a>
-        //         <a className="carousel-item" href="#three!"><img src="https://picsum.photos/200/300"/></a>
-        //         <a className="carousel-item" href="#four!"><img src="https://picsum.photos/200/300"/></a>
-        //         <a className="carousel-item" href="#five!"><img src="https://picsum.photos/200/300"/></a>
-        //     </div>
+        //  function Carousel(){
+        //       return <div className="carousel">
+        //           <a className="carousel-item" href="#one!"><img src="https://picsum.photos/200/300"/></a>
+        //           <a className="carousel-item" href="#two!"><img src="https://picsum.photos/200/300"/></a>
+        //           <a className="carousel-item" href="#three!"><img src="https://picsum.photos/200/300"/></a>
+        //           <a className="carousel-item" href="#four!"><img src="https://picsum.photos/200/300"/></a>
+        //           <a className="carousel-item" href="#five!"><img src="https://picsum.photos/200/300"/></a>
+        //       </div>
       
-        // }
+        //   }
+
+        function ShinyArray(){
+            const randomNo = Math.round(Math.random()*1000);
+            const url = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/' + randomNo + '.png';
+            const images = [];
+
+            for(var i=0; i<10; i++){
+                console.log(i);
+                const randomNo = Math.round(Math.random() *1000);
+                images.push('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/' + randomNo + '.png')
+
+            }
+
+            const mainImg = images.pop();
+
+            console.log(images);
+            return <div>
+                {images.map(function(u,i)
+                {
+                    console.log(i % 2);
+                    return <img src={u} title={i} style={{width: i % 2 ? 16 : 64}}/>
+                })}
+            <img src={mainImg}title={i} style={{width: Math.round(Math.random() *250)}} />
+                
+                </div>
+        }
+
+
+        function KStateTrip(){
+            const [gasCost, setGasCost] = React.useState(3.33);
+            const [totalMileage, setTotalMileage] = React.useState(240);
+            const [vehicles, setVehicles] = React.useState([{mileage: 8},{mileage: 15},{mileage: 12},{mileage: 24},
+            ]);
+            const [totalCost, setTotalCost] = React.useState(0);
+
+            React.useEffect(function(){
+                let total = 0;
+                vehicles.forEach(function(vehicle){
+                    var vehicleCost = ((totalMileage / vehicle.mileage)*gasCost);
+                    total = total + ((totalMileage / vehicle.mileage)*gasCost);
+                })
+                setTotalCost(total);
+            }, [gasCost, totalMileage, vehicles]);
+
+            return <div style={{maxWidth: 200, margin: 8, backgroundColor: '#ff4'}}>
+                Cost: <input 
+                    type="number" 
+                    value={gasCost} 
+                    onChange={(e) => setGasCost(Number(e.target.value))}/>
+                Total Mileage<input 
+                    type="number" 
+                    value={totalMileage} 
+                    onChange={(e) => setTotalMileage(Number(e.target.value))}/>
+                <p>
+                    <strong>Total Cost: {totalCost}</strong>
+                </p>
+
+                Add Vehicle:
+                <input type="number" onInput={function(e){
+                    console.log(e.target.value)
+                    var v = vehicles;
+                    v.push({mileage: e.target.value})
+                    setVehicles([...v])
+                }}/>
+
+                <pre>{JSON.stringify({gasCost, totalMileage, vehicles }, null, 2)}</pre>
+            </div>
+        }
+
+        
+
 
         ReactDOM.render(
             <div>
@@ -136,16 +206,29 @@
                     </div>
                 </nav>
         
-                <HelloWorld name = "Maggie" age = "20"/>
-                <HelloWorld name = "maggie" age = "18"/>
-                <HelloWorld name = "mags" age = "10"/>
-                <Poke/>
+                {true && <HelloWorld name = "Maggie" age = "20"/>}
+                {true && <HelloWorld name = "maggie" age = "18"/>}
+                {true && <HelloWorld name = "mags" age = "10"/>}
+                {true && <Poke/>}
+                <ShinyArray />
+                <KStateTrip />
+                
+
+
+
 
             </div>,
             document.getElementById("root")
+    
         );
+        document.addEventListener('DOMContentLoaded', function() {
+        console.log('Loaded')
+        var elems = document.querySelectorAll('.carouselex');
+        var instances = M.Carousel.init(elems);
+    });
 
-        
+
+
 
     </script>
 
