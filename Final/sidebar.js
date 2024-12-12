@@ -102,19 +102,21 @@ export default function Sidebar({
           })}
         </div>
       )}
-      {messages.map((obj) => (
-        <div>
-          {obj.name}
-          <img
-            src={
-              "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/" +
-              obj.avatarId +
-              ".gif"
-            }
-          ></img>
-          {obj.em}
-        </div>
-      ))}
+      <div id="chat">
+        {messages.map((obj) => (
+          <div className="message">
+            {obj.name}
+            <img
+              src={
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/" +
+                obj.avatarId +
+                ".gif"
+              }
+            ></img>
+            {obj.em}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

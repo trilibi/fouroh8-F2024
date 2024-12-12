@@ -70,7 +70,6 @@ body {
   }
 
   .avatar-picker {
-    margin-top: 10vh;
     height: 50vh;
     overflow: scroll;
     background-color:white;
@@ -106,4 +105,17 @@ body {
 
   .emoji {
     cursor: pointer;
+  }
+
+  #chat {
+    overflow: scroll;
+    height: 20vh;
+    background-color: white;
+    color: black;
+  }
+
+  .message {
+    background-color: darkgrey;
+    margin-left: auto;
+    text-align: end;
   }
