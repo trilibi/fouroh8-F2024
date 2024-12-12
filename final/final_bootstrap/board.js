@@ -1,5 +1,3 @@
-import Avatar from "./avatar";
-
 function getCellClass(x, y) {
   return (
     "cell " +
@@ -13,8 +11,7 @@ function getCellClass(x, y) {
   );
 }
 
-export default function Board({ grid, myAvatar, myPosition, width, updatePosition, avatars}) {
-  
+export default function Board({grid, myAvatar, myPosition, width, updatePosition, avatars}) {
   function cellclicked(e, x, y) {
     //console.log("clicked")
     //console.log(e)
@@ -22,7 +19,7 @@ export default function Board({ grid, myAvatar, myPosition, width, updatePositio
     //console.log(e.target.dataset.x, e.target.dataset.y)
     //console.log(x, y)
     updatePosition(x, y)
-  }
+  };
 
   // console
   return (
@@ -33,7 +30,7 @@ export default function Board({ grid, myAvatar, myPosition, width, updatePositio
           <div className="row" key={"row_" + x}>
             {row.map((col, y) => (
               <div
-              className={getCellClass(x, y)}
+                className={getCellClass(x, y)}
                 title={x + "," + y}
                 key={"col_" + y}
                 onClick={(e) => cellclicked(e, x, y)}
@@ -41,18 +38,25 @@ export default function Board({ grid, myAvatar, myPosition, width, updatePositio
                 data-y={y}
 
               >
-                {myPosition.x == x && myPosition.y == y && <img src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/' + myAvatar.id + '.gif'} />}
-                
-                
+                {myPosition.x == x && myPosition.y == y && 
+                  (<img 
+                      src={
+                        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/' + myAvatar.id + '.gif'
+                      } 
+                    ></img>
+                  )}
                 {Object.values(avatars).map((a) => {
                   if (a.x === x && a.y === y) {
-                    return (<div><img
-                      src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/'
-                        +a.avatar.id+'.gif'}
-                      /></div>);
+                    return (
+                  
+                      <img
+                        src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/'
+                        +a.avatar.id+'.gif'
+                        }
+                      />
+                    );
                   }
                 })}
-                
               </div>
             ))}
           </div>

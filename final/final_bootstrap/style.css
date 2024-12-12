@@ -53,7 +53,8 @@ body {
   }
 
   #board .cell img {
-    width: 25px; 
+    width: 100px; 
+    position: absolute;
   }
 
   #board .cell.even {

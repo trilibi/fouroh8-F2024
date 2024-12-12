@@ -4,15 +4,14 @@ import Sidebar from "./sidebar";
 // the isssues are img not displayed in sidebar, after selecting pokemon the board are reshaped unintentionally,
 
 const Pokedex = new window.Pokedex.Pokedex() // window where its coming from 
-
 const socket = io('http://54.234.88.206:3405');
 
 function sendUpdate(data) {
   if (data.name == 'anon') {
-    console.log('Please set name'); 
+    console.log('Please set a name'); 
     return; 
   }
-  console.log({data});
+  console.log(data);
   socket.emit('avatar', data); 
 }
 
@@ -21,15 +20,8 @@ const App = () => {
   const [name, setName] = React.useState(defaultName ? defaultName : 'anon');
   const [grid, setGrid] = React.useState([]); 
   const [pokemonList, setPokemonList] = React.useState([]); 
-  const [myPosition, setMyPosition] = React.useState({
-    x : 0, 
-    y : 0
-  }); 
-  const [myAvatar, setMyAvatar] = React.useState({
-    name : '', 
-    id : 0
-  }); 
-
+  const [myPosition, setMyPosition] = React.useState({x : 0, y : 0}); 
+  const [myAvatar, setMyAvatar] = React.useState({name : '', id : 0}); 
   const [avatars, setAvatars] = React.useState({}); 
 
   // https://www.geeksforgeeks.org/how-to-create-two-dimensional-array-in-javascript/
@@ -40,23 +32,20 @@ const App = () => {
     const new_grid = Array.from({ length: rows }, () => new Array(cols).fill([])); 
     setGrid(new_grid); 
 
-    socket.on('avatar', function(data) {
-      //console.log(data);
-      setAvatars(function(previous) {
-        previous[data.name] = data; 
+    socket.on('avatar', function (data) {
+      console.log(data);
+      setAvatars((prevState) => {
+        prevState[data.name] = data; 
         //console.log(previous)
-        return Object.assign({}, previous); 
-      })
-    })
+        return Object.assign({}, prevState); 
+      });
+    });
   
   // be careful with type error
-  Pokedex.getPokemonsList()
-  .then(function(response) {
+  Pokedex.getPokemonsList().then(function (response) {
     console.log(response)
     let list = response.results; 
     list = list.map((item) => {
-      console.log("https://pokeapi.co/api/v2/pokemon/1".length)
-      console.log(item.url.slice(34, -1))
       item.id = item.url.slice(34, -1); 
       return item; 
     })
@@ -73,26 +62,35 @@ React.useEffect(() => {
   })
 }, [myPosition]);
 
-  function updatePosition(x, y) {
+  const updatePosition = (x, y) => {
       console.log('CORE ::',  x, y); 
-      setMyPosition({x: x, y});
+      setMyPosition({x: x, y: y});
   }
   
   return (
     <div id="app_root">
       <nav>
         Our Grid Game, this class is an easy A 
-        <input type="text" onInput={(e) => {
+        <input 
+          type="text" 
+          onInput={(e) => {
           console.log(e); 
           setName(e.target.value); 
-          window.localStorage.setItem('my_name', e.target.value); 
-        }} value = {name} /> ({myPosition.x}, {myPosition.y}) 
-        (Avatar Name: {myAvatar.name} id# {myAvatar.id})
+          window.localStorage.setItem('name', e.target.value); 
+        }} 
+        value = {name}
+        placeholder="please Enter a Name"
+        title = "Name Iput" 
+        /> 
+        ({myPosition.x}, {myPosition.y}) (Avatar Name: {myAvatar.name} id:, 
+        {myAvatar.id}) (Available Pokemon: {pokemonList.length});
         <span onClick={() => {
-          setMyAvatar({name: '', id: 0}); 
-        }}> Clear Avatar</span>
-
-        (Available Pokemon: {pokemonList.length})
+          setMyAvatar({name: '', id: 0});
+          setMyPosition({x: 0, y: 0}); 
+        }}
+        > 
+          Clear Avatar
+        </span>
       </nav>
 
       {myAvatar.id === 0 && 
@@ -109,7 +107,12 @@ React.useEffect(() => {
         })}</div>}
 
       <div id="main">
-        <Sidebar />
+        <Sidebar 
+          pokemonList={pokemonList}
+          setAvatarFunction={setMyAvatar}
+          myAvatar={myAvatar.id}
+          socket={socket}
+          name={name}/>
         <Board 
           grid={grid} 
           width="70%"
