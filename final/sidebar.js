@@ -5,7 +5,8 @@ export default function Sidebar({ socket, name, myAvatar, myPosition }) {
     '🎉', '😁', '💕', '🥺', '😅', '🔥', '☺️', '🤦', '♥️', '🤷',
     '🙄', '😆', '🤗', '😉', '🎂', '🤔', '👏', '🙂', '😳', '🥳',
     '😎', '👌', '💜', '😔', '💪', '✨', '💖', '👀', '😋', '😏',
-    '😢', '👉', '💗', '😩', '💯', '🌹', '💞', '🎈', '💙', '😃', '🖕'];
+    '😢', '👉', '💗', '😩', '💯', '🌹', '💞', '🎈', '💙', '😃', 
+    '🏆','🕺','💃','🦸‍♂️','🦸‍♀️','🦄','🖖','🤘','👉','👈','🖕','👊'];
 
   React.useEffect(() => {
     socket.on('chat', (msg) => {
@@ -15,8 +16,9 @@ export default function Sidebar({ socket, name, myAvatar, myPosition }) {
 
   function sendEmoji(em){
     //console.log(em);
-    setMessages(old => [{name, em}, ...old]);
-    socket.emit('chat', {name: name, em: em})
+    const message = { name, em, avatarId: myAvatar.id };
+    setMessages((old) => [message, ...old]);
+    socket.emit('chat', message); 
   }
 
   return <div id="sidebar">
@@ -29,9 +31,17 @@ export default function Sidebar({ socket, name, myAvatar, myPosition }) {
           </span>)}
       <hr />
         {messages.map(obj => <div>
-            {obj.name}:
-            <img src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/' + obj.avatarId + '.gif'}
-            />:{obj.em}
+          <strong>{obj.name}</strong>:
+          {obj.avatarId && (
+            <img className="avatar-chat"
+              src={
+                'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/' +
+                obj.avatarId +
+                '.gif'
+              }
+              />
+              )}
+            :<span className="message-emoji">{obj.em}</span>
           </div>)}
       </div>
 }

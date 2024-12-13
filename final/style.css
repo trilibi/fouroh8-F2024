@@ -24,9 +24,10 @@ body {
   #sidebar {
     background: #444;
     width: 25%;
+    overflow: scroll;
   }
   #board {
-    background: #000;
+    background: #444;
     width: 75%;
   }
   #board .row {
@@ -56,10 +57,10 @@ body {
     position: absolute;
   }
   #board .cell.even {
-    background: #ff0000;
+    background: #000000;
   }
   #board .cell.odd {
-    background: #000dff;
+    background: #ffffff;
   }
 
   .avatar-picker{
@@ -85,4 +86,58 @@ body {
   .emoji {
     cursor: pointer;
     font-size: 24px;
+  }
+  .message-emoji {
+    font-size: 24px;
+  }
+
+  #board .my-avatar-cell {
+    position: relative;
+    background: radial-gradient(circle, rgba(255, 223, 0, 0.8), transparent);
+    animation: pulse 2s infinite;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 25px 15px rgba(255, 215, 0, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 50px 32px rgba(255, 215, 0, 0.7);
+    }
+    100% {
+      box-shadow: 0 0 25px 15px rgba(255, 215, 0, 0.5);
+    }
+  }
+  
+  #board .my-avatar {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    transform: scale(2);
+    z-index: 3;
+    position: relative;
+  }
+
+  #sidebar .avatar-chat{
+    height: 24px;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+  }
+
+  .clear-avatar-button {
+    cursor: pointer;
+    background-color: #ff0000;
+    color: white;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
   }

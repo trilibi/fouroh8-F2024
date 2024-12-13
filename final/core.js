@@ -34,8 +34,8 @@ const App = () => {
 
   // https://www.geeksforgeeks.org/how-to-create-two-dimensional-array-in-javascript/
   React.useEffect(function() {    
-    const rows = 8;
-    const cols = 8;
+    const rows = 10;
+    const cols = 10;
     const new_grid = Array.from({ length: rows }, () => new Array(cols).fill([]));
     setGrid(new_grid);
     //console.log(grid);
@@ -80,18 +80,32 @@ const App = () => {
     <div id="app_root">
       <nav>
         Our Grid Game 
-        <input type="text" onInput={(e) => {
-          console.log(e);
-          setName(e.target.value);
-          window.localStorage.setItem('my_name', e.target.value);
-        }} value = {name} /> ({myPosition.x}, {myPosition.y}) 
+        <input 
+          type="text" 
+          onInput={(e) => {
+            setName(e.target.value);
+            window.localStorage.setItem('my_name', e.target.value);
+          }} 
+          value={name} 
+        /> 
+        ({myPosition.x}, {myPosition.y}) 
         (Avatar Name: {myAvatar.name} id# {myAvatar.id})
-        <span onClick={() => {
-          setMyAvatar({name: '', id: 0});
-        }
-        }>Clear Avatar</span>
+
         (Available Pokemon: {pokemonList.length})
+
+        {myAvatar.id && (
+          <div className="button-container">
+            <div className="clear-avatar-button" 
+              onClick={() => {
+                setMyAvatar({ name: '', id: 0 });
+              }}
+            >
+              Clear Avatar
+            </div>
+          </div>
+        )}
       </nav>
+
       {myAvatar.id == 0 && 
       <div className="avatar-picker">No Avatar: 
         {pokemonList.map(function(item){
