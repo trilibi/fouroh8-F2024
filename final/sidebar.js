@@ -7,16 +7,17 @@ export default function Sidebar({ socket, name, myAvatar, myPosition }) {
 
   React.useEffect(() => {
       socket.on('chat', (msg) => {
-          setMessages(old => [ msg,...old]);
+        setMessages(old => [msg, ...old]);
       });
-  }, []);
+    }, []);
+  
+    function sendEmoji(em){
+      //console.log(em);
+      setMessages(old => [{name, em}, ...old]);
+      socket.emit('chat', {name: name, em: em})
+    }
 
 
-  function sendEmoji(em){
-    console.log(em);
-    setMessages(old => [{name: name, em: em}],...old);
-    socket.emit('chat', {name: name, msg: em});
-  }
 
 
   return (
