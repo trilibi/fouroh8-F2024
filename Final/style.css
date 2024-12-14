@@ -1,12 +1,17 @@
 /*Color Pallete: https://coolors.co/palette/012a4a-013a63-01497c-014f86-2a6f97-2c7da0-468faf-61a5c2-89c2d9-a9d6e5*/
 
-body {
-    background: #333;
-    color: #eee;
-    font-family: "Montserrat", sans-serif;
+:root {
+  font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
+}
+
+
+body {
+    background: #333;
+    color: #eee;
+    
     padding: 0;
     margin: 0;
   }
