@@ -70,7 +70,6 @@ export default function Sidebar({
   }, []);
 
   function sendMessage(em) {
-    console.log(em);
     setMessages((old) => [...old, { name, em, avatarId: myAvatar }]);
     socket.emit("chat", { name: name, em: em, avatarId: myAvatar });
   }
