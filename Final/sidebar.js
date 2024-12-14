@@ -8,6 +8,8 @@ export default function Sidebar({
   setMyPosition,
 }) {
   const [messages, setMessages] = React.useState([]);
+  const userInput = document.getElementById("userInput");
+
   const emoji = [
     "😂",
     "❤️",
@@ -67,7 +69,7 @@ export default function Sidebar({
     });
   }, []);
 
-  function sendEmoji(em) {
+  function sendMessage(em) {
     console.log(em);
     setMessages((old) => [...old, { name, em, avatarId: myAvatar }]);
     socket.emit("chat", { name: name, em: em, avatarId: myAvatar });
@@ -118,7 +120,7 @@ export default function Sidebar({
       {myAvatar !== 0 && (
         <div>
           <div>
-            <h1>Welcome: {name}</h1>
+            <h1>Welcome {name}!!</h1>
 
             <h2>Current Avatar: </h2>
             <img
@@ -151,14 +153,24 @@ export default function Sidebar({
         {emoji.map((em) => (
           <span
             onClick={() => {
-              sendEmoji(em);
+              sendMessage(em);
             }}
             className="emoji"
           >
             {em}
           </span>
         ))}
-        <hr />
+      </div>
+      <div id="typing-chat">
+        <input id="userInput" type="text"></input>
+        <button
+          onClick={() => {
+            sendMessage(userInput.value);
+            userInput.value = "";
+          }}
+        >
+          Send
+        </button>
       </div>
     </div>
   );
