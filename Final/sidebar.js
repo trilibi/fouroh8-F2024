@@ -117,19 +117,17 @@ export default function Sidebar({
       )}
 
       {myAvatar !== 0 && (
-        <div>
-          <div>
-            <h1>Welcome {name}!!</h1>
+        <div id="userInfo">
+          <h1>Welcome {name}!!</h1>
 
-            <h2>Current Avatar: </h2>
-            <img
-              src={
-                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/" +
-                myAvatar +
-                ".gif"
-              }
-            />
-          </div>
+          <h2>Current Avatar: </h2>
+          <img
+            src={
+              "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/" +
+              myAvatar +
+              ".gif"
+            }
+          />
         </div>
       )}
 

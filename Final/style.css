@@ -3,8 +3,10 @@
 body {
     background: #333;
     color: #eee;
-    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-      "Lucida Sans", Arial, sans-serif;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
     padding: 0;
     margin: 0;
   }
@@ -26,14 +28,15 @@ body {
   }
 
   #sidebar {
-    background: #444;
+    background: #012A4A;
     width: 25%;
-    border: white 1px solid;
+    border: #014F86 2px solid;
   }
 
   #board {
     background: #000;
     width: 75%;
+    border: #014F86 solid 2px;
   }
 
   #board .row {
@@ -43,7 +46,6 @@ body {
   }
 
   #board .cell {
-    border: 1px solid#222;
     background: #014F86;
 
     display: flex;
@@ -70,12 +72,43 @@ body {
     background: #A9D6E5;
   }
 
+  #userInfo {
+    width: 75%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #61A5C2;
+    border-radius: 5%;
+    border: #A9D6E5 solid 4px;
+  }
+
+  #userInfo img {
+    background-color: #014F86;
+    padding: 5%;
+    border-radius: 10%;
+    margin-bottom: 5%;
+  }
+
+
+  #userInfo h1 {
+    background-color: #012A4A;
+    border-radius: 8px;
+    padding: 2%;
+  }
+
+  #userInfo h2 {
+    background-color: #013A63;
+    border-radius: 8px;
+    padding: 2%;
+  }
+
   .avatar-picker {
     height: 50vh;
     overflow: scroll;
-    background-color:white;
+    background-color:#014F86;
     color: black;
-    border: 5px solid black;
+    border: 5px solid white;
     border-radius: 10px;
   }
 
@@ -95,7 +128,8 @@ body {
   }
 
   .avatar-picker :hover {
-    background: darkgrey;
+    background: #A9D6E5;
+    cursor: pointer;
   }
 
   .bubble {
@@ -110,17 +144,24 @@ body {
 
   .emoji {
     cursor: pointer;
+    border-radius: 5%;
+    padding: 1%;
   }
+
+  .emoji:hover {
+    background-color: #61A5C2;
+  }
+
 
   #chat {
     overflow: scroll;
     height: 20vh;
-    background-color: white;
+    background-color: #A9D6E5;
     color: black;
     width: 25%;
     position: absolute;
     bottom: 15%;
-    border: 2px black solid;
+    border: 3px #014F86 solid;
   }
 
   #chatOptions {
@@ -128,15 +169,17 @@ body {
     position: absolute;
     bottom: 5%;
     background-color: #A9D6E5;
-    border: 2px black solid;
+    border: 2px #014F86 solid;
  }
 
   .message {
-    background-color: darkgrey;
+    margin-top: 10px;
+    background-color: #012A4A;
     margin-left: auto;
     text-align: end;
     border-top: black 1px solid;
     border-bottom: black 1px solid;
+    color: white;
   }
 
   #playerInfo {
@@ -145,7 +188,33 @@ body {
     padding-top: 2%;
   }
 
+   input, button {
+    background-color: #A9D6E5;
+    border: #A9D6E5 solid 5px;
+    border-radius: 5px;
+    color: #012A4A;
+    font-size: me;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+
+  button:hover {
+    background-color: #61A5C2;
+    border-radius: 10%;
+  }
+
   #typing-chat {
     position: absolute;
+    display: flex;
     bottom:0;
+    justify-content: space-between;
+    width: 24vw;
+  }
+
+  #typing-chat button {
+    margin-left: auto;
+    padding: 0% 5% 0% 5%;  
   }
