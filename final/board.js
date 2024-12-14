@@ -1,3 +1,5 @@
+
+
 function getCellClass(x, y) {
   return (
     "cell " +
@@ -10,21 +12,25 @@ function getCellClass(x, y) {
       : "odd")
   );
 }
+export default function Board({ grid, myAvatar, myPosition, width, updatePosition, avatars, socket }) {
+  const [coinPosition, setCoinPosition] = React.useState({ coinx: 0, coiny: 0 });
 
-export default function Board({ grid, myAvatar, myPosition, width, updatePosition, avatars }) {
+  function cellClicked(e, x, y) {
+    updatePosition(x, y);
 
-  function cellClicked(e, x, y){
-    //console.log('clicked')
-    //console.log(e.target.dataset)
-    //console.log(e.target.dataset.x, e.target.dataset.y)
-    //console.log(x,y);
-    updatePosition(x,y);
+    if (x === coinPosition.coinx && y === coinPosition.coiny) {
+      // Emit a coin collection event to the server
+      socket.emit('coinCollected', { name: myAvatar.name, id: myAvatar.id });
+
+      // Regenerate the coin's position
+      const newCoinx = Math.floor(Math.random() * grid.length);
+      const newCoiny = Math.floor(Math.random() * grid[0].length);
+      setCoinPosition({ coinx: newCoinx, coiny: newCoiny });
+    }
   }
-  
-  // console
+
   return (
     <div id="board">
-      <pre>{JSON.stringify(avatars)}</pre>
       <div style={{ width: width }}>
         {grid.map((row, x) => (
           <div className="row" key={"row_" + x}>
@@ -37,20 +43,26 @@ export default function Board({ grid, myAvatar, myPosition, width, updatePositio
                 data-x={x}
                 data-y={y}
               >
-                {myPosition.x == x && myPosition.y == y &&<img src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/' + myAvatar.id + '.gif'} />}
-
-                {Object.values(avatars).map((a) => {
-                  if (a.x === x && a.y === y) {
-                    return (<div><img 
-                      src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/' + a.avatar.id + '.gif'} /></div>);
-                  }
-                })}
+                {myPosition.x === x && myPosition.y === y && (
+                  <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${myAvatar.id}.gif`} />
+                )}
+                {Object.values(avatars).map((a) =>
+                  a.x === x && a.y === y ? (
+                    <div>
+                      <img
+                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${a.avatar.id}.gif`}
+                      />
+                    </div>
+                  ) : null
+                )}
+                {coinPosition.coinx === x && coinPosition.coiny === y && (
+                  <div className="coin">💰</div>
+                )}
               </div>
             ))}
           </div>
         ))}
       </div>
-      {/* console */}
     </div>
   );
 }

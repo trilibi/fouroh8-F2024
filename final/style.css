@@ -25,6 +25,27 @@ https://www.w3schools.com/css/css3_flexbox.asp
   background: #444;
   width: 25%;
 }
+#sidebar table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+
+#sidebar th, #sidebar td {
+  border: 1px solid #eee;
+  padding: 5px;
+  text-align: center;
+}
+
+#sidebar th {
+  background: #555;
+  color: #fff;
+}
+
+#sidebar td {
+  background: #666;
+  color: #eee;
+}
 #board {
   background: #000;
   width: 75%;
@@ -86,3 +107,8 @@ https://www.w3schools.com/css/css3_flexbox.asp
   right: -14px;
   z-index: 10;
 }
+.coin {
+  font-size: 24px;
+  color: gold;
+  position: absolute;
+} 
