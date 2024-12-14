@@ -16,6 +16,7 @@ function sendUpdate(data) {
 
 const App = () => {
   const defaultName = window.localStorage.getItem('my_name', 'anon');
+  const defaultAvatar = window.localStorage.getItem('my_avatar', JSON.stringify({name: '', id: 0}));
   const [name, setName] = React.useState(defaultName ? defaultName : 'anon');
   const [grid, setGrid] = React.useState([]);
   const [pokemonList, setPokemonList] = React.useState([]);
@@ -23,10 +24,7 @@ const App = () => {
     x:0,
     y:0
   });
-  const [myAvatar, setMyAvatar] = React.useState({
-    name: '',
-    id: 0
-  });
+  const [myAvatar, setMyAvatar] = React.useState(defaultAvatar ? JSON.parse(defaultAvatar) : {name: '', id: 0});
   const [avatars, setAvatars] = React.useState({});
 
   // https://www.geeksforgeeks.org/how-to-create-two-dimensional-array-in-javascript/
@@ -57,6 +55,7 @@ const App = () => {
   }, []);
 
   React.useEffect(() => {
+    console.log(myAvatar);
     sendUpdate({
         name: name,
         avatar: myAvatar,
@@ -76,7 +75,7 @@ const App = () => {
         Our Grid Game, Something Something <br></br>
         <input type="text" onInput={(e) => {
           setName(e.target.value)
-          window.localStorage.setItem('my_name', name)
+          window.localStorage.setItem('my_name', name);
           }} value={name}/> 
           ({myPosition.x}, {myPosition.y}) 
           (Avatar Name: {myAvatar.name}, id: {myAvatar.id})
@@ -91,6 +90,7 @@ const App = () => {
         onClick={() => {
           console.log(item);
           setMyAvatar({name: item.name, id: item.id});
+          window.localStorage.setItem('my_avatar', JSON.stringify({name: item.name, id: item.id}));
         }}/>
       })}</div>}
       <div id="main">
