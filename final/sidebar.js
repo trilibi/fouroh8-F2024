@@ -1,26 +1,39 @@
-export default function Sidebar({ socket, name, myAvatar, myPosition }) {
+export default function Sidebar({ socket, name, myAvatar, myPosition, coinNum }) {
   const [messages, setMessages] = React.useState([]);
   const [leaderboard, setLeaderboard] = React.useState([]);
+  const [timer, setTimer] = React.useState(0); // Timer state (stored in milliseconds)
+  const [isRunning, setIsRunning] = React.useState(false); // Timer running state
 
   React.useEffect(() => {
-    // Listen for chat messages
-    socket.on("chat", (msg) => {
-      setMessages((old) => [msg, ...old]);
-    });
+    // Start the timer when `coinNum` increases (stop when it reaches 10)
+    if (coinNum > 0 && coinNum < 10) {
+      setIsRunning(true); // Start the timer
+    } else if (coinNum >= 10) {
+      setIsRunning(false); // Stop the timer
+    }
+  }, [coinNum]);
 
-    // Listen for leaderboard updates
-    socket.on("leaderboardUpdate", (updatedLeaderboard) => {
-      console.log("Leaderboard updated:", updatedLeaderboard); // Debugging line
-      setLeaderboard(updatedLeaderboard);
-    });
-    
+  React.useEffect(() => {
+    let interval;
+    if (isRunning) { // 10 seconds = 10000 milliseconds
+      const startTime = Date.now(); // Store the timer start time
+      interval = setInterval(() => {
+        const elapsed = Date.now() - startTime; // Calculate elapsed time
+        setTimer((prevTimer) => Math.min(prevTimer + elapsed)); //
+      }, 10); // Update every 10ms
+    } 
 
-    return () => {
-      // Cleanup listeners on unmount
-      socket.off("chat");
-      socket.off("leaderboardUpdate");
-    };
-  }, [socket]);
+    return () => clearInterval(interval); // Clear the timer
+  }, [isRunning, timer]);
+
+  // Convert milliseconds to `00:00:00.000` format
+  const formatTime = (ms) => {
+    const totalSeconds = Math.floor(ms / 1000);
+    const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
+    const seconds = String(totalSeconds % 60).padStart(2, "0");
+    const milliseconds = String(ms % 1000).padStart(3, "0");
+    return `${minutes}:${seconds}.${milliseconds}`;
+  };
 
   function sendEmoji(em) {
     const message = { name, em, avatarId: myAvatar.id };
@@ -31,28 +44,18 @@ export default function Sidebar({ socket, name, myAvatar, myPosition }) {
   return (
     <div id="sidebar">
       <div id="leaderboard">
-        <h3>Leaderboard</h3>
+        <h3>Coins and Timer</h3>
         <table>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Coins</th>
+              <th>{coinNum}</th>
+            </tr>
+            <tr>
+              <th>{formatTime(timer)}</th> {/* Display formatted timer value */}
             </tr>
           </thead>
-          <tbody>
-            {leaderboard
-              .sort((a, b) => b.coins - a.coins)
-              .map((entry, index) => (
-                <tr key={index}>
-                  <td>{entry.name}</td>
-                  <td>{entry.coins}</td>
-                </tr>
-              ))}
-          </tbody>
         </table>
       </div>
-
-      <hr />
 
       <div id="chat">
         <h3>Chat</h3>

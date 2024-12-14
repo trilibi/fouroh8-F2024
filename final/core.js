@@ -1,3 +1,4 @@
+
 import Board from "./board";
 import Sidebar from "./sidebar";
 
@@ -27,6 +28,7 @@ const App = () => {
     id: 0,
   });
   const [avatars, setAvatars] = React.useState({});
+  const [coinNum, setCoinNum] = React.useState(0); // Add coinNum state
 
   React.useEffect(() => {
     const rows = 8;
@@ -116,6 +118,7 @@ const App = () => {
           name={name}
           myAvatar={myAvatar}
           myPosition={myPosition}
+          coinNum={coinNum} // Pass coinNum to Sidebar
         />
         <Board
           grid={grid}
@@ -125,6 +128,7 @@ const App = () => {
           avatars={avatars}
           updatePosition={updatePosition}
           socket={socket} // Pass the socket instance
+          setCoinNum={setCoinNum} // Pass setCoinNum to Board
         />
       </div>
     </div>

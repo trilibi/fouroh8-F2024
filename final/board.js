@@ -1,5 +1,4 @@
 
-
 function getCellClass(x, y) {
   return (
     "cell " +
@@ -12,13 +11,14 @@ function getCellClass(x, y) {
       : "odd")
   );
 }
-export default function Board({ grid, myAvatar, myPosition, width, updatePosition, avatars, socket }) {
-  const [coinPosition, setCoinPosition] = React.useState({ coinx: 0, coiny: 0 });
+export default function Board({ grid, myAvatar, myPosition, width, updatePosition, avatars, socket, setCoinNum }) {
+  const [coinPosition, setCoinPosition] = React.useState({ coinx: 4, coiny: 4 });
 
   function cellClicked(e, x, y) {
     updatePosition(x, y);
 
     if (x === coinPosition.coinx && y === coinPosition.coiny) {
+      console.log('Coin collected!');
       // Emit a coin collection event to the server
       socket.emit('coinCollected', { name: myAvatar.name, id: myAvatar.id });
 
@@ -26,6 +26,9 @@ export default function Board({ grid, myAvatar, myPosition, width, updatePositio
       const newCoinx = Math.floor(Math.random() * grid.length);
       const newCoiny = Math.floor(Math.random() * grid[0].length);
       setCoinPosition({ coinx: newCoinx, coiny: newCoiny });
+
+      // Update coinNum
+      setCoinNum(prevCoinNum => prevCoinNum + 1);
     }
   }
 
@@ -48,7 +51,7 @@ export default function Board({ grid, myAvatar, myPosition, width, updatePositio
                 )}
                 {Object.values(avatars).map((a) =>
                   a.x === x && a.y === y ? (
-                    <div>
+                    <div key={a.name}>
                       <img
                         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${a.avatar.id}.gif`}
                       />
