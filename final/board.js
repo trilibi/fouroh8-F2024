@@ -11,7 +11,7 @@ function getCellClass(x, y) {
   );
 }
 
-export default function Board({ grid, myAvatar, myPosition, width, updatePosition, avatars }) {
+export default function Board({ grid, myAvatar, myPosition, width, updatePosition, avatars, pokeballPosition }) {
 
   function cellClicked(e, x, y){
     //console.log('clicked')
@@ -53,6 +53,14 @@ export default function Board({ grid, myAvatar, myPosition, width, updatePositio
                     </div>);
                   }
                 })}
+
+                {pokeballPosition && pokeballPosition.x === x && pokeballPosition.y === y && (
+                  <div className="pokeball-cell">
+                    <img
+                      src="https://fc03.deviantart.net/fs70/f/2013/019/b/6/pokeball_by_zel_duh-d5s04qj.gif"
+                    />
+                  </div>
+                )}
               </div>
             ))}
           </div>

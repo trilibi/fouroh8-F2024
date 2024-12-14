@@ -1,5 +1,5 @@
 body {
-    background: #333;
+    background: #839fa3;
     color: #eee;
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
       "Lucida Sans", Arial, sans-serif;
@@ -8,7 +8,6 @@ body {
   }
   #root,
   #app_root {
-    height: 100vh;
     width: 100vw;
   }
   /* 
@@ -19,16 +18,15 @@ body {
     display: flex;
     height: 100%;
     width: 100%;
-    overflow: hidden;
   }
   #sidebar {
     background: #444;
     width: 25%;
-    overflow: scroll;
   }
   #board {
-    background: #444;
-    width: 75%;
+    background: #839fa3;
+    width: 52%;
+    overflow: hidden;
   }
   #board .row {
     display: flex;
@@ -70,7 +68,7 @@ body {
   }
 
   .avatar-picker img{
-    height: 35px;
+    height: 30px;
   }
 
   .bubble {
@@ -85,10 +83,10 @@ body {
 
   .emoji {
     cursor: pointer;
-    font-size: 24px;
+    font-size: 20px;
   }
   .message-emoji {
-    font-size: 24px;
+    font-size: 20px;
   }
 
   #board .my-avatar-cell {
@@ -114,29 +112,45 @@ body {
   }
   
   #board .my-avatar {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     object-fit: contain;
-    transform: scale(2);
+    transform: scale(1.5);
     z-index: 3;
     position: relative;
   }
 
   #sidebar .avatar-chat{
-    height: 24px;
+    height: 20px;
   }
 
   .button-container {
     display: flex;
     justify-content: flex-start;
-    margin-top: 10px;
+    margin-top: 2px;
   }
 
   .clear-avatar-button {
     cursor: pointer;
     background-color: #ff0000;
     color: white;
-    padding: 10px 20px;
+    padding: 2px 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  .restart-button-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 2px;
+  }
+  
+  .restart-button {
+    cursor: pointer;
+    background-color: #00ff3c;
+    color: rgb(0, 0, 0);
+    padding: 2px 10px;
     font-weight: bold;
     border-radius: 5px;
     text-align: center;

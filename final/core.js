@@ -31,35 +31,55 @@ const App = () => {
   });
   
   const[avatars, setAvatars] = React.useState({});
+  const [pokeballPosition, setPokeballPosition] = React.useState(null);
+  const [score, setScore] = React.useState(0);
+  const [highscore, setHighscore] = React.useState(0);
+  const [timeLeft, setTimeLeft] = React.useState(30);
+  const [gameActive, setGameActive] = React.useState(true);
+
+  let timer;
 
   // https://www.geeksforgeeks.org/how-to-create-two-dimensional-array-in-javascript/
-  React.useEffect(function() {    
+  React.useEffect(() => {    
     const rows = 10;
     const cols = 10;
     const new_grid = Array.from({ length: rows }, () => new Array(cols).fill([]));
     setGrid(new_grid);
     //console.log(grid);
+  
+    const randomX = Math.floor(Math.random() * cols);
+    const randomY = Math.floor(Math.random() * rows);
+    setPokeballPosition({ x: randomX, y: randomY });
+    console.log("Pokeball Position:", { x: randomX, y: randomY });
+    const timer = setTimeout(() => {
+      setPokeballPosition(null);
+    }, 30000);
+  
+    return () => clearTimeout(timer);
+  }, []);
 
-    socket.on('avatar', function(data){
+  
+  React.useEffect(() => {
+    socket.on('avatar', function(data) {
       //console.log(data)
-      setAvatars(function(previous){
+      setAvatars(function(previous) {
         previous[data.name] = data;
         return Object.assign({}, previous);
-      })
-    })
-
+      });
+    });
+  
     Pokedex.getPokemonsList()
-    .then(function(response) {
-      console.log(response);
-      let list = response.results;
-      list = list.map((item) =>{
-        console.log("https://pokeapi.co/api/v2/pokemon/".length)
-        console.log(item.url.slice(34, -1))
-        item.id = item.url.slice(34, -1);
-        return item;
-      })
-      setPokemonList(list);
-    })
+      .then(function(response) {
+        console.log(response);
+        let list = response.results;
+        list = list.map((item) => {
+          console.log("https://pokeapi.co/api/v2/pokemon/".length)
+          console.log(item.url.slice(34, -1))
+          item.id = item.url.slice(34, -1);
+          return item;
+        });
+        setPokemonList(list);
+      });
   }, []);
 
   React.useEffect(() => {
@@ -71,15 +91,54 @@ const App = () => {
     })
   }, [myPosition]);
 
+  React.useEffect(() => {
+    if (gameActive && timeLeft > 0) {
+      const countdown = setInterval(() => {
+        setTimeLeft(prevTime => prevTime - 1);
+      }, 1000);
+
+      return () => clearInterval(countdown);
+    }
+
+    if (timeLeft === 0) {
+      setGameActive(false);
+    }
+
+  }, [gameActive, timeLeft]);
+
   function updatePosition(x, y){
-    console.log('CORE :: ', x, y);
+    //console.log('CORE :: ', x, y);
     setMyPosition({x, y})
+    if (pokeballPosition && x === pokeballPosition.x && y === pokeballPosition.y) {
+      setScore(prevScore => prevScore + 1);
+      const rows = 10;
+      const cols = 10;
+      const randomX = Math.floor(Math.random() * cols);
+      const randomY = Math.floor(Math.random() * rows);
+      setPokeballPosition({ x: randomX, y: randomY });
+      if (score + 1 > highscore) setHighscore(score + 1);
+    }
+  }
+
+  function restartGame() {
+    const rows = 10;
+    const cols = 10;
+    clearTimeout(timer);
+    setScore(0);
+    setTimeLeft(30); 
+    setGameActive(true); 
+    setMyPosition({ x: 0, y: 0 }); 
+    setPokeballPosition({ x: Math.floor(Math.random() * cols), y: Math.floor(Math.random() * rows) });
+
+    timer = setTimeout(() => {
+      setPokeballPosition(null);
+    }, 30000);
   }
 
   return (
     <div id="app_root">
       <nav>
-        Our Grid Game 
+        Reverse Pokemon Game
         <input 
           type="text" 
           onInput={(e) => {
@@ -104,6 +163,10 @@ const App = () => {
             </div>
           </div>
         )}
+        <div>
+          <button className="restart-button" onClick={restartGame}>Restart</button>
+          Score: {score} --- Highscore: {highscore} --- Time Left: {timeLeft} s
+        </div>
       </nav>
 
       {myAvatar.id == 0 && 
@@ -131,7 +194,9 @@ const App = () => {
           myAvatar={myAvatar} 
           myPosition={myPosition} 
           avatars={avatars}
-          updatePosition={updatePosition}/>
+          updatePosition={updatePosition}
+          pokeballPosition={pokeballPosition}
+          />
       </div>
     </div>
   );
