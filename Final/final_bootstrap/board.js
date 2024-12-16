@@ -22,10 +22,9 @@ function cellClicked(e) {
 }
 
 
-  // console
   return (
     <div id="board">
-      <pre>{JSON.stringify(avatars)}</pre>
+    {/* <pre>{JSON.stringify(avatars)}</pre> */}
       <div style={{ width: width }}>
         {grid.map((row, x) => (
           <div className="row" key={"row_" + x}>
@@ -38,7 +37,15 @@ function cellClicked(e) {
                 data-x={x}
                 data-y={y}
               >
-                {myPosition.x == x && myPosition.y == y &&
+                <img 
+                className={getCellClass(x, y)}
+                title={x + "," + y}
+                key={"col_" + y}
+                onClick={cellClicked}
+                data-x={x}
+                data-y={y}
+                src={"grass_tile.png"} />
+                {myPosition.x == x && myPosition.y == y &&  myAvatar.id != 0 && 
                 <img 
                 src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/'
                   +myAvatar.id+'.gif'} 
@@ -48,7 +55,8 @@ function cellClicked(e) {
                   if(a.x === x && a.y === y) {
                     return (<div><img 
                       src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/'
-                        +a.avatar.id+'.gif'} /> </div>)
+                        +a.avatar.id+'.gif'} 
+                      alt='' /> </div>)
                   }
                 })}
 
@@ -57,7 +65,6 @@ function cellClicked(e) {
           </div>
         ))}
       </div>
-      {/* console */}
     </div>
   );
 }

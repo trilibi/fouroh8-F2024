@@ -80,14 +80,15 @@ const App = () => {
   return (
     <div id="app_root">
       <nav>
-        Our Grid Game Is An Easi A
+        Grid Game
         <input type="text" onInput={(e) => {
             setName(e.target.value);
             window.localStorage.setItem('myName', e.target.value);
           }} value={name}/> 
-          ({myPosition.x}, {myPosition.y}) 
+
+          Your Position: ({myPosition.x}, {myPosition.y}) 
           (Avatar Name: {myAvatar.name}, id# {myAvatar.id})
-          <span onClick={() => {
+          <span id="clear_button" onClick={() => {
           setMyAvatar({name: '', id: 0});
           }}>Clear Avatar</span>
           (Available Pokemon: {pokemonList.length})
