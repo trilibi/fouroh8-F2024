@@ -22,11 +22,11 @@ body {
     overflow: hidden;
   }
   #sidebar {
-    background: #7a0d6c;
+    background: #4d4d4d;
     width: 25%;
   }
   #board {
-    background: #490c75;
+    background: #404040;
     width: 75%;
   }
   #board .row {
@@ -35,7 +35,7 @@ body {
     line-height: 25px;
   }
   #board .cell {
-    border: 1px solid#d51c1c;
+    border: 1px solid#84240C;
 
     display: flex;
     flex: 1 0 auto;
@@ -56,11 +56,11 @@ body {
     position: absolute;
   }
   #board .cell.even {
-    background: #f96930;
+    background: #A1662F;
   }
 
   #board .cell.odd {
-    background: #ab2727;
+    background: #5B270B;
   }
   .avatar-picker {
     height: 100px;
