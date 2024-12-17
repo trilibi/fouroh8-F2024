@@ -6,9 +6,7 @@ const Pokedex = new window.Pokedex.Pokedex();
 const socket = io('http://54.234.88.206:3405');
 
 function sendUpdate(data) {
-    if (data.name != "anon") {
-        socket.emit('avatar', data)
-    }
+    socket.emit("avatar", data)
 }
 
 const pokemon = [];
@@ -25,7 +23,7 @@ const App = () => {
         y:0
     });
     const [ myAvatar, setMyAvatar] = React.useState({
-        name:'',
+        name: "",
         id:0
     });
 
@@ -54,24 +52,21 @@ const App = () => {
                     item.id = item.url.slice(34, -1);
                     return item;
                 })
-                setPokemonList(allPokemon);
+                setPokemonList(response.results);
             });
     }, [])
 
     React.useEffect(() => {
-        // while (true) {
-            sendUpdate({
-                name: name,
-                avatar: myAvatar,
-                x: myPosition.x,
-                y: myPosition.y
-            })
-        // }
+        sendUpdate({
+            name: name,
+            avatar: myAvatar,
+            x: myPosition.x,
+            y: myPosition.y
+        })
     }, [myPosition]);
 
     function updatePosition(x,y) {
-        console.log('CORE', x, y)
-        setMyPosition({x, y})
+        setMyPosition({ x: x, y: y })
     }
 
     return (
@@ -103,17 +98,23 @@ const App = () => {
                 })}</div>}
             <div id="main">
                 <Sidebar
+                    pokemonList={pokemonList}
+                    setAvatarFunction={setMyAvatar}
+                    myAvatar={myAvatar.id}
                     socket={socket}
                     name={name}
-                    myAvatar={myAvatar}
-                    myPosition={myPosition}/>
+                    setName={setName}
+                    setMyPosition={setMyPosition}
+                />
                 <Board
                     grid={grid}
                     width="90%"
+                    updatePosition={updatePosition}
                     myAvatar={myAvatar}
-                    avatars={{avatar}}
                     myPosition={myPosition}
-                    updatePosition={updatePosition} />
+                    avatars={avatar}
+                    position={myPosition}
+                />
             </div>
         </div>
     );
