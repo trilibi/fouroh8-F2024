@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Setup</title>
-    <link rel="stylesheet" href="style.css" />
+    <style>
+
+    </style>
+      <link rel="stylesheet" href = "style.css" />
 
     <script
       crossorigin
@@ -15,8 +18,9 @@
       src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
     ></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/pokeapi-js-wrapper@1.2.7/dist/index.js"></script>
+    <script src="http://54.234.88.206:3405/socket.io/socket.io.js"></script>
   </head>
-  
   <body>
     <div id="root"></div>
     <script
@@ -29,6 +33,7 @@
       type="text/babel"
       data-plugins="transform-es2015-modules-umd"
     ></script>
+
     <script
       src="core.js"
       type="text/babel"

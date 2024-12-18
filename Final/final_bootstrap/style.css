@@ -1,55 +1,79 @@
 body {
-    background: #333;
-    color: #eee;
-    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-      "Lucida Sans", Arial, sans-serif;
-    padding: 0;
-    margin: 0;
-  }
-  #root,
-  #app_root {
-    height: 100vh;
-    width: 100vw;
-  }
-  /* 
-  https://developer.mozilla.org/en-US/docs/Web/CSS/flex
-  https://www.w3schools.com/css/css3_flexbox.asp
-  */
-  #main {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-  }
-  #sidebar {
-    background: #444;
-    width: 25%;
-  }
-  #board {
-    background: #000;
-    width: 75%;
-  }
-  #board .row {
-    display: flex;
-    justify-content: space-around;
-    line-height: 25px;
-  }
-  #board .cell {
-    border: 1px solid#222;
+  background: green;
+  color: #ffffff;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding-top: 20px;
+  margin: 0px;
+  text-align-last: center;
+}
+#root,
+#app_root {
+  height: 100vh;
+  width: 100vw;
+}
+/* 
+https://developer.mozilla.org/en-US/docs/Web/CSS/flex
+https://www.w3schools.com/css/css3_flexbox.asp
+*/
+#main {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+#sidebar {
+  margin-top: 41px;
+  margin-left: 100px;
+  margin-bottom: 35px;
+  background: skyblue;
+  width: 20%;
+}
+#board {
+  background: green;
+  width: 75%;
+}
+#board .row {
+  display: flex;
+  justify-content: space-around;
+  line-height: 25px;
 
-    display: flex;
-    flex: 1 0 auto;
-    height: auto;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-  }
-  /* hover */
-  #board .cell::before {
-    content: "";
-    float: left;
-    padding-top: 100%;
-  }
-  #board .cell.even {
-    background: pink;
-  }
+}
+#board .cell {
+  border: 2px solid #ffffff;
+
+  display: flex;
+  flex: 1 0 auto;
+  height: auto;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+/* hover */
+#board .cell::before {
+  content: "";
+  float: left;
+  padding-top: 100%;
+}
+#board .cell img{
+  width: 35px;
+  position: absolute;
+}
+#board .cell.even {
+  background: yellow;
+}
+.avatar-picker{
+  margin-top: 20px;
+  height: 150px;
+  overflow: scroll;
+  background-color: #ffe0f8;
+}
+.avatar-picker img{
+  margin: 10px;
+  height: 35px;
+}
+
+.emoji{
+  margin: 10px;
+  cursor: pointer;
+}
