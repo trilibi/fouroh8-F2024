@@ -76,6 +76,7 @@ const App = () => {
         avatar: myAvatar,
         x: myPosition.x,
         y: myPosition.y
+
     })
 }, [myPosition]);
 
@@ -87,19 +88,19 @@ const App = () => {
   return (
     <div id="app_root">
       <nav>
-        Our Grid Game
+        Our Grid Game<br></br>
         <input type="text" onInput={(e) => {
           setName(e.target.value)
           window.localStorage.setItem('my_name', e.target.value);
-
          } } 
+        
           value = {name}/> 
           ({myPosition.x}, {myPosition.y}) 
           (Avatar Name: {myAvatar.name}, id# {myAvatar.id})
           (Available pokemon: {pokemonList.length})
           <span onClick={() => {
             setMyAvatar({name: '', id:0});
-          }}>Clear Avatar</span>
+          }}><br></br>Clear Avatar</span>
 
       </nav>
       {myAvatar.id == 0 && <div className="avatar-picker">No Avatar: 
@@ -114,6 +115,7 @@ const App = () => {
 
         
       })}
+      <br></br>
       </div>}
       <div id="main">
         <Sidebar 
