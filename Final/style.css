@@ -86,7 +86,7 @@ body {
 }
 
 .emoji {
-  cursor: pointer;
+  cursor: grab;
   font-size: 20px;
 }
 
