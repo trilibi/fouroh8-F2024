@@ -35,7 +35,7 @@ body {
     line-height: 25px;
   }
   #board .cell {
-    border: 1px solid#84240C;
+    border: 1px solid#C0C0C0;
 
     display: flex;
     flex: 1 0 auto;
@@ -65,7 +65,7 @@ body {
   .avatar-picker {
     height: 100px;
     overflow: scroll;
-    background-color: rgb(146, 30, 44);
+    background-color: #C0C0C0;
   }
 
   .avatar-picker img {
