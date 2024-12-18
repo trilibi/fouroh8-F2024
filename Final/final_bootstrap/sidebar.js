@@ -9,7 +9,7 @@ export default function Sidebar({socket, name, myAvatar, myPosition}) {
         
     React.useEffect(() => {
         socket.on('chat', (msg) => {
-            setMessages(old => [...old, msg]);
+            setMessages(old => [msg, ...old]);
         });
     }, []);
 
@@ -26,7 +26,7 @@ export default function Sidebar({socket, name, myAvatar, myPosition}) {
             {em}
         </span>)}
         <hr />
-        {messages.reverse().map(obj => <div>
+        {messages.map(obj => <div>
             {obj.name}
             {/*<img*/}
             {/*    src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/'*/}
