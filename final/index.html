@@ -3,44 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Setup</title>
-    <style>
-      /* style should take from style.css file under and put it under this tag */ 
-    </style>
+    <meta name="description" content="A fun Pokémon-themed grid game with real-time features." />
+    <title>Pokémon Grid Game</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
+
+    <!-- External Stylesheet -->
     <link rel="stylesheet" href="style.css" />
-    <!-- installing react.development which is used for debugging-->
-    <script
-      crossorigin
-      src="https://unpkg.com/react@17/umd/react.development.js"
-    ></script>
-    <!-- installing react-dom.development.js-->
-    <script
-      crossorigin
-      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
-    ></script>
-    <!-- installing -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+
+    <!-- React and Babel -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <!-- External Libraries -->
     <script src="https://unpkg.com/pokeapi-js-wrapper@1.2.7/dist/index.js"></script>
     <script src="http://54.234.88.206:3405/socket.io/socket.io.js"></script>
   </head>
 
   <body>
-    <div id="root"></div>
-    <script
-      src="sidebar.js"
-      type="text/babel"
-      data-plugins="transform-es2015-modules-umd"
-    ></script>
-    <script
-      src="board.js"
-      type="text/babel"
-      data-plugins="transform-es2015-modules-umd"
-    ></script>
-    <script
-      src="core.js"
-      type="text/babel"
-      data-plugins="transform-es2015-modules-umd"
-    ></script>
+    <div id="root">
+      <p>Loading...</p>
+    </div>
+
+    <!-- React Components -->
+    <script src="sidebar.js" type="text/babel" data-plugins="transform-es2015-modules-umd"></script>
+    <script src="board.js" type="text/babel" data-plugins="transform-es2015-modules-umd"></script>
+    <script src="core.js" type="text/babel" data-plugins="transform-es2015-modules-umd"></script>
   </body>
 </html>
+

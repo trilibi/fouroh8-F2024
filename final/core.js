@@ -1,9 +1,8 @@
 import Board from "./board";
 import Sidebar from "./sidebar";
 
-// the isssues are img not displayed in sidebar, after selecting pokemon the board are reshaped unintentionally,
 
-const Pokedex = new window.Pokedex.Pokedex() // window where its coming from 
+const Pokedex = new window.Pokedex.Pokedex()
 const socket = io('http://54.234.88.206:3405');
 
 function sendUpdate(data) {
@@ -41,7 +40,7 @@ const App = () => {
       });
     });
   
-  // be careful with type error
+
   Pokedex.getPokemonsList().then(function (response) {
     console.log(response)
     let list = response.results; 
@@ -69,29 +68,38 @@ React.useEffect(() => {
   
   return (
     <div id="app_root">
-      <nav>
-        Our Grid Game, this class is an easy A 
-        <input 
-          type="text" 
-          onInput={(e) => {
-          console.log(e); 
-          setName(e.target.value); 
-          window.localStorage.setItem('name', e.target.value); 
-        }} 
-        value = {name}
-        placeholder="please Enter a Name"
-        title = "Name Iput" 
-        /> 
-        ({myPosition.x}, {myPosition.y}) (Avatar Name: {myAvatar.name} id:, 
-        {myAvatar.id}) (Available Pokemon: {pokemonList.length});
-        <span onClick={() => {
-          setMyAvatar({name: '', id: 0});
-          setMyPosition({x: 0, y: 0}); 
+      <nav className="nav-bar">
+  <div className="nav-content">
+    <h1 className="nav-title">Welcome to our Grid Game!</h1>
+    <div className="nav-input">
+      <input
+        type="text"
+        value={name}
+        onInput={(e) => {
+          console.log(e);
+          setName(e.target.value);
+          window.localStorage.setItem("name", e.target.value);
         }}
-        > 
-          Clear Avatar
-        </span>
-      </nav>
+        placeholder="Enter your name"
+        title="Name Input"
+        className="name-input"
+      />
+    </div>
+  </div>
+  <div className="nav-info">
+    ({myPosition.x}, {myPosition.y}) (Avatar Name: {myAvatar.name || "None"}, ID: {myAvatar.id || "N/A"}) 
+    <button
+      className="clear-avatar-btn"
+      onClick={() => {
+        setMyAvatar({ name: "", id: 0 });
+        setMyPosition({ x: 0, y: 0 });
+      }}
+    >
+      Clear Avatar
+    </button>
+  </div>
+</nav>
+
 
       {myAvatar.id === 0 && 
       <div className='avatar-picker'>No Avatar: 
