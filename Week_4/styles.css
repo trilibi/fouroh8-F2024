@@ -1,12 +1,11 @@
-
-body {
-    font-family: monospace;
+html {
+    font-family: 'monospace';
     font-size: 16px;
+
 }
 
 h1 {
-    color: red; 
-    border-bottom: 1px solid red; 
+    color:red
 }
 
 h2 {
@@ -17,3 +16,4 @@ h2 {
 p {
     margin-left: 100px;
 }
+

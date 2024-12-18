@@ -1,66 +1,86 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Form</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+
+    <style>
+        #red {
+            color:red;
+        }
+
+        #blue {
+            color: blue;
+        }
+
+        #green {
+            color: green;
+        }
+
+        #purple {
+            color: purple;
+        }
+
+        #orange {
+            color: orange;
+        }
+
+        #pink {
+            color: pink;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Registration Form</h1>
-    <form action="#" method="post">
-        <div>
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-        </div>
+    <div>
+        <form method="get">Name<input type="text"></form><br>
+    </div>
 
-        <div>
-            <label for="age">Age:</label>
-            <input type="number" id="age" name="age" required>
-        </div>
+    <div>
+        <form method="get">Age<input type="Age"></form>
+    </div>
 
-        <div>
-            <label for="mascot">Mascot:</label>
-            <select id="mascot" name="mascot" required>
-                <option value="Lil' Red">Lil' Red</option>
-                <option value="Louie">Louie</option>
-                <option value="Herbie">Herbie</option>
-            </select>
-        </div>
+    <div>
+        <p>
+            Favorate Mascot
+        <select name="Fav Mascot">
+            <option>Lil' Red</option>
+            <option>Louie</option>
+            <option>Herbie</option>
+        </select>
+        </p>
+    </div>
 
-        <div>
-            <span>Color:</span><br>
-            <input type="checkbox" id="red" name="color" value="red" style="background-color: red;">
-            <label for="red">Red</label><br>
-            <input type="checkbox" id="blue" name="color" value="blue" style="background-color: blue;">
-            <label for="blue">Blue</label><br>
-            <input type="checkbox" id="green" name="color" value="green" style="background-color: green;">
-            <label for="green">Green</label><br>
-            <input type="checkbox" id="purple" name="color" value="purple" style="background-color: purple;">
-            <label for="purple">Purple</label><br>
-            <input type="checkbox" id="orange" name="color" value="orange" style="background-color: orange;">
-            <label for="orange">Orange</label><br>
-            <input type="checkbox" id="pink" name="color" value="pink" style="background-color: pink;">
-            <label for="pink">Pink</label>
-        </div>
+    <div>
+        <p>
+            <fieldset style="width: 400px;">
+                <legend>Favorate Colors</legend>
+                <span id="red">red</span><input type="checkbox" name="color" value="red">
+                <span id="blue">blue</span><input type="checkbox" name="color" value="blue">
+                <span id="green">green</span><input type="checkbox" name="color" value="green">
+                <span id="purple">purple</span><input type="checkbox" name="color" value="purple">
+                <span id="orange">orange</span><input type="checkbox" name="color" value="orange">
+                <span id="pink">pink</span><input type="checkbox" name="color" value="pink">
+            </fieldset>
+        </p>
+    </div>
 
-        <div>
-            <span>Year:</span><br>
-            <input type="radio" id="2024" name="year" value="2024" required>
-            <label for="2024">2024</label><br>
-            <input type="radio" id="2025" name="year" value="2025">
-            <label for="2025">2025</label><br>
-            <input type="radio" id="2026" name="year" value="2026">
-            <label for="2026">2026</label><br>
-            <input type="radio" id="2027" name="year" value="2027">
-            <label for="2027">2027</label><br>
-            <input type="radio" id="2028" name="year" value="2028">
-            <label for="2028">2028</label>
-        </div>
+    <div>
+        <p>
+            <strong>Graduation Year</strong><br>
+            <input type="radio" name="GraduationYear" value="2024">2024<br>
+            <input type="radio" name="GraduationYear" value="2025">2025<br>
+            <input type="radio" name="GraduationYear" value="2026">2026<br>
+            <input type="radio" name="GraduationYear" value="2027">2027<br>
+            <input type="radio" name="GraduationYear" value="2028">2028<br>
+        </p>
+    </div>
 
-        <div>
-            <button type="submit">Save</button>
-        </div>
-    </form>
+    <div>
+        <form method="get"><input type="submit" value="Save"></form>
+    </div>
+
+
 </body>
 </html>

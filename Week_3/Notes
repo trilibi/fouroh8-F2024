@@ -1,0 +1,6 @@
+<a href="URL HERE">Link text or Image</a>
+Absolute URL begins with the protocol (https://)
+Relative URL provides path to file on same server
+Erternal links are external.  Funny how that works
+You can link to your own site without the full URL (relative)
+<a href="Week_1/hello.html"> This links to week 1

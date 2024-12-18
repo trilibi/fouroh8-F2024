@@ -32,7 +32,7 @@ export default function Sidebar({socket, name, myAvatar, myPosition}) {
               src ={'https://raw.githubusercontent.com/PokeAPI/sprites/mast'
                 +obj.avatarId+' .gif'}
                 />
-                : {obj.em}
+                : {obj.em || obj.msg}
                 </div>)}
               
   </div>;

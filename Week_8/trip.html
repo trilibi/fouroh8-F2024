@@ -3,7 +3,6 @@ function KStateTrip() {
     const [totalMileage, setTotalMileage] = React.useState(240);
     const [vehicles, setVehicles] = React.useState([{mileage: 10}, {mileage: 24}]);
     const [totalCost, setTotalCost] = React.useState(0);
-    const [newVehicleMileage, setNewVehicleMileage] = React.useState('');
 
     React.useEffect(() => {
         let total = 0;
@@ -14,11 +13,11 @@ function KStateTrip() {
         setTotalCost(total);
     }, [gasCost, totalMileage, vehicles]);
 
-    const addVehicle = () => {
-        const mileage = Number(newVehicleMileage);
+    const addVehicle = (e) => {
+        const mileage = Number(e.target.value);
         if (mileage > 0) {
             setVehicles(prevVehicles => [...prevVehicles, { mileage }]);
-            setNewVehicleMileage(''); // Clear the input after adding
+            e.target.value = ''; // Clear the input after adding
         }
     };
 
@@ -43,10 +42,8 @@ function KStateTrip() {
             Add Vehicle:
             <input 
                 type="number" 
-                value={newVehicleMileage}
-                onChange={(e) => setNewVehicleMileage(e.target.value)} 
+                onInput={addVehicle} 
             />
-            <button onClick={addVehicle}>Add</button>
             
             <pre>{JSON.stringify({gasCost, totalMileage, vehicles}, null, 2)}</pre>
         </div>
@@ -60,9 +57,9 @@ ReactDOM.render (
                 {/* Add your navigation items here */}
             </ul>
         </nav>
-        {true && <HelloWorld name='Reiden' age="20" />}
-        {true && <HelloWorld name='Reiden' age="20" />}
-        {true && <HelloWorld name='Reiden' age="20" />}
+        {true && <HelloWorld name='Isaac' age="22" />}
+        {true && <HelloWorld name='Issac' age="21" />}
+        {true && <HelloWorld name='Izak' age="AHHHHHH" />}
         {true && <Poke />}
         <ShinyArray />
         <KStateTrip />
@@ -70,5 +67,3 @@ ReactDOM.render (
     </div>,
     document.getElementById('root')
 );
-
-}

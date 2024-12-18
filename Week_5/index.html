@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onclick="hello();">
+    <h1>Hello World <span id="username">???</span></h1>
+    <script>
+        console.log('hello world but in small print and in the console.\
+  Amazing how much these computers can do with a few million/billion ones and zeros')
+        console.log(4321)
+        console.log({username:'Isaac', age:21})
+        console.log([1,2,3,4])
+        console.log([{username:"Isaac", age:21},{username:"Jer", age:47}])
+        console.table([{username:"Isaac", age:21},{username:"Jer", age:47}])
+
+        var users = [{username:"Isaac", age:21},
+        {username:"Jer", age:47}];
+
+        console.log(users)
+
+        var username = document.getElementById('username');
+        console.log(username)
+        console.log(username.id)
+        username.innerHTML = "Isaac"
+
+        console.log(1==true)
+        console.log(0==false)
+        console.log(1===true)
+        console.log(1!==true)
+
+        alert('AHHHHHHHHHHHH  PANIC NAO!!!!1!1!!!1!1')
+        if (1==true) {
+            console.log("truthy")
+        }
+
+        for (var i = 0; i <= 10; i++) {
+            console.log(i);
+        }
+
+        function addNumbers(x, y) {
+            console.log(x, y);
+            sum = x + y;
+            console.log(sum)
+            return sum
+        }
+
+        var results = addNumbers(2, 3);
+        console.log(results)
+
+        var myName = "Isaac"
+        function hello() {
+            var lastName = 'Goff'
+            console.log("hello " + myName + " " + lastName)
+        }
+
+        hello()
+
+        myName = 'AHHHHHH PANIC ITS BROKEN PANIIIIIIIIIIIIIIIIIIIIIIIIIIIIC'
+        hello()
+
+    </script>
+</body>
+</html>
