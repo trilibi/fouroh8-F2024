@@ -1,75 +1,91 @@
 body {
-    background: #333;
-    color: #eee;
-    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-      "Lucida Sans", Arial, sans-serif;
-    padding: 0;
-    margin: 0;
-  }
+  background: #333;
+  color: #eee;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+#root,
+#app_root {
+  height: 100vh;
+  width: 100vw;
+}
+/* 
+https://developer.mozilla.org/en-US/docs/Web/CSS/flex
+https://www.w3schools.com/css/css3_flexbox.asp
+*/
+#main {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+#sidebar {
+  background: #444;
+  width: 25%;
+}
+#board {
+  background: #000;
+  width: 75%;
+}
+#board .row {
+  display: flex;
+  justify-content: space-around;
+  line-height: 0px;
+}
 
-  #root,
-  #app_root {
-    height: 100vh;
-    width: 100vw;
-  }
-  /* 
-  https://developer.mozilla.org/en-US/docs/Web/CSS/flex
-  https://www.w3schools.com/css/css3_flexbox.asp
-  */
-  #main {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-  }
+#board .cell {
+  border: 1px solid#222;
+  display: flex;
+  flex: 1 0 auto;
+  height: auto;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  position: relative; 
+}
+/* hover */
+#board .cell::before {
+  content: "";
+  float: left;
+  padding-top: 100%;
+}
 
-  #sidebar {
-    background: #444;
-    width: 25%;
-  }
+#board .cell img {
+  width: 100px; 
+  position: absolute;
+}
 
-  #board {
-    background: #000;
-    width: 75%;
-  }
+#board .cell.even {
+  background: #dd6f6f;
+}
 
-  #board .row {
-    display: flex;
-    justify-content: space-around;
-    line-height: 25px;
-  }
+#board .cell.odd {
+  background: black;
+}
 
-  #board .cell {
-    border: 1px solid#222;
+body {
+  position: relative; 
+}
 
-    display: flex;
-    flex: 1 0 auto;
-    height: auto;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-  }
-  /* hover */
-  #board .cell::before {
-    content: "";
-    float: left;
-    padding-top: 100%;
-  }
+.avatar-picker {
+  height: 100px;
+  overflow: scroll; 
+  background-color: rgb(23, 67, 8); 
+}
 
-  #board .cell img {
-    width: 25px;
-  }
+.avatar-picker img {
+  height: 50px; 
+}
 
-
-
-  #board .cell.even {
-    background: #ffaeae;
-  }
-
-  .avatar-picker {
-    height: 100px;
-    overflow: scroll;
-    background-color:white;
-    color: black;
-  }
+.bubble {
+  background: #fff;
+  padding: 1px 4px;
+  border-radius: 8px;
+  position: absolute;
+  top:-5px;
+  right: -14px;
+  z-index: 10;
+}
  

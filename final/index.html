@@ -4,34 +4,43 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Setup</title>
-    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* style should take from style.css file under and put it under this tag */ 
+    </style>
 
+    <link rel="stylesheet" href="style.css" />
+    <!-- installing react.development which is used for debugging-->
     <script
       crossorigin
       src="https://unpkg.com/react@17/umd/react.development.js"
     ></script>
+    <!-- installing react-dom.development.js-->
     <script
       crossorigin
       src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
     ></script>
+    <!-- installing -->
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <body>
-      <div id="root"></div>
-      <script
-        src="sidebar.js"
-        type="text/babel"
-        data-plugins="transform-es2015-modules-umd"
-      ></script>
-      <script
-        src="board.js"
-        type="text/babel"
-        data-plugins="transform-es2015-modules-umd"
-      ></script>
-      <script
-        src="core.js"
-        type="text/babel"
-        data-plugins="transform-es2015-modules-umd"
-      ></script>
-      <script src=" https://unpkg.com/pokeapi-js-wrapper@1.2.7/dist/index.js"></script>
-    </body>
-  </html>
+    <script src="https://unpkg.com/pokeapi-js-wrapper@1.2.7/dist/index.js"></script>
+    <script src="http://54.234.88.206:3405/socket.io/socket.io.js"></script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script
+      src="sidebar.js"
+      type="text/babel"
+      data-plugins="transform-es2015-modules-umd"
+    ></script>
+    <script
+      src="board.js"
+      type="text/babel"
+      data-plugins="transform-es2015-modules-umd"
+    ></script>
+    <script
+      src="core.js"
+      type="text/babel"
+      data-plugins="transform-es2015-modules-umd"
+    ></script>
+  </body>
+</html>
