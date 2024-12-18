@@ -5,7 +5,9 @@ export default function Sidebar({socket, name, myAvatar, myPosition}) {
       '🎉', '😁', '💕', '🥺', '😅', '🔥', '☺️', '🤦', '♥️', '🤷',
       '🙄', '😆', '🤗', '😉', '🎂', '🤔', '👏', '🙂', '😳', '🥳',
       '😎', '👌', '💜', '😔', '💪', '✨', '💖', '👀', '😋', '😏',
-      '😢', '👉', '💗', '😩', '💯', '🌹', '💞', '🎈', '💙', '😃', '🍆', 'BIG FART', 'penits', 'haha wiener'];
+      '😢', '👉', '💗', '😩', '💯', '🌹', '💞', '🎈', '💙', '😃', '🍆'];
+
+  const [custom_chat, setCustom_chat] = React.useState("");  
       
   React.useEffect(() => {
       socket.on('chat', (msg) => {
@@ -27,6 +29,15 @@ export default function Sidebar({socket, name, myAvatar, myPosition}) {
           className="emoji">
           {em}
       </span>)}
+      <div className="chat_input">
+        <input value={custom_chat} className="message_input" type="text" onInput={(e) => {
+            setCustom_chat(e.target.value);
+        }}/>
+        <button onClick={ () => {
+            sendEmoji(custom_chat);
+            setCustom_chat("");
+        }}>Send!</button>
+      </div>
       <hr />
       {messages.reverse().map(obj => <div>
           {obj.name}

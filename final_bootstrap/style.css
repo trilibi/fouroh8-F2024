@@ -36,7 +36,7 @@ body {
   }
   #board .cell {
     border: 1px solid#222;
-    
+    background-color: rgb(70, 109, 96);
     display: flex;
     flex: 1 0 auto;
     height: auto;
@@ -53,7 +53,7 @@ body {
 
   #board .cell img {
     width: 25px;
-    position: relative;
+    position: absolute;
   }
 
   #board .cell.even {
@@ -79,4 +79,9 @@ body {
     top:-5px;
     right: -14px;
     z-index: 10;
+  }
+
+  .chat_input {
+    padding: 5px;
+    padding-top: 10px;
   }

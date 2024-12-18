@@ -69,7 +69,7 @@ const App = () => {
 
   return (
     <div id="app_root">
-      COD Modern Poofare
+      Pokemon Chat Room!
       <nav>
         <h1>{name}</h1>
         <input type="text" onInput={(e) => {
