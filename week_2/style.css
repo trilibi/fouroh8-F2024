@@ -1,4 +1,24 @@
 body{
-    background-color: rgb(169, 190, 206)
-    color; rgb:(189, 170, 206)
+    background-color: #ffffff;
+    color: rgb(255,255,255, 0.75);
+    padding: 60px;
+
+}
+h3, h4 {
+    color: #fd1111;
+}
+
+.error {
+    color: red;
+}
+
+#hero {
+    background-color: chartreuse;
+    padding: 20px;
+    color: #000000;
+}
+
+div {
+    background-color: aqua!important;
+    color: #000000;
 }
