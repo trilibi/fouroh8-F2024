@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React_Intro</title>
+</head>
+<body>
+    <div> <id id="root"></id></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+    <script type="text/babel">
+
+        function HowManyDays(props){
+            console.log(props);
+            var daysOld = props.years * 365
+            return <strong> {daysOld} days old.</strong>
+        }
+
+        function HelloWorld(props){
+            console.log(props);
+            return <h1>Hello World, {props.name}! I am {props.age} years old.
+                <HowManyDays years={props.age} />
+            </h1>
+        }
+
+        ReactDom.render(
+            <div>
+                <HelloWorld name ="Don" age = "45"/>
+                <HelloWorld name ="Fer" age = "36"/>
+            </div>,
+            document.getElementById("root")
+        );
+
+
+    </script>
+    if (loading) {
+        return <div>Loading...</div>
+    }
+
+    return <div
+
+</body>
+</html>
