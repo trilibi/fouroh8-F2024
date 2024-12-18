@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equish</title>
+
+    <style>
+        body{
+            background-color: black;
+        }
+        label{
+            color:  salmon;
+        }
+        #render{
+            padding: 20px;
+        }
+        .square{
+            display: inline-block;
+            border-radius: 50%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div>
+        <p>
+        <label>
+            Rows
+            <input id="rows" type="number" value="10">
+        </label>
+        </p>
+
+        <p>
+        <label>
+            Cols
+            <input id="cols" type="number" value="4">
+        </label>
+        </p>
+
+        <p>
+        <label>
+            Speed
+            <input id="range" type="range" value="4" min="50" max="2000" step="50">
+        </label>
+        </p>
+        
+        <p>
+        <label>
+            Size
+            <input id="sizeInput" type="number" value="20">
+        </label>
+        </p>
+
+        <p>
+        <label for="themeSelect">
+            Theme
+            <select name="themeSelect" id="themeSelect">
+                <option value="red">None</option>
+                <option value="rainbow">Rainbow</option>
+                <option value="opacity">Opacity</option>
+                <option value="heatmap">Heatmap</option>
+            </select>
+        </label>
+        </p>
+
+
+    </div>
+
+    <div id="render">
+
+    </div>
+
+    <script>
+        console.log('hello world');
+        
+        function isLocalStorageEmpty (item) {
+            if (!item){
+                return true;
+            }
+            if(item == 'null'){
+                return true;
+            }
+            return false;
+        }
+
+        var name = window.localStorage.getItem('name');
+
+
+
+        if (isLocalStorageEmpty(name)){
+            console.log('missing')
+            window.localStorage.setItem('name', 'mags');
+
+        }
+        name = window.localStorage.getItem('name');
+        console.log(name);
+
+        const hsl_col_perc = (percent, start, end) => {
+    const a = percent / 100,
+      b = (end - start) * a,
+      c = b + start;
+    return 'hsl(' + c + ', 100%, 50%)';
+  }
+
+        var rowsInput = document.getElementById('rows');
+        var colsInput = document.getElementById('cols');
+        var renderEle = document.getElementById('render');
+        var rangeInput = document.getElementById('range');
+        var sizeInputEle = document.getElementById('sizeInput');
+        var themeSelectEle = document.getElementById('themeSelect');
+        var SelectedTheme = null;
+
+
+        rowsInput.addEventListener('change', function() {
+            console.log(rowsInput.value)
+            window.localStorage.setItem('row_value', rowsInput.value);
+        });
+        rowsInput.value = window.localStorage.getItem('row_value');
+
+        var nameObject = {
+            name: 'maggie',
+            age: 20
+        } ;
+
+
+        colsInput.addEventListener('change', function(e) {
+            console.log(e.target.value);
+        });
+        
+        var renderInterval = setInterval(render,1000);
+        rangeInput.addEventListener('change', function(e) {
+            clearInterval(renderInterval);
+            console.log(e.target.value)
+            renderInterval = setInterval(render, e.target.value);
+        });
+
+        themeSelectEle.addEventListener('change', function(e) {
+            console.log(e.target.options[e.target.selectedIndex].value);
+            SelectedTheme = e.target.options[e.target.selectedIndex].value;
+        });
+
+        function styleElement(checkbox, rand, c, colCount){
+            if(rand >= c){
+                checkbox.checked = true;
+                console.log(SelectedTheme)
+                if (!SelectedTheme){
+                    checkbox.style.backgroundColor = 'red';
+                    checkbox.style.accentColor = 'red';
+                } 
+                else if (SelectedTheme === 'opacity') {
+                    checkbox.style.opacity = (c + 1) / colCount;
+                    checkbox.style.opacity = (c + 1) / colCount;
+                } 
+                else if (SelectedTheme === 'rainbow') {
+                    checkbox.style.backgroundColor = hsl_col_perc((c + 1) / colCount * 100, 0, 360);
+                    checkbox.style.accentColor = checkbox.style.backgroundColor
+                    
+                    
+                } 
+                else if (SelectedTheme === 'heatmap') {
+                    checkbox.style.backgroundColor = hsl_col_perc(100 - rand / colCount * 100, 0, 120);
+                    checkbox.style.accentColor = checkbox.style.backgroundColor
+                }
+            }
+            return checkbox;
+        }
+
+        function renderSquare (c,colCount, rowIndex, rowCount, rand){
+            var element = document.createElement('div');
+                element.className = 'square'
+                element.style.width = sizeInputEle.value + 'px';
+                element.style.height = sizeInputEle.value + 'px';
+
+                element = styleElement(element, rand, c, colCount);
+                return element;
+
+        }
+
+        function renderCheckbox (c, colCount, rowCount, rowIndex, rand){
+            var checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.style.width = sizeInputEle.value + 'px';
+            checkbox.style.height = sizeInputEle.value + 'px';
+            checkbox.style.accentColor = 'blue';
+
+            var rand = Math.floor(Math.random()*colsInput.value);
+            element = styleElement(checkbox, rand, c, colCount);
+            return element;
+
+        }
+        function render (){
+            //console.log(rowsInput.value, colsInput.value, rangeInput.value);
+            renderEle.innerHTML = '';
+            var rowCount = rowsInput.value;
+            var colCount = colsInput.value;
+            for(var r = 1;r <= rowsInput.value; r++){
+                var rand = Math.floor(Math.random()*colsInput.value);
+
+                for(var c = 1;c <= colsInput.value; c++){
+                    var element = renderCheckbox(c, colCount, rowCount, r, rand);
+                    renderEle.appendChild(element);
+                    // console.log(r,c, renderEle)
+                }
+
+                    //if(rand >= c){
+                    //    checkbox.style.accentColor = 'green'
+                    //}
+                    renderEle.appendChild(document.createElement('br'));
+            }
+
+
+        }
+        
+        render()
+
+
+        // clearInterval(renderInterval);
+    
+</script>
+
+</body>
+</html>
