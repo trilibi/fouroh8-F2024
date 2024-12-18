@@ -78,7 +78,6 @@ function updatePosition(x, y) {
         }} value={name}/> ({myPosition.x}, {myPosition.y}) 
         (Avatar name: {myAvatar.name}, ID# {myAvatar.id})
         <span onClick={() => {setMyAvatar({name: '', id: 0});}}> Clear Avatar </span>
-        (Available Pokemon: {PokemonList.length})
       </nav>
 
       {myAvatar.id == 0 && <div className="avatar-picker">No Avatar: 
