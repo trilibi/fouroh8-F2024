@@ -1,0 +1,22 @@
+<?php
+
+$results = file_get_contents('https://google.com/books.json');
+$books = json_decode($results);
+print_r($books -> response -> books[0] -> title);
+
+$simple = [];
+$simple[] = 4;
+print_r($simple);
+
+$simple_books = [];
+$books_length = count($books -> response -> books);
+
+for ($i = 0; $i < $books_length; $i++){
+	$book = $books-> response ->books[$i];
+	$simple_books[] = [
+		'title' => $book-> title
+	];
+	
+}
+
+print_r($simple_books);
