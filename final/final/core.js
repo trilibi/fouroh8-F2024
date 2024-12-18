@@ -1,3 +1,8 @@
+// Ask Jer about border on clear avatar
+
+
+
+
 import Board from "./board";
 import Sidebar from "./sidebar";
 
@@ -80,7 +85,26 @@ Pokedex.getPokemonsList()
   return (
     <div id="app_root">
       <nav>
-        {/* Include picture of avatar in its same size either on left or right */}
+        <p>
+        {/* <div>
+        {<img id="mainImg" src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/' 
+        + myAvatar.id+'.gif'}/> } </div> */}
+
+<div>
+  {myAvatar.id !== 0 && (
+    <span>
+      <img
+        id="mainImg"
+        src={
+          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/' +
+          myAvatar.id +
+          '.gif'
+        }
+        alt="avatar"
+      />
+    </span>
+  )}
+</div>
         Our Grid Game, this class is an easy A
         <input type="text"  onInput={(e) => {
           setName(e.target.value);
@@ -88,15 +112,16 @@ Pokedex.getPokemonsList()
         }} value={name}/> 
         ({myPosition.x}),({myPosition.y})
         (Avatar Name: {myAvatar.name}, id# {myAvatar.id})
+        <div className="clearAvatar">
         {myAvatar.id !== 0 &&<span onClick={() => {
           setMyAvatar({name: '', id: 0});
-        }}>Clear Avatar</span>}
-        (Available Pokemon: {pokemonList.length})
-        <input onInput={(e) => {
+        }}><button type="button" className="clearAvatarButton">Clear Avatar</button></span>}</div>
+        {(myAvatar.id === 0 && 
+        <span>Available Pokemon: {pokemonList.length}</span>)}
+        {myAvatar.id === 0 &&<input onInput={(e) => {
           setFilter(e.target.value);
-        }} placeholder="Avatar Search" name="search"></input> 
-        {/* Make sure search bar disappears after avatar is picked */}
-
+        }} placeholder="Avatar Search" name="search"></input>}
+        </p>
       </nav>
       {myAvatar.id === 0 && 
       <div className="avatar-picker" >No Avatar:

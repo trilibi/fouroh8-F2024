@@ -20,7 +20,6 @@ export default function Board({ grid, myAvatar, myPosition, width, updatePositio
     updatePosition(x,y);
   }
 
-  // console
   return (
     <div id="board">
       <pre>{JSON.stringify(avatars)}</pre>
