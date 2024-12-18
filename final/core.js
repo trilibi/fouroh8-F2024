@@ -79,26 +79,56 @@ React.useEffect(() => {
   return (
     <div id="app_root">
       <nav>
-        Pokemon but like on a grid haha
-        <input type="text" onInput={(e) => {
-          setName(e.target.value)
-          window.localStorage.setItem('my_name', e.target.value)
-          value={name}}}/> 
-          ({myPosition.x}, {myPosition.y}) 
-          (Avatar Name: {myAvatar.name}, id# {myAvatar.id})
-          <span onClick={() => setMyAvatar({name: '', id: 0})}>Clear Avatar</span>
-          (Available Pokemon: {pokemonList.length})
+      <div className="navbar-container">
+    <div className="navbar-title">
+      <h1>Pokemon Game Final</h1>
+    </div>
+
+    <div className="navbar-input">
+      <label htmlFor="player-name">Enter your name:</label>
+      <input
+        id="player-name"
+        type="text"
+        value={name}
+        onInput={(e) => {
+          setName(e.target.value);
+          window.localStorage.setItem('my_name', e.target.value);
+        }}
+      />
+    </div>
+
+    <div className="navbar-info">
+      <p>Position: ({myPosition.x}, {myPosition.y})</p>
+      <p>Avatar Name: {myAvatar.name || "None"}</p>
+      <p>Avatar ID: {myAvatar.id}</p>
+      <button onClick={() => setMyAvatar({ name: '', id: 0 })}>
+        Clear Avatar
+      </button>
+    </div>
+  </div>
       </nav>
 
-      {myAvatar.id == 0 && <div className="Avatar-Selection">No Avatar: 
-        {pokemonList.map(function(item){
-          var baseURL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/"
-          return (<img 
-            onClick={() => {
-          console.log(item)
-          setMyAvatar({name: item.name, id: item.id})}}
-         title={item.name} src={baseURL + '/' + item.id + '.gif'} />)})}
-         </div>}
+      {myAvatar.id === 0 && (
+  <div className="Avatar-Selection">
+    <h3 className="avatar-selection-title">Select Your Avatar:</h3> 
+    {pokemonList.slice(0, 9).map((item) => {
+      const baseURL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/";
+      return (
+        <img 
+          key={item.id} 
+          onClick={() => {
+            console.log(item);
+            setMyAvatar({ name: item.name, id: item.id });
+          }}
+          title={item.name} 
+          src={`${baseURL}${item.id}.gif`} 
+        />
+      );
+    })}
+  </div>
+)}
+
+
 
     <div id="main">
       <Sidebar 

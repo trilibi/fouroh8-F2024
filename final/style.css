@@ -26,6 +26,9 @@ body {
     width: 25%;
   }
   #board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: #000;
     width: 75%;
   }
@@ -35,8 +38,7 @@ body {
     line-height: 25px;
   }
   #board .cell {
-    border: 1px solid#222;
-
+    border: 3px solid#222;
     display: flex;
     flex: 1 0 auto;
     height: auto;
@@ -52,13 +54,24 @@ body {
     padding-top: 100%;
   }
   #board .cell.even {
-    background: rgb(167, 101, 43);
+    background: #1e3a8a;
+  }
+
+  #board .cell.odd {
+    background: white; /* White background for odd cells */
+    border: 1px solid #ccc; /* Optional: Add a border to make the odd cells distinct */
   }
 
   .Avatar-Selection {
-    height: 100px;
-    overflow: scroll;
-    background-color: navy;
+    height: 120px; 
+    overflow-x: auto; 
+    background-color: #1e3a8a; 
+    padding: 10px;
+    border-radius: 12px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
   }
 
   #board .cell img {
@@ -67,7 +80,7 @@ body {
   }
 
   .bubble {
-    background: #fff;
+    background: red;
     padding: 1px 4px;
     border-radius: 8px;
     position: absolute;
