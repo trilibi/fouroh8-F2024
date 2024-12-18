@@ -1,42 +1,53 @@
-<html>
-    <title>Unk Table</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms</title>
+</head>
+<body>
 
-    <table cellspacing="2" border="1">
-        <caption>A note about your table</caption>
-        <thead>
-        <tr>
-            <th rowspan="2"> <img src="https://www.unk.edu/ccr/marketing-advertising/branding-and-identity-marks/images/unk-00231a.png" alt=""> </th>
-            <th colspan="2">A common header for two sub headers</th>
-            <th rowspan="2"> <img src="https://www.unk.edu/_files/redesign/images/icons/outdoors1.svg"> </th>
-        </tr>
-        </thead>
+    <fieldset>
+        <legend>Field Samples</legend>
+        <label for="Water">
+            Water Salinity
+            <input type="number" id="Water">
+        </label>
+        <label for="Water Color"></label>
+            Water Color
+            <input type="color" id="Water Color">
+        </label>
+    </fieldset>
 
-        <tr>
-            <th>Header 1</th>
-            <th>Header 2</th>
-        </tr>
+    <label for="Date">
+        Date
+        <input type="date" id="Date">
+    </label>
 
-        <tr>
-            <td><b>Thing A</b></td>
-            <td>data a1</td>
-            <td>data a2</td>
-            <td>data a3</td>
-        </tr>
-
-        <tr>
-            <td><b>Thing B</b></td>
-            <td>data b1</td>
-            <td>data b2</td>
-            <td>data b3</td>
-        </tr>
-        
-        <tr>
-            <td><b>Thing C</b></td>
-            <td>data c1</td>
-            <td>data c2</td>
-            <td>data c3</td>
-        </tr>
-    </table>
-
-
+    <ol>
+        <li>
+            <input type="text" >
+        </li>
+        <li> Colors 
+            <ol>
+                <li><input type="radio" name="color" value="1"></li>
+                <li><input type="radio" name="color" value="2"></li>
+                <li><input type="radio" name="color" value="3"></li>
+                <li><input type="radio" name="color" value="4"></li>
+            </ol>
+        </li>
+        <li>
+            <input type="text" >
+        </li>
+        <li> Colors 
+            <ol>
+                <li><input type="checkbox" name="color" value="1"></li>
+                <li><input type="checkbox" name="color" value="2"></li>
+                <li><input type="checkbox" name="color" value="3"></li>
+                <li><input type="checkbox" name="color" value="4"></li>
+            </ol>
+        </li>
+    </ol>
+    
+</body>
 </html>
