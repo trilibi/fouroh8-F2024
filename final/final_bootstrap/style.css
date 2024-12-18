@@ -58,11 +58,11 @@ body {
   }
 
   #board .cell.even {
-    background: #dd6f6f;
+    background: #94d867;
   }
 
   #board .cell.odd {
-    background: black;
+    background: rgb(89, 29, 70);
   }
 
   body {
