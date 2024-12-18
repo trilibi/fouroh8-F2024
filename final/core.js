@@ -79,22 +79,21 @@ const App = () => {
   return (
     <div id="app_root">
       <nav>
-        Our Grid Game, this class is an easy A. <br></br><br></br>
-        Username:
+        Our Grid Game, this class is ana easy A
         <input type="text" onInput={(e) => {
           setName(e.target.value);
           window.localStorage.setItem('my_name', e.target.value);
-        }} value={name} /> <br></br>
-        ({myPosition.x}, {myPosition.y}) <br></br><br></br>
+        }} value={name} /> 
+        ({myPosition.x}, {myPosition.y})
         (Avatar Name: {myAvatar.name}, id# {myAvatar.id})
         <span onClick={() => {
           setMyAvatar({name: '', id: 0});
-        }}><br></br>Clear Avatar</span><br></br><br></br>
+        }}>Clear Avatar</span>
         (Available Pokemon: {pokemonList.length})
       </nav>
 
       {myAvatar.id == 0 && 
-      <div className="avatar-picker">Avatars: 
+      <div className="avatar-picker">No Avatar: 
         {pokemonList.map(function(item){
           var baseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated';
           return (<img
@@ -109,11 +108,11 @@ const App = () => {
       </div>}
       <div id="main">
         <Sidebar 
-        socket={socket}
-        name={name}
-        myAvatar={myAvatar}
-        myPosition={myPosition}/>
-
+          socket={socket}
+          name={name}
+          myAvatar={myAvatar}
+          myPosition={myPosition}/>
+          
         <Board 
         grid={grid} 
         width="70%" 
