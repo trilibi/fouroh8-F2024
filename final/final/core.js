@@ -86,10 +86,6 @@ Pokedex.getPokemonsList()
     <div id="app_root">
       <nav>
         <p>
-        {/* <div>
-        {<img id="mainImg" src={'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/' 
-        + myAvatar.id+'.gif'}/> } </div> */}
-
 <div>
   {myAvatar.id !== 0 && (
     <span>
@@ -113,12 +109,12 @@ Pokedex.getPokemonsList()
         ({myPosition.x}),({myPosition.y})
         (Avatar Name: {myAvatar.name}, id# {myAvatar.id})
         <div className="clearAvatar">
-        {myAvatar.id !== 0 &&<span onClick={() => {
+        {myAvatar.id !== 0 && <span onClick={() => {
           setMyAvatar({name: '', id: 0});
         }}><button type="button" className="clearAvatarButton">Clear Avatar</button></span>}</div>
         {(myAvatar.id === 0 && 
         <span>Available Pokemon: {pokemonList.length}</span>)}
-        {myAvatar.id === 0 &&<input onInput={(e) => {
+        {myAvatar.id === 0 && <input onInput={(e) => {
           setFilter(e.target.value);
         }} placeholder="Avatar Search" name="search"></input>}
         </p>

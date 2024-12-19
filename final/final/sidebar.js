@@ -6,7 +6,7 @@ export default function Sidebar({socket, name, myAvatar, myPosition}) {
       '🙄', '😆', '🤗', '😉', '🎂', '🤔', '👏', '🙂', '😳', '🥳',
       '😎', '👌', '💜', '😔', '💪', '✨', '💖', '👀', '😋', '😏',
       '😢', '👉', '💗', '😩', '💯', '🌹', '💞', '🎈', '💙', '😃', 
-      'Hi', ' Good Game!', ' GG', ' Bye', 'HAHA', ' Let\'s Play '];
+      'Hi', ' Good Game!', ' GG', ' Bye', ' HAHA ', ' Let\'s Play '];
        
       
   React.useEffect(() => {

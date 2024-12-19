@@ -53,7 +53,6 @@ export default function Board({ grid, myAvatar, myPosition, width, updatePositio
           </div>
         ))}
       </div>
-      {/* console */}
     </div>
   );
 }
