@@ -25,6 +25,14 @@ body {
     background: #444;
     width: 25%;
   }
+  #videoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
   #board {
     background: #000;
     width: 75%;
@@ -58,6 +66,7 @@ body {
   #board .cell.even {
     background: #ff999999;
   }
+  
 
   .avatar-picker {
     height: 100px;
@@ -78,3 +87,4 @@ body {
   .emoji {
     cursor: pointer;
   }
+  

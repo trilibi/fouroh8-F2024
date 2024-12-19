@@ -105,7 +105,8 @@ const App = () => {
           src={baseUrl + '/' + item.id + '.gif'} />);
            
       })}
-      </div>}
+      </div>
+      }
       <div id="main">
         <Sidebar 
           socket={socket}
@@ -120,6 +121,7 @@ const App = () => {
           myPosition={myPosition}
           updatePosition={updatePosition} />
       </div>
+      <h1>hello</h1>
     </div>
   );
 };
