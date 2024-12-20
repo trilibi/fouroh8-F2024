@@ -1,0 +1,71 @@
+<?php
+
+/* 1.Split the string $str1 into chunks of a specific size (e.g. 2), and put : to separate chunks.
+Expected output for the $str1 is: 03:30:00 */
+$str1 ='033000';
+
+$chunks = str_split($str1, 2);
+echo implode(':', $chunks) . "\n";
+
+
+/* 2.Check whether the string $str2 contains PHP,
+- if yes, print the message "The PHP word is present at" + print position of first PHP
+- otherwise print "The PHP word is not present." */
+$str2 = 'PHP stands for PHP: Hypertext Preprocessor, it is a widely-used, open source scripting language';
+
+$position = strpos($str2, 'PHP');
+// echo strpos($str2, 'PHP');
+    if($position !== false) {
+        echo "The PHP word is present at " . $position . "\n";
+    }
+    else{
+        echo "The PHP word is not present. \n";
+    }
+
+	
+
+// 3.Extract the file name from the string $str3.
+$str3 = 'www.example.com/public_html/index.php';
+// explode
+// basename
+echo basename($str3) . "\n";
+
+
+// 4.Replace the first "the" of the string $str4 with "That"
+$str4 = 'the quick brown fox jumps over the lazy dog.';
+
+echo preg_replace('/\bthe\b/', 'That', $str4, 1) . "\n";
+
+// 5.Find the first character that is different between $str5 and $str6
+$str5 = 'football';
+$str6 = 'footboll';
+
+$diffPos = -1;
+for ($x = 0; $x <= strlen($str5); $x++) {
+  if(substr($str5, $x, 1) == substr($str6, $x, 1)) {
+    echo "OK\n";
+  } else {
+    echo substr($str5, $x, 1) . " does not match \n" . substr($str6, $x, 1). "\n";
+  }
+}
+
+// 5.1.Encrypt the string $str4, replace each character in the input string with the next
+// alphabetic character (e.g. a→b, b→c, ... z→a). 
+$encrypt = '';
+    for ($i = 0; $i < strlen($str4); $i++) {
+        $char = $str4[$i];
+        if (ctype_alpha($char)) {
+            if ($char === 'z') {
+                $encrypt .= 'a';
+            } elseif ($char === 'Z') {
+                $encrypt .= 'A';
+            } else {
+                $encrypt .= chr(ord($char) + 1);
+            }
+        } else {
+            $encrypt .= $char;
+        }
+    }
+    echo $encrypt . "\n";
+
+?>
