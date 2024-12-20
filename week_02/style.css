@@ -1,0 +1,23 @@
+body {
+    background-color: #fff;
+    color:rgba(255,0,255,100);
+    padding: 60px;
+}
+
+h3, h4, h5, h6 {
+    color: #999;
+}
+
+.error {
+    color: red;
+}
+
+#hero {
+    background: chartreuse;
+    padding: 20px;
+    color: #000;
+}
+
+div {
+    background-color: salmon!important;
+}

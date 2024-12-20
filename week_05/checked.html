@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQish</title>
+
+    <style>
+        body {
+            background-color: black;
+        }
+
+        label{
+            color: salmon;
+        }
+
+        #render {
+            padding: 20px;
+            line-height: 0%;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <label>
+            Rows
+            <input id="rows" type="number" value="10">
+        </label>
+        <br>
+        <label>
+            Cols
+            <input id="cols" type="number" value="5">
+        </label>
+        <br>
+        <label>
+            Speed
+            <input id="rangeInput" type="range" value="1000" min="50" max="2000" step="50">
+        </label>
+        <br>
+        <label>
+            Size
+            <input id="sizeinput" type="number" value="20">
+        </label>
+        <br>
+        <label for="themeselect">
+            Theme
+            <select name="themeselect" id="themeselect">
+                <option value="">None</option>
+                <option value="rainbow">Rainbow</option>
+                <option value="opacity">Opacity</option>
+                <option value="heatmap">Heatmap</option>
+            </select>
+        </label>
+    </div>
+
+<div>
+    <div id="render">
+Hello
+    </div>
+</div>
+
+    <script>
+        console.log('Hello World');
+
+        function islocalStorageEmpty(item) {
+            if(!item) {
+                return true;
+            }
+            if(item == 'null'){
+                return true 
+            }
+           
+            return false;
+        }
+
+        var name = window.localStorage.getItem('name');
+
+
+        if(islocalStorageEmpty(name)) {
+            console.log('missing')
+            window.localStorage.setItem('name', 'Tree')
+        }
+        name = window.localStorage.getItem('name');
+        console.log(name);
+
+        const hsl_col_perc = (percent, start, end) => {
+            const a = percent / 100,
+            b = (end - start) * a,
+            c = b + start;
+            return 'hsl(' + c + ', 100%, 50%)';
+        }
+
+        var rowsInput = document.getElementById('rows');
+        var colsInput = document.getElementById('cols');
+        var renderEle = document.getElementById('render');
+        var rangeInput = document.getElementById('rangeInput');
+        var sizeinputEle = document.getElementById('sizeinput');
+        var themeselectEle = document.getElementById('themeselect');
+        var selectedTheme = null;
+
+        rowsInput.addEventListener('change', function(e) {
+            console.log(rowsInput.value);
+            window.localStorage.setItem('row_value', rowsInput.value);
+        });
+        rowsInput.value = window.localStorage.getItem('row_value');
+
+
+        var nameObject = {
+            name: "Trin",
+            age: 22
+        }
+        console.log(JSON.stringify(nameObject));
+        window.localStorage.setItem('name_object', JSON.stringify(nameObject));
+        
+
+        colsInput.addEventListener('change', function(e) {
+            console.log(e.target.value);
+        });
+
+        var renderInterval = setInterval(render, 1000);
+        rangeInput.addEventListener('change', function(e) {
+            console.log(e.target.value);
+            clearInterval(renderInterval);
+            renderInterval = setInterval(render, e.target.value);
+        });
+
+        themeselectEle.addEventListener('change', function(e) {
+            console.log(e.target.options[e.target.selectedIndex].value);
+            selectedTheme = e.target.options[e.target.selectedIndex].value
+        });
+
+        function styleElement(element, randomNum, colsInput) {
+            if (randomNum >= colsInput){
+                if (randomNum >= c){
+                        element.style.background = 'green';
+                    }else if(selectedTheme =='rainbow') {
+                        element.style.background = hsl_col_perc((c + 1) / colsInput.value * 100, 0, 360);
+                    }else if(selectedTheme =='opacity') {
+                        element.style.background = 'lime'
+                    }else if(selectedTheme =='heatmap') {
+                        element.style.background = hsl_col_perc(100 - randomNum / colsInput.value * 100, 0, 120);
+                    }
+            }
+            return element
+        }
+
+        function render() {
+            //console.log('RENDER', rowsInput.value, colsInput.value, rangeInput.value);
+            // This emties the render every second
+            renderEle.innerHTML = '';
+            for (var r = 1; r <= rowsInput.value; r++) {
+                for (var c = 1; c <= colsInput.value; c++) {
+                    var checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.checked = true;
+                    checkbox.style.width = sizeinputEle.value + 'px'
+                    checkbox.style.height = sizeinputEle.value + 'px'
+                    
+                    renderEle.appendChild(checkbox);
+                    var randomNum = Math.floor(Math.random()*colsInput.value);
+                    if (randomNum >= c){
+                        checkbox.style.accentColor = 'green';
+                    }else if(selectedTheme =='rainbow') {
+                        checkbox.style.accentColor = hsl_col_perc((c + 1) / colsInput.value * 100, 0, 360);
+                    }else if(selectedTheme =='opacity') {
+                        checkbox.style.accentColor = 'lime'
+                    }else if(selectedTheme =='heatmap') {
+                        checkbox.style.accentColor = hsl_col_perc(100 - randomNum / colsInput.value * 100, 0, 120);
+                    }
+                }renderEle.appendChild(document.createElement('br'));
+            }
+
+        }
+        render();
+
+        // Is measured in miliseconds and thus 1000 = 1 second
+
+    </script>
+</body>
+</html>
