@@ -1,3 +1,4 @@
+
 body {
     background: #8a1717;
     color: #eee;
@@ -85,6 +86,6 @@ body {
   }
   
   .emoji {
-    cursor: pointer;
+    cursor: grab;
     font-size: 20px;
   }
